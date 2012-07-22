@@ -20,10 +20,6 @@ public class Problem {
     public String getName() {
         return name;
     }
-    
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public void addTestcase(Testcase testcase) {
         testcaseSet.add(testcase);
@@ -53,5 +49,10 @@ public class Problem {
 
     public void runTests(ProblemJPanel callback, String pathToExecFile) {
         testcaseSet.run(callback, pathToExecFile);
+    }
+
+    public String getDefaultExecutableFilename() {
+        return Config.get("workingDirectory") + java.io.File.separator + 
+                Config.get("pathFromWorkingDirToExec").replace("%P", name).replace("%L", name.toLowerCase());
     }
 }
