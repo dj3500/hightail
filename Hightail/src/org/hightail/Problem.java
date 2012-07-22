@@ -39,11 +39,10 @@ public class Problem {
     }
 
     public void abortTests() {
-        // TODO: implement!
+        testcaseSet.abort();
     }
 
     public void runTests(ProblemJPanel callback) {
-        // TODO: implement! (call notifyResultsOfSingleTestcase(index) and notifyEndOfTesting())
         testcaseSet.run(callback);
     }
 }
