@@ -90,6 +90,8 @@ public class Testcase {
     }
     
     public void save () {
-        // TODO
+        // testcase has been changed by user, so results are obsolete
+        programOutput = "";
+        executionResult = new ExecutionResult();
     }
 }
