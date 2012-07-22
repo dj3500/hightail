@@ -4,9 +4,14 @@ import java.text.DecimalFormat;
 
 public class ExecutionResult {
     static public final int NOT_RUN = -1, OK = 1, WA = 2, ABORTED = 3;
+    // TODO: other codes (like TLE)
 
     protected double time = NOT_RUN;
     protected int result = NOT_RUN;
+    
+    public ExecutionResult() {
+    }
+    
 
     public int getResult() {
         return result;

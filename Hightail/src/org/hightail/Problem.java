@@ -1,5 +1,7 @@
 package org.hightail;
 
+import org.hightail.ui.ProblemJPanel;
+
 public class Problem {
 
     protected String name;
@@ -28,5 +30,19 @@ public class Problem {
 
     public TestcaseSet getTestcaseSet() {
         return testcaseSet;
+    }
+
+    public void emptyResultsOfAllTestcases() {
+        for (Testcase t : testcaseSet) {
+            t.emptyResultsOfTestCase();
+        }
+    }
+
+    public void abortTests() {
+        // TODO: implement!
+    }
+
+    public void runTests(ProblemJPanel callback) {
+        // TODO: implement! (call notifyResultsOfSingleTestcase(index) and notifyEndOfTesting())
     }
 }

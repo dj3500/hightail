@@ -94,7 +94,11 @@
                   <Component id="editTestcaseButton" min="-2" pref="133" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="deleteTestcaseButton" min="-2" pref="139" max="-2" attributes="0"/>
-                  <EmptySpace pref="292" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
+                  <Component id="runTestsButton" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Component id="abortTestsButton" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
               <Component id="jScrollPane1" alignment="0" pref="730" max="32767" attributes="0"/>
           </Group>
@@ -109,6 +113,8 @@
                       <Component id="newTestcaseButton" alignment="3" min="-2" pref="43" max="-2" attributes="0"/>
                       <Component id="editTestcaseButton" alignment="3" min="-2" pref="44" max="-2" attributes="0"/>
                       <Component id="deleteTestcaseButton" alignment="3" min="-2" pref="43" max="-2" attributes="0"/>
+                      <Component id="runTestsButton" alignment="3" min="-2" pref="43" max="-2" attributes="0"/>
+                      <Component id="abortTestsButton" alignment="3" min="-2" pref="43" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -159,6 +165,25 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="deleteTestcaseButtonActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="runTestsButton">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Run tests"/>
+            <Property name="actionCommand" type="java.lang.String" value="Run tests"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="runTestsButtonActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="abortTestsButton">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Abort tests"/>
+            <Property name="actionCommand" type="java.lang.String" value="Abort tests"/>
+            <Property name="enabled" type="boolean" value="false"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="abortTestsButtonActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

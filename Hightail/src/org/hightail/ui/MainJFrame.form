@@ -11,11 +11,29 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="newEmpty">
               <Properties>
-                <Property name="text" type="java.lang.String" value="New empty tab..."/>
+                <Property name="text" type="java.lang.String" value="New empty problem..."/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="newEmptyActionPerformed"/>
               </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="newFromURL">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="New problem from URL..."/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="newFromURLActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="newContest">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="New contest..."/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="newContestActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator1">
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="openConfig">
               <Properties>
