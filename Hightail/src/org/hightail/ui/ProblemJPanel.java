@@ -230,10 +230,25 @@ public class ProblemJPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_deleteTestcaseButtonActionPerformed
 
+    private boolean stateOfEditAndDeleteTestcaseButtonsBefore = false;
+    private void setEnabledOnInvasiveButtons(boolean state) {
+        runTestsButton.setEnabled(state);
+        if (!state) {
+            stateOfEditAndDeleteTestcaseButtonsBefore = editTestcaseButton.isEnabled();
+            editTestcaseButton.setEnabled(false);
+            deleteTestcaseButton.setEnabled(false);
+        } else {
+            editTestcaseButton.setEnabled(stateOfEditAndDeleteTestcaseButtonsBefore);
+            deleteTestcaseButton.setEnabled(stateOfEditAndDeleteTestcaseButtonsBefore);
+        }
+    }
+    
     private void runTestsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_runTestsButtonActionPerformed
-        runTestsButton.setEnabled(false);
+        // TODO: what if there are no tests?
+        setEnabledOnInvasiveButtons(false);
         problem.emptyResultsOfAllTestcases();
         testTableModel.fireTableDataChanged();
+        testTableModel.setTemporaryIndexesForTestcases();
         problem.runTests(this);
         abortTestsButton.setEnabled(true);
         // now tests are running, they will call notifyResultsOfSingleTestcase and notifyEndOfTesting
@@ -242,9 +257,10 @@ public class ProblemJPanel extends javax.swing.JPanel {
     private void abortTestsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_abortTestsButtonActionPerformed
         abortTestsButton.setEnabled(false);
         problem.abortTests();
-        runTestsButton.setEnabled(true);
+        setEnabledOnInvasiveButtons(true);
     }//GEN-LAST:event_abortTestsButtonActionPerformed
 
+    // TODO: make this into a SomethingListener interface rather than passing a callback of class ProblemJPanel everywhere
     public void notifyResultsOfSingleTestcase (int index) {
         // Testcase object is already updated by now
         testTableModel.fireTableRowsUpdated(index, index);
@@ -253,7 +269,7 @@ public class ProblemJPanel extends javax.swing.JPanel {
     public void notifyEndOfTesting () {
         abortTestsButton.setEnabled(false);
         // TODO: report the main result of testing (all OK => OK, etc.)
-        runTestsButton.setEnabled(true);
+        setEnabledOnInvasiveButtons(true);
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

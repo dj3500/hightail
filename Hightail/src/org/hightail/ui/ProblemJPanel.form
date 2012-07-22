@@ -170,7 +170,6 @@
         <Component class="javax.swing.JButton" name="runTestsButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="Run tests"/>
-            <Property name="actionCommand" type="java.lang.String" value="Run tests"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="runTestsButtonActionPerformed"/>
@@ -179,7 +178,6 @@
         <Component class="javax.swing.JButton" name="abortTestsButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="Abort tests"/>
-            <Property name="actionCommand" type="java.lang.String" value="Abort tests"/>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <Events>

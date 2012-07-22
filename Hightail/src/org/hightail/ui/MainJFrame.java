@@ -191,11 +191,16 @@ public class MainJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_openConfigActionPerformed
 
     private void newContestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newContestActionPerformed
-        // TODO add your handling code here:
+        // TODO
     }//GEN-LAST:event_newContestActionPerformed
 
     private void newFromURLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newFromURLActionPerformed
-        // TODO add your handling code here:
+        // show user a dialog to type the name, and the URL
+        NewProblemJDialog dialog = new NewProblemJDialog(this);
+        dialog.setVisible(true); // this is modal; it will block until window is closed
+        if (dialog.getProblem() != null) { // a problem has been created
+            addTabForProblem(dialog.getProblem());
+        }
     }//GEN-LAST:event_newFromURLActionPerformed
 
     /**

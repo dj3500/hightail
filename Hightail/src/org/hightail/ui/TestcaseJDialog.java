@@ -10,7 +10,7 @@ public class TestcaseJDialog extends javax.swing.JDialog {
 
     protected Testcase testcase;
     protected boolean isNew; // only used for some UI formatting
-    protected boolean hasTextChanged = false; // TODO: doesn't work; when editing, hasTextChanged=true always
+    protected boolean hasTextChanged = false; // TODO: doesn't work; when editing testcase, hasTextChanged=true always
     protected boolean returnValue = false; // false = no changes made, or user canceled
 
     public boolean getReturnValue() {
@@ -52,7 +52,7 @@ public class TestcaseJDialog extends javax.swing.JDialog {
             programOutputTextarea.setText(testcase.getProgramOutput()); // this is read-only
         } else {
             programOutputTextarea.setEnabled(false);
-            programOutputTextarea.setBackground(new java.awt.Color(250,250,250));
+            programOutputTextarea.setBackground(new java.awt.Color(220,220,220));
             // TODO: find a better way to show that this textarea is disabled (or remove it altogether)
         }
         executionResultLabel.setText(testcase.getExecutionResult().getFormattedResult()); // this is read-only

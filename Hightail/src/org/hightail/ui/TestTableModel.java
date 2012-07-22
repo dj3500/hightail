@@ -62,4 +62,10 @@ class TestTableModel extends AbstractTableModel {
         fireTableRowsDeleted(index, index);
     }
 
+    public void setTemporaryIndexesForTestcases() {
+        for (int rowIndex = 0; rowIndex < getRowCount(); ++rowIndex) {
+            testcaseSet.get(rowIndex).setIndex(rowIndex);
+        }
+    }
+
 }
