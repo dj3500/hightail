@@ -76,14 +76,23 @@ public class Testcase implements Runnable{
     public void setCallback(TestcaseSet cb) {
         callback = cb;
     }
+    
+    public void killTest() {
+        try {
+            executionProcess.exitValue();
+        }
+        catch (IllegalThreadStateException ex) {
+            executionProcess.destroy();
+            executionResult.setResult(ExecutionResult.WA);
+        }
+    }
 
     @Override
     public void run() {
         try {
             String line;
             
-            Calendar cal = Calendar.getInstance();
-            double startTime = cal.getTimeInMillis();
+            double startTime = Calendar.getInstance().getTimeInMillis();
             
             // TODO: change path to running file
             executionProcess = Runtime.getRuntime().exec("/Users/piotrek/hackaton/a");
@@ -115,22 +124,35 @@ public class Testcase implements Runnable{
             
             int execRes = executionProcess.waitFor();
             
-//            System.err.println("skonczony proces z komunikatem "+ execRes);
+            System.err.println("skonczony proces z komunikatem "+ execRes);
             
-            cal = Calendar.getInstance();
-            double endTime = cal.getTimeInMillis();
+            if (execRes == 0) {
+                System.err.println("ok");
+                executionResult.setResult(ExecutionResult.OK);
+            }
+            else if(execRes == 143) {
+                System.err.println("wywlaszczony");
+                executionResult.setResult(ExecutionResult.ABORTED);
+            }
+            else {
+                System.err.println("runtime error");
+                executionResult.setResult(ExecutionResult.RUNTIME);
+            }
             
+            
+            double endTime = Calendar.getInstance().getTimeInMillis();
             executionResult.setTime((endTime-startTime) / 1000.0);
-            executionResult.setResult(1); // STUB
-            
             System.err.println("czas to: "+ executionResult.getTime());
             
             callback.notifyResultsOfSingleTestcase(index);
             
         } catch (InterruptedException ex) {
+            System.err.println("dupa1");
             Logger.getLogger(Testcase.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
-            Logger.getLogger(Testcase.class.getName()).log(Level.SEVERE, null, ex);
+            System.err.println("raczej wywlaszczony");
+            executionResult.setResult(ExecutionResult.ABORTED);
+//            Logger.getLogger(Testcase.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

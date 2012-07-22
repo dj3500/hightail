@@ -3,7 +3,7 @@ package org.hightail;
 import java.text.DecimalFormat;
 
 public class ExecutionResult {
-    static public final int NOT_RUN = -1, OK = 1, WA = 2, ABORTED = 3;
+    static public final int NOT_RUN = -1, OK = 1, WA = 2, ABORTED = 3, RUNTIME = 4;
     // TODO: other codes (like TLE)
 
     protected double time = NOT_RUN;
@@ -39,6 +39,8 @@ public class ExecutionResult {
                 return "<span style='color: red;'>WA</span>";
             case ABORTED:
                 return "aborted";
+            case RUNTIME:
+                return "runtime error";
             default:
                 throw new UnsupportedOperationException("Implementation error: getFormattedResult doesn't know how to format result");
         }

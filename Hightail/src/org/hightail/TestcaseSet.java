@@ -6,21 +6,28 @@ import org.hightail.ui.ProblemJPanel;
 public class TestcaseSet extends ArrayList<Testcase> {
     private int noOfFinishedTests = 0;
     private ProblemJPanel callback;
-    private ArrayList<Thread> procSet;
+//    private ArrayList<Thread> procSet;
         
     public void run(ProblemJPanel callback) {
         this.callback = callback;
-        procSet = new ArrayList<Thread>();
+//        procSet = new ArrayList<Thread>();
         for (Testcase test : this) {
             test.setCallback(this);
-            TestThread thr = new TestThread(test);
+//            TestThread thr = new TestThread(test);
+            Thread thr = new Thread(test);
             thr.start();
-            procSet.add(thr);
-       }
+//            procSet.add(thr);
+        }
     }
     
-    public void abort() {
-        // TODO
+    public void abort(){
+        for (Testcase test : this) {
+            test.killTest();
+        }
+//        Thread.sleep(2000);
+//        for (Thread t : procSet) {
+//            System.err.println(t.isAlive());
+//        }
     }
     
     void notifyResultsOfSingleTestcase(int index) {
