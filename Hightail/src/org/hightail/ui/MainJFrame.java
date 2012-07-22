@@ -8,10 +8,14 @@ package org.hightail.ui;
 
 //import java.awt.Insets;
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import org.hightail.Config;
 import org.hightail.Problem;
+import org.hightail.parsers.contest.CodeForcesContestParser;
+import org.hightail.parsers.contest.ContestParser;
+import org.htmlparser.util.ParserException;
 
 public class MainJFrame extends javax.swing.JFrame {
 
@@ -175,27 +179,18 @@ public class MainJFrame extends javax.swing.JFrame {
     * @param args the command line arguments
     */
     public static void main(String args[]) {
-        // We set the look and feel for Swing
+        
         try {
-            /*for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }*/
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-            //UIManager.put("TabbedPane.tabInsets", new Insets(5,20,6,20));
-        } catch (Exception e) {
-            // We fall back to Metal
+        
+            ContestParser contestParser = new CodeForcesContestParser();
+            ArrayList<String> tasksUrls = contestParser.parse("http://codeforces.com/contest/211");
+            
+            for (String s: tasksUrls)
+                System.out.println(s);
+            
+        } catch (ParserException e) {
+            System.out.println(e.toString());
         }
-
-        // And we let the application run
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                new MainJFrame().setVisible(true);
-            }
-        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
