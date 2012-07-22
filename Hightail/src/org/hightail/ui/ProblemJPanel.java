@@ -13,9 +13,9 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import org.hightail.Problem;
 import org.hightail.Testcase;
+import org.hightail.util.TestingListener;
 
-
-public class ProblemJPanel extends javax.swing.JPanel {
+public class ProblemJPanel extends javax.swing.JPanel implements TestingListener {
 
     protected Problem problem;
     protected JTabbedPane parentTabbedPane; // used for deletion of tab (in the future)
@@ -249,7 +249,10 @@ public class ProblemJPanel extends javax.swing.JPanel {
     }
     
     private void runTestsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_runTestsButtonActionPerformed
-        // TODO: what if there are no tests?
+        if (problem.getTestcaseSet().isEmpty()) {
+            // no tests
+            JOptionPane.showMessageDialog(this, "No tests to run.", "No tests", JOptionPane.ERROR_MESSAGE);
+        }
         // TODO: check whether the executable exists
         setEnabledOnInvasiveButtons(false);
         problem.emptyResultsOfAllTestcases();
@@ -272,12 +275,13 @@ public class ProblemJPanel extends javax.swing.JPanel {
 
     // TODO: add a Browse... button for the executable file
     
-    // TODO: make this into a SomethingListener interface rather than passing a callback of class ProblemJPanel everywhere
+    @Override
     public void notifyResultsOfSingleTestcase (int index) {
         // Testcase object is already updated by now
         testTableModel.fireTableRowsUpdated(index, index);
     }
     
+    @Override
     public void notifyEndOfTesting () {
         abortTestsButton.setEnabled(false);
         // TODO: report the main result of testing (all OK => OK, etc.)

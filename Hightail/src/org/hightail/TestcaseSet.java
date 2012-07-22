@@ -1,13 +1,13 @@
 package org.hightail;
 
 import java.util.ArrayList;
-import org.hightail.ui.ProblemJPanel;
+import org.hightail.util.TestingListener;
 
 public class TestcaseSet extends ArrayList<Testcase> {
     private int noOfFinishedTests = 0;
-    private ProblemJPanel callback;
+    private TestingListener callback;
         
-    public void run(ProblemJPanel callback, String pathToExecFile) {
+    public void run(TestingListener callback, String pathToExecFile) {
         this.callback = callback;
         for (Testcase test : this) {
             test.setCallback(this);

@@ -1,6 +1,6 @@
 package org.hightail;
 
-import org.hightail.ui.ProblemJPanel;
+import org.hightail.util.TestingListener;
 
 public class Problem {
 
@@ -47,7 +47,7 @@ public class Problem {
         testcaseSet.abort();
     }
 
-    public void runTests(ProblemJPanel callback, String pathToExecFile) {
+    public void runTests(TestingListener callback, String pathToExecFile) {
         testcaseSet.run(callback, pathToExecFile);
     }
 

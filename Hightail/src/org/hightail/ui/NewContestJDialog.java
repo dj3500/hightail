@@ -143,12 +143,10 @@ public class NewContestJDialog extends javax.swing.JDialog {
            @Override
            public void run() {
                try {
-                   System.out.println("started parsing url: " + URL); // DBG
                    ContestParser contestParser = ContestParser.getContestParser(URL);
                    TaskParser taskParser = TaskParser.getTaskParser(URL);
                    for (StringPair pair : contestParser.parse(URL)) {
                        String name = pair.getSecond(), taskUrl = pair.getFirst();
-                       System.out.println(name); // DBG
                        TestcaseSet testcaseSet = taskParser.parse(taskUrl);
                        problemList.add(new Problem(name,testcaseSet));
                    }
