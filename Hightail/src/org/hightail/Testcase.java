@@ -88,9 +88,8 @@ public class Testcase {
         this.input = input;
         this.expectedOutput = expectedOutput;
     }
-
-    public void save() {
-        // TODO save it to a disk file maybe
+    
+    public void save () {
+        // TODO
     }
-
 }
