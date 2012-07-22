@@ -40,6 +40,8 @@ public class ProblemJPanel extends javax.swing.JPanel {
             }
         };
         testTable.getSelectionModel().addListSelectionListener(listSelectionListener);
+        
+        sourceFile.setText(problem.getDefaultExecutableFilename());
     }
 
     /** This method is called from within the constructor to
