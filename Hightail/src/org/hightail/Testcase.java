@@ -110,14 +110,14 @@ public class Testcase implements Runnable{
             // reading stdout
             BufferedReader br = new BufferedReader (new InputStreamReader (stdout));
             while ((line = br.readLine ()) != null) {
-                programOutput = programOutput + "\n" + line;
+                programOutput = programOutput + line + "\n";
             }
             br.close();
 
             // reading stderr
             br = new BufferedReader (new InputStreamReader (stderr));
             while ((line = br.readLine ()) != null) {
-                programError = programError + "\n" + line;
+                programError = programError + line + "\n";
             }
             br.close();
             
