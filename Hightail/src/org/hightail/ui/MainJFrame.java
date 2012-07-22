@@ -169,8 +169,13 @@ public class MainJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_openConfigActionPerformed
 
     private void newContestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newContestActionPerformed
-        // TODO
+        NewContestJDialog dialog = new NewContestJDialog(this);
+        dialog.setVisible(true); // this is modal; it will block until window is closed
+        for (Problem problem : dialog.getProblemList()) { // possibly none, if parsing failed or user clicked Cancel
+            addTabForProblem(problem);
+        }
     }//GEN-LAST:event_newContestActionPerformed
+
 
     private void newFromURLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newFromURLActionPerformed
         // show user a dialog to type the name, and the URL

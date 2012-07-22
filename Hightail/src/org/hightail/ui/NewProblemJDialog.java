@@ -168,7 +168,7 @@ public class NewProblemJDialog extends javax.swing.JDialog {
 
     private void createButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createButtonActionPerformed
         String name = nameField.getText();
-        if (name.equals("") || name.length() > Problem.PROBLEM_NAME_MAX_LENGTH) {
+        if (name.isEmpty() || name.length() > Problem.PROBLEM_NAME_MAX_LENGTH) {
             JOptionPane.showMessageDialog(this, "Problem name empty or too long.", "Wrong name", JOptionPane.ERROR_MESSAGE);
             return;
         }
@@ -191,6 +191,7 @@ public class NewProblemJDialog extends javax.swing.JDialog {
         parseButton.setEnabled(false);
         createButton.setEnabled(false);
         abortParsingButton.setEnabled(true);
+        // TODO: what about the cancel button?
         startParsing(URL);
     }//GEN-LAST:event_parseButtonActionPerformed
 

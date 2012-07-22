@@ -109,7 +109,6 @@ public class ProblemJPanel extends javax.swing.JPanel {
         });
 
         runTestsButton.setText("Run tests");
-        runTestsButton.setActionCommand("Run tests");
         runTestsButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 runTestsButtonActionPerformed(evt);
@@ -117,7 +116,6 @@ public class ProblemJPanel extends javax.swing.JPanel {
         });
 
         abortTestsButton.setText("Abort tests");
-        abortTestsButton.setActionCommand("Abort tests");
         abortTestsButton.setEnabled(false);
         abortTestsButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -159,6 +157,11 @@ public class ProblemJPanel extends javax.swing.JPanel {
         );
 
         openContainingDirectoryButton.setText("Open containing directory");
+        openContainingDirectoryButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                openContainingDirectoryButtonActionPerformed(evt);
+            }
+        });
 
         executableFileLabel.setText("Path to executable file:");
 
@@ -247,6 +250,7 @@ public class ProblemJPanel extends javax.swing.JPanel {
     
     private void runTestsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_runTestsButtonActionPerformed
         // TODO: what if there are no tests?
+        // TODO: check whether the executable exists
         setEnabledOnInvasiveButtons(false);
         problem.emptyResultsOfAllTestcases();
         testTableModel.fireTableDataChanged();
@@ -262,6 +266,12 @@ public class ProblemJPanel extends javax.swing.JPanel {
         setEnabledOnInvasiveButtons(true);
     }//GEN-LAST:event_abortTestsButtonActionPerformed
 
+    private void openContainingDirectoryButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openContainingDirectoryButtonActionPerformed
+        // TODO implement this
+    }//GEN-LAST:event_openContainingDirectoryButtonActionPerformed
+
+    // TODO: add a Browse... button for the executable file
+    
     // TODO: make this into a SomethingListener interface rather than passing a callback of class ProblemJPanel everywhere
     public void notifyResultsOfSingleTestcase (int index) {
         // Testcase object is already updated by now
