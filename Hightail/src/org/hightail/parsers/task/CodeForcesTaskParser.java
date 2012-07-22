@@ -45,7 +45,7 @@ public class CodeForcesTaskParser extends TaskParser {
                 throw new ParserException();
         
         TestcaseSet result = new TestcaseSet();
-        for (int i = 0; i < inputs.length; ++i)
+        for (int i = 1; i < inputs.length; ++i)
             result.add(new Testcase(inputs[i], outputs[i]));
         
         return result;
