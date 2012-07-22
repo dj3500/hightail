@@ -51,12 +51,6 @@ public class ProblemJPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        sourceFilePanel = new javax.swing.JPanel();
-        sourceFileLabel = new javax.swing.JLabel();
-        sourceFile = new javax.swing.JTextField();
-        reopenButton = new javax.swing.JButton();
-        openContainingDirectoryButton = new javax.swing.JButton();
-        copyPathToClipboardButton = new javax.swing.JButton();
         progressPanel = new javax.swing.JPanel();
         testcasePanel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -65,50 +59,9 @@ public class ProblemJPanel extends javax.swing.JPanel {
         newTestcaseButton = new javax.swing.JButton();
         editTestcaseButton = new javax.swing.JButton();
         deleteTestcaseButton = new javax.swing.JButton();
-
-        sourceFilePanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Source file"));
-
-        sourceFileLabel.setText("Path to file:");
-
-        reopenButton.setText("Reopen file in editor");
-
-        openContainingDirectoryButton.setText("Open containing directory");
-
-        copyPathToClipboardButton.setText("Copy path to clipboard");
-
-        javax.swing.GroupLayout sourceFilePanelLayout = new javax.swing.GroupLayout(sourceFilePanel);
-        sourceFilePanel.setLayout(sourceFilePanelLayout);
-        sourceFilePanelLayout.setHorizontalGroup(
-            sourceFilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(sourceFilePanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(sourceFilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(sourceFilePanelLayout.createSequentialGroup()
-                        .addComponent(reopenButton)
-                        .addGap(18, 18, 18)
-                        .addComponent(openContainingDirectoryButton)
-                        .addGap(18, 18, 18)
-                        .addComponent(copyPathToClipboardButton))
-                    .addGroup(sourceFilePanelLayout.createSequentialGroup()
-                        .addComponent(sourceFileLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(sourceFile, javax.swing.GroupLayout.DEFAULT_SIZE, 644, Short.MAX_VALUE)))
-                .addContainerGap())
-        );
-        sourceFilePanelLayout.setVerticalGroup(
-            sourceFilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(sourceFilePanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(sourceFilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(sourceFileLabel)
-                    .addComponent(sourceFile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(sourceFilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(copyPathToClipboardButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(openContainingDirectoryButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(reopenButton, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        openContainingDirectoryButton = new javax.swing.JButton();
+        executableFileLabel = new javax.swing.JLabel();
+        sourceFile = new javax.swing.JTextField();
 
         progressPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Progress and results"));
 
@@ -120,7 +73,7 @@ public class ProblemJPanel extends javax.swing.JPanel {
         );
         progressPanelLayout.setVerticalGroup(
             progressPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 49, Short.MAX_VALUE)
+            .addGap(0, 56, Short.MAX_VALUE)
         );
 
         testcasePanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Test cases"));
@@ -135,7 +88,7 @@ public class ProblemJPanel extends javax.swing.JPanel {
             }
         });
 
-        editTestcaseButton.setText("Inspect and edit");
+        editTestcaseButton.setText("Inspect / Edit");
         editTestcaseButton.setEnabled(false);
         editTestcaseButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -169,7 +122,7 @@ public class ProblemJPanel extends javax.swing.JPanel {
             testcasePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, testcasePanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 254, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 343, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(testcasePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(newTestcaseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -178,23 +131,36 @@ public class ProblemJPanel extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
+        openContainingDirectoryButton.setText("Open containing directory");
+
+        executableFileLabel.setText("Path to executable file:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(progressPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(testcasePanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(sourceFilePanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(progressPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(testcasePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(executableFileLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(sourceFile)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(openContainingDirectoryButton)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(sourceFilePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(executableFileLabel)
+                    .addComponent(sourceFile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(openContainingDirectoryButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(testcasePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -241,17 +207,14 @@ public class ProblemJPanel extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton copyPathToClipboardButton;
     private javax.swing.JButton deleteTestcaseButton;
     private javax.swing.JButton editTestcaseButton;
+    private javax.swing.JLabel executableFileLabel;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton newTestcaseButton;
     private javax.swing.JButton openContainingDirectoryButton;
     private javax.swing.JPanel progressPanel;
-    private javax.swing.JButton reopenButton;
     private javax.swing.JTextField sourceFile;
-    private javax.swing.JLabel sourceFileLabel;
-    private javax.swing.JPanel sourceFilePanel;
     private javax.swing.JTable testTable;
     private javax.swing.JPanel testcasePanel;
     // End of variables declaration//GEN-END:variables

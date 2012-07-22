@@ -10,11 +10,8 @@ package org.hightail.ui;
 import java.io.IOException;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
-//import javax.swing.UIManager.LookAndFeelInfo;
 import org.hightail.Config;
 import org.hightail.Problem;
-import org.hightail.exception.CommandExecutionException;
-import org.hightail.exception.FileCopyException;
 
 public class MainJFrame extends javax.swing.JFrame {
 
@@ -27,7 +24,8 @@ public class MainJFrame extends javax.swing.JFrame {
         boolean ok = Config.load();
         if (!ok) { // couldn't load
             JOptionPane.showMessageDialog(this,
-                    "The settings file could not be loaded.\n"
+                    "If you're a new user, welcome!\n"
+                    +"The settings file could not be loaded.\n"
                     +"A new one will be created now, in the same directory as the program.\n"
                     +"Make sure to configure the program before usage.",
                     "Hightail",
@@ -139,30 +137,18 @@ public class MainJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_newEmptyActionPerformed
 
     protected void createNewProblemAndTab(String name) {
-        try {
-            Problem problem = new Problem(name);
-            ProblemJPanel panel = new ProblemJPanel(problem, tabbedPane, this);
+        Problem problem = new Problem(name);
+        ProblemJPanel panel = new ProblemJPanel(problem, tabbedPane, this);
 
-            // as recommended here: http://stackoverflow.com/questions/476678/tabs-with-equal-constant-width-in-jtabbedpane
-            tabbedPane.addTab("<html><body><table width='150'>"+name+"</table></body></html>",panel);
-            tabbedPane.setSelectedComponent(panel);
-        } catch (FileCopyException e) {
-            JOptionPane.showMessageDialog(this,
-                    "Could not make a new source file from template file:\n\n" + e,
-                    "File copy error",
-                    JOptionPane.ERROR_MESSAGE);
-        } catch (CommandExecutionException e) {
-            JOptionPane.showMessageDialog(this,
-                    "Error while executing command:\n\n" + e.getCommand() + "\n\n" + e,
-                    "Error executing command",
-                    JOptionPane.ERROR_MESSAGE);
-        }
+        // as recommended here: http://stackoverflow.com/questions/476678/tabs-with-equal-constant-width-in-jtabbedpane
+        tabbedPane.addTab("<html><body><table width='150'>"+name+"</table></body></html>",panel);
+        tabbedPane.setSelectedComponent(panel);
     }
 
     private void confirmAndClose () {
         // Display confirm dialog
         int confirmed = JOptionPane.showConfirmDialog(this,
-                "Are you sure you want to quit?",
+                "Are you sure?",
                 "Confirm quit",
                 JOptionPane.YES_NO_OPTION);
 

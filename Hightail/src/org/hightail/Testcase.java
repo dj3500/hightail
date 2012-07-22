@@ -95,9 +95,11 @@ public class Testcase implements Runnable{
         this.input = input;
         this.expectedOutput = expectedOutput;
     }
-
-    public void save() {
-        // TODO save it to a disk file maybe
+    
+    public void save () {
+        // testcase has been changed by user, so results are obsolete
+        programOutput = "";
+        executionResult = new ExecutionResult();
     }
 
     @Override

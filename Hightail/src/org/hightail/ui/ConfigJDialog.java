@@ -21,10 +21,6 @@ public class ConfigJDialog extends javax.swing.JDialog {
         initComponents();
 
         workingDirectory.setText(Config.get("workingDirectory"));
-        //templateFile.setText(Config.get("templateFile"));
-        //editorCommand.setText(Config.get("editorCommand"));
-        //runEditor.setSelected(Boolean.parseBoolean(Config.get("runEditor")));
-        //compilerCommand.setText(Config.get("compilerCommand"));
 
         workingDirectoryChooser = new JFileChooser(); // TODO: make the chooser initially point to the directory saved in the settings
         workingDirectoryChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
@@ -72,12 +68,6 @@ public class ConfigJDialog extends javax.swing.JDialog {
         pathFromWorkingDirToExecLabel.setText("Path from working directory to executable:");
 
         pathFromWorkingDirToExecLabel2.setText("Substitute %P for problem name, %L for lowercase problem name. Examples: \"%P.exe\", \"%L/%L\"");
-
-        pathFromWorkingDirToExec.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pathFromWorkingDirToExecActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout pathsAndDirectoriesPanelLayout = new javax.swing.GroupLayout(pathsAndDirectoriesPanel);
         pathsAndDirectoriesPanel.setLayout(pathsAndDirectoriesPanelLayout);
@@ -205,10 +195,6 @@ public class ConfigJDialog extends javax.swing.JDialog {
 
         this.dispose();
     }//GEN-LAST:event_saveButtonActionPerformed
-
-    private void pathFromWorkingDirToExecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pathFromWorkingDirToExecActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_pathFromWorkingDirToExecActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelButton;
