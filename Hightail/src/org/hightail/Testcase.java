@@ -1,11 +1,18 @@
 package org.hightail;
 
-public class Testcase {
+import java.io.*;
+import java.util.Calendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+public class Testcase implements Runnable{
 
     protected String input;
     protected String expectedOutput;
     protected String programOutput = "";
+    protected String programError = "";
     protected ExecutionResult executionResult = new ExecutionResult();
+    protected Process executionProcess;
 
     public Testcase() {
         this.input = "";
@@ -98,4 +105,55 @@ public class Testcase {
         programOutput = "";
         executionResult = new ExecutionResult();
     }
+
+    @Override
+    public void run() {
+        try {
+            String line;
+            
+            Calendar cal = Calendar.getInstance();
+            double startTime = cal.getTimeInMillis();
+            
+            // TODO: change path to running file
+            executionProcess = Runtime.getRuntime().exec("/Users/piotrek/hackaton/a");
+            
+            OutputStream stdin = executionProcess.getOutputStream ();
+            InputStream stderr = executionProcess.getErrorStream();
+            InputStream stdout = executionProcess.getInputStream();
+            
+            // writing input
+            stdin.write(input.getBytes());
+            stdin.flush();
+            stdin.close();
+            
+            // reading stdout
+            BufferedReader br = new BufferedReader (new InputStreamReader (stdout));
+            while ((line = br.readLine ()) != null) {
+                programOutput += line;
+            }
+            br.close();
+
+            // reading stderr
+            br = new BufferedReader (new InputStreamReader (stderr));
+            while ((line = br.readLine ()) != null) {
+                programError += line;
+            }
+            br.close();
+            
+            int execRes = executionProcess.waitFor();
+            
+            double endTime = cal.getTimeInMillis();
+            
+            executionResult.setTime(endTime-startTime);
+            executionResult.setResult(1); // STUB
+            
+            
+            //TODO: update stats
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Testcase.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Testcase.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
 }

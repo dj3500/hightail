@@ -8,6 +8,10 @@ public class ExecutionResult {
 
     protected double time = NOT_RUN;
     protected int result = NOT_RUN;
+    
+    public ExecutionResult() {
+    }
+    
 
     public int getResult() {
         return result;
