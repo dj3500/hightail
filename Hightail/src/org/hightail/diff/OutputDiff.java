@@ -11,7 +11,7 @@ import java.util.StringTokenizer;
  * @author robertrosolek
  */
 public class OutputDiff {
-    String diff(String expectedOutput, String actualOutput) {
+    public static String diff(String expectedOutput, String actualOutput) {
         
         StringTokenizer expectedOutputStringTokenizer = new StringTokenizer(expectedOutput),
                 actualOutputStringTokenizer = new StringTokenizer(actualOutput);

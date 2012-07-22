@@ -5,6 +5,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.hightail.diff.OutputDiff;
 
 public class Testcase implements Runnable{
     
@@ -127,8 +128,18 @@ public class Testcase implements Runnable{
             System.err.println("skonczony proces z komunikatem "+ execRes);
             
             if (execRes == 0) {
-                System.err.println("ok");
-                executionResult.setResult(ExecutionResult.OK);
+                String res = OutputDiff.diff(expectedOutput, programOutput);
+                System.err.println("result " + res);
+                if (res.equals("OK")) {
+                    executionResult.setResult(ExecutionResult.OK);
+                    System.err.println("ok");
+                }
+                else {
+                    executionResult.setResult(ExecutionResult.WA);
+                    System.err.println("wa");
+                }
+                
+                
             }
             else if(execRes == 143) {
                 System.err.println("wywlaszczony");
