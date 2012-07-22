@@ -2,6 +2,7 @@ package org.hightail;
 
 import java.io.*;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -110,12 +111,19 @@ public class Testcase implements Runnable{
             }
             br.close();
             
+//            System.err.println("interakcja ok");
+            
             int execRes = executionProcess.waitFor();
             
+//            System.err.println("skonczony proces z komunikatem "+ execRes);
+            
+            cal = Calendar.getInstance();
             double endTime = cal.getTimeInMillis();
             
-            executionResult.setTime(endTime-startTime);
+            executionResult.setTime((endTime-startTime) / 1000.0);
             executionResult.setResult(1); // STUB
+            
+            System.err.println("czas to: "+ executionResult.getTime());
             
             callback.notifyResultsOfSingleTestcase(index);
             
