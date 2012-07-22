@@ -13,8 +13,12 @@ import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import org.hightail.Config;
 import org.hightail.Problem;
+import org.hightail.Testcase;
+import org.hightail.TestcaseSet;
 import org.hightail.parsers.contest.CodeForcesContestParser;
 import org.hightail.parsers.contest.ContestParser;
+import org.hightail.parsers.task.CodeForcesTaskParser;
+import org.hightail.parsers.task.TaskParser;
 import org.htmlparser.util.ParserException;
 
 public class MainJFrame extends javax.swing.JFrame {
@@ -180,8 +184,10 @@ public class MainJFrame extends javax.swing.JFrame {
     */
     public static void main(String args[]) {
         
+        // test contest parsing
         try {
         
+            System.out.println("Contest tasks:");
             ContestParser contestParser = new CodeForcesContestParser();
             ArrayList<String> tasksUrls = contestParser.parse("http://codeforces.com/contest/211");
             
@@ -191,6 +197,28 @@ public class MainJFrame extends javax.swing.JFrame {
         } catch (ParserException e) {
             System.out.println(e.toString());
         }
+        
+        // test task parsing 
+        try {
+            
+            TaskParser taskParser = new CodeForcesTaskParser();
+            TestcaseSet inputsOutputs = taskParser.parse("http://codeforces.com/contest/211/problem/E");
+            
+            System.out.println("Inputs:");
+            for (Testcase testcase: inputsOutputs) {
+                System.out.println(testcase.getInput());
+            }
+            
+            System.out.println("Outputs:");
+            for (Testcase testcase: inputsOutputs) {
+                System.out.println(testcase.getExpectedOutput());
+            }
+            
+            
+        } catch (ParserException e) {
+            System.out.println(e.toString());
+        }
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
