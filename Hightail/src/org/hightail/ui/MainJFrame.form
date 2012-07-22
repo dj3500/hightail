@@ -9,17 +9,9 @@
             <Property name="text" type="java.lang.String" value="File"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="newEmpty">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="New empty problem..."/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="newEmptyActionPerformed"/>
-              </Events>
-            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="newFromURL">
               <Properties>
-                <Property name="text" type="java.lang.String" value="New problem from URL..."/>
+                <Property name="text" type="java.lang.String" value="New problem..."/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="newFromURLActionPerformed"/>
