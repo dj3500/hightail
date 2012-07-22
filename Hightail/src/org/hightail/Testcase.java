@@ -6,13 +6,15 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Testcase implements Runnable{
-
+    
+    protected int index = 0;
     protected String input;
     protected String expectedOutput;
     protected String programOutput = "";
     protected String programError = "";
     protected ExecutionResult executionResult = new ExecutionResult();
     protected Process executionProcess;
+    protected TestcaseSet callback;
 
     public Testcase() {
         this.input = "";
@@ -50,6 +52,10 @@ public class Testcase implements Runnable{
     public void setExecutionResult(ExecutionResult result) {
         this.executionResult = result;
     }
+    
+    public void setIndex(int index) {
+        this.index = index;
+    }
 
     public Testcase(String input, String expectedOutput) {
         this.input = input;
@@ -64,6 +70,10 @@ public class Testcase implements Runnable{
     public void emptyResultsOfTestCase() {
         programOutput = "";
         executionResult = new ExecutionResult();
+    }
+    
+    public void setCallback(TestcaseSet cb) {
+        callback = cb;
     }
 
     @Override
@@ -107,8 +117,8 @@ public class Testcase implements Runnable{
             executionResult.setTime(endTime-startTime);
             executionResult.setResult(1); // STUB
             
+            callback.notifyResultsOfSingleTestcase(index);
             
-            //TODO: update stats
         } catch (InterruptedException ex) {
             Logger.getLogger(Testcase.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
