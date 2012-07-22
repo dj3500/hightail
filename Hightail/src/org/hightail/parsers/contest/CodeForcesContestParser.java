@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
+import org.hightail.util.StringPair;
 import org.htmlparser.Node;
 import org.htmlparser.Parser;
 import org.htmlparser.filters.LinkRegexFilter;
@@ -25,7 +26,7 @@ public class CodeForcesContestParser extends ContestParser {
     final static private String taskUrlRegExp = "/contest/211/problem/(.*)";
     
     @Override
-    public ArrayList<String> parse(String URL) throws ParserException {
+    public ArrayList<StringPair> parse(String URL) throws ParserException {
         
         URL = URL.trim();
         
@@ -40,17 +41,28 @@ public class CodeForcesContestParser extends ContestParser {
         // filter link tags for those that link to problems
         // (we recognize that on the base of link itself, by using regexp)
         LinkRegexFilter filter = new LinkRegexFilter(taskUrlRegExp);
-        ArrayList<String> result = new ArrayList<String>();
+        ArrayList<String> links = new ArrayList<String>();
         for (Node node: aNodes)
             if (filter.accept(node)) {
                 String linkUrl = ((LinkTag) node).extractLink();
-                result.add(linkUrl);
+                links.add(linkUrl);
             }
         
         // remove link duplicates
-        Set<String> s = new HashSet<String>(result);
-        result = new ArrayList<String>(s);
-        Collections.sort(result);
+        Set<String> s = new HashSet<String>(links);
+        links = new ArrayList<String>(s);
+        Collections.sort(links);
+        
+        ArrayList<String> names = new ArrayList<String>();
+        for (String link: links) {
+            String[] splitted = link.split("/");
+            String name = splitted[splitted.length - 1];
+            names.add(name);
+        }
+        
+        ArrayList<StringPair> result = new ArrayList<StringPair>();
+        for (int i = 0; i < links.size(); ++i)
+            result.add(new StringPair(links.get(i), names.get(i)));
         
         return result;        
     }
