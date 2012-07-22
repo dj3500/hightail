@@ -12,16 +12,16 @@ public class Problem {
         this.name = name;
     }
     
-    public Problem(String name, String url) {
+    public Problem(String name, TestcaseSet testcaseSet) {
         this.name = name;
-        // TODO: parse
+        this.testcaseSet = testcaseSet;
     }
 
     public String getName() {
         return name;
     }
     
-    public void setName(string name) {
+    public void setName(String name) {
         this.name = name;
     }
 
