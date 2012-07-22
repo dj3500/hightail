@@ -7,10 +7,11 @@ public class TestcaseSet extends ArrayList<Testcase> {
     private int noOfFinishedTests = 0;
     private ProblemJPanel callback;
         
-    public void run(ProblemJPanel callback) {
+    public void run(ProblemJPanel callback, String pathToExecFile) {
         this.callback = callback;
         for (Testcase test : this) {
             test.setCallback(this);
+            test.setPathToExecFile(pathToExecFile);
             Thread thr = new Thread(test);
             thr.start();
         }

@@ -8,7 +8,7 @@ class TestTableModel extends AbstractTableModel {
 
     protected TestcaseSet testcaseSet;
     protected final String[] columnNames = {"Input", "Expected output", "Program output", "Result"};
-    protected final Class[] columnClasses = {String.class, String.class, String.class, ExecutionResult.class}; // TODO: custom shit
+    protected final Class[] columnClasses = {String.class, String.class, String.class, Object.class}; // TODO: custom shit
 
     public TestTableModel(TestcaseSet testcaseSet) {
         this.testcaseSet = testcaseSet;

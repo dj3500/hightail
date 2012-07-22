@@ -51,7 +51,7 @@ public class Problem {
         testcaseSet.abort();
     }
 
-    public void runTests(ProblemJPanel callback) {
-        testcaseSet.run(callback);
+    public void runTests(ProblemJPanel callback, String pathToExecFile) {
+        testcaseSet.run(callback, pathToExecFile);
     }
 }
