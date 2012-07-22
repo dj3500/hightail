@@ -23,7 +23,7 @@ import org.htmlparser.visitors.TagFindingVisitor;
  */
 public class CodeForcesContestParser extends ContestParser {
 
-    final static private String taskUrlRegExp = "/contest/211/problem/(.*)";
+    final static private String taskUrlRegExp = "/contest/(.*)/problem/(.*)";
     
     @Override
     public ArrayList<StringPair> parse(String URL) throws ParserException {
