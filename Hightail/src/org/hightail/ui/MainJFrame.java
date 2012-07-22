@@ -8,10 +8,18 @@ package org.hightail.ui;
 
 //import java.awt.Insets;
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import org.hightail.Config;
 import org.hightail.Problem;
+import org.hightail.Testcase;
+import org.hightail.TestcaseSet;
+import org.hightail.parsers.contest.CodeForcesContestParser;
+import org.hightail.parsers.contest.ContestParser;
+import org.hightail.parsers.task.CodeForcesTaskParser;
+import org.hightail.parsers.task.TaskParser;
+import org.htmlparser.util.ParserException;
 
 public class MainJFrame extends javax.swing.JFrame {
 
@@ -207,27 +215,42 @@ public class MainJFrame extends javax.swing.JFrame {
     * @param args the command line arguments
     */
     public static void main(String args[]) {
-        // We set the look and feel for Swing
+        
+        // test contest parsing
         try {
-            /*for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }*/
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-            //UIManager.put("TabbedPane.tabInsets", new Insets(5,20,6,20));
-        } catch (Exception e) {
-            // We fall back to Metal
+        
+            System.out.println("Contest tasks:");
+            ContestParser contestParser = new CodeForcesContestParser();
+            ArrayList<String> tasksUrls = contestParser.parse("http://codeforces.com/contest/211");
+            
+            for (String s: tasksUrls)
+                System.out.println(s);
+            
+        } catch (ParserException e) {
+            System.out.println(e.toString());
         }
-
-        // And we let the application run
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                new MainJFrame().setVisible(true);
+        
+        // test task parsing 
+        try {
+            
+            TaskParser taskParser = new CodeForcesTaskParser();
+            TestcaseSet inputsOutputs = taskParser.parse("http://codeforces.com/contest/211/problem/E");
+            
+            System.out.println("Inputs:");
+            for (Testcase testcase: inputsOutputs) {
+                System.out.println(testcase.getInput());
             }
-        });
+            
+            System.out.println("Outputs:");
+            for (Testcase testcase: inputsOutputs) {
+                System.out.println(testcase.getExpectedOutput());
+            }
+            
+            
+        } catch (ParserException e) {
+            System.out.println(e.toString());
+        }
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
