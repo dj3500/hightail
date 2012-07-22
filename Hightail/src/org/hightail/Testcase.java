@@ -2,7 +2,6 @@ package org.hightail;
 
 import java.io.*;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.hightail.diff.OutputDiff;
@@ -17,6 +16,7 @@ public class Testcase implements Runnable{
     protected ExecutionResult executionResult = new ExecutionResult();
     protected Process executionProcess;
     protected TestcaseSet callback;
+    private String pathToExecFile;
 
     public Testcase() {
         this.input = "";
@@ -96,7 +96,7 @@ public class Testcase implements Runnable{
             double startTime = Calendar.getInstance().getTimeInMillis();
             
             // TODO: change path to running file
-            executionProcess = Runtime.getRuntime().exec("/Users/piotrek/hackaton/a");
+            executionProcess = Runtime.getRuntime().exec(pathToExecFile);
             
             OutputStream stdin = executionProcess.getOutputStream ();
             InputStream stderr = executionProcess.getErrorStream();
@@ -121,8 +121,6 @@ public class Testcase implements Runnable{
             }
             br.close();
             
-//            System.err.println("interakcja ok");
-            
             int execRes = executionProcess.waitFor();
             
             System.err.println("skonczony proces z komunikatem "+ execRes);
@@ -136,6 +134,7 @@ public class Testcase implements Runnable{
                 }
                 else {
                     executionResult.setResult(ExecutionResult.WA);
+                    executionResult.setMsg(res);
                     System.err.println("wa");
                 }
                 
@@ -165,6 +164,10 @@ public class Testcase implements Runnable{
             executionResult.setResult(ExecutionResult.ABORTED);
 //            Logger.getLogger(Testcase.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    void setPathToExecFile(String pathToExecFile) {
+        this.pathToExecFile = pathToExecFile;
     }
 
 }

@@ -8,6 +8,7 @@ public class ExecutionResult {
 
     protected double time = NOT_RUN;
     protected int result = NOT_RUN;
+    protected String msg = "";
     
     public ExecutionResult() {
     }
@@ -27,6 +28,10 @@ public class ExecutionResult {
 
     public void setTime(double time) {
         this.time = time;
+    }
+    
+    public void setMsg(String msg) {
+        this.msg = msg;
     }
 
     public String getFormattedResult() {
@@ -53,5 +58,21 @@ public class ExecutionResult {
             return new DecimalFormat("0.00").format(time) + "s";
         }
     }
-
+    
+    public String toString() {
+        switch (result) {
+            case NOT_RUN:
+                return "-";
+            case OK:
+                return "OK "+ time;
+            case WA:
+                return msg;
+            case ABORTED:
+                return "aborted";
+            case RUNTIME:
+                return "runtime error";
+            default:
+                throw new UnsupportedOperationException("Implementation error: getFormattedResult doesn't know how to format result");
+        }
+    }
 }
