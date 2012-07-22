@@ -30,7 +30,7 @@ public class Config {
 
     static protected void fillInUnsetValuesWithDefaults() {
         setIfUnset("workingDirectory", new File("").getAbsolutePath());
-        setIfUnset("pathFromWorkingDirToExec", "/%P");
+        setIfUnset("pathFromWorkingDirToExec", "%P.exe");
     }
 
     static public boolean load() {
