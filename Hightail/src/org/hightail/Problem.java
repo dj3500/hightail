@@ -43,6 +43,6 @@ public class Problem {
     }
 
     public void runTests(ProblemJPanel callback) {
-        // TODO: implement!
+        // TODO: implement! (call notifyResultsOfSingleTestcase(index) and notifyEndOfTesting())
     }
 }
