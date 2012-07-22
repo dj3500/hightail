@@ -53,7 +53,6 @@ public class NewProblemJDialog extends javax.swing.JDialog {
         });
 
         createButton.setText("Create");
-        createButton.setEnabled(false);
         createButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 createButtonActionPerformed(evt);
