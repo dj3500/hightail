@@ -11,9 +11,18 @@ public class Problem {
     public Problem(String name) {
         this.name = name;
     }
+    
+    public Problem(String name, String url) {
+        this.name = name;
+        // TODO: parse
+    }
 
     public String getName() {
         return name;
+    }
+    
+    public void setName(string name) {
+        this.name = name;
     }
 
     public void addTestcase(Testcase testcase) {
