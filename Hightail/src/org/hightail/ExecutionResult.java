@@ -64,7 +64,7 @@ public class ExecutionResult {
             case NOT_RUN:
                 return "-";
             case OK:
-                return "OK";
+                return "OK "+ time;
             case WA:
                 return msg;
             case ABORTED:

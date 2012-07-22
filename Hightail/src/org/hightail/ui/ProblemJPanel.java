@@ -249,7 +249,7 @@ public class ProblemJPanel extends javax.swing.JPanel {
         problem.emptyResultsOfAllTestcases();
         testTableModel.fireTableDataChanged();
         testTableModel.setTemporaryIndexesForTestcases();
-        problem.runTests(this, "/Users/piotrek/hackaton/a");
+        problem.runTests(this, sourceFile.getText());
         abortTestsButton.setEnabled(true);
         // now tests are running, they will call notifyResultsOfSingleTestcase and notifyEndOfTesting
     }//GEN-LAST:event_runTestsButtonActionPerformed
