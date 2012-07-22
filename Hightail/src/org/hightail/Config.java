@@ -30,10 +30,7 @@ public class Config {
 
     static protected void fillInUnsetValuesWithDefaults() {
         setIfUnset("workingDirectory", new File("").getAbsolutePath());
-        // no default for templateFile
-        // no default for editorCommand
-        setIfUnset("runEditor","true");
-        setIfUnset("compilerCommand", "g++ \"%1\" -O2 -o \"%2\"");
+        setIfUnset("pathFromWorkingDirToExec", "/%P");
     }
 
     static public boolean load() {

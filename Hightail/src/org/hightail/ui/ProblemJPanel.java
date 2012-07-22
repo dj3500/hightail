@@ -59,6 +59,8 @@ public class ProblemJPanel extends javax.swing.JPanel {
         newTestcaseButton = new javax.swing.JButton();
         editTestcaseButton = new javax.swing.JButton();
         deleteTestcaseButton = new javax.swing.JButton();
+        runTestsButton = new javax.swing.JButton();
+        abortTestsButton = new javax.swing.JButton();
         openContainingDirectoryButton = new javax.swing.JButton();
         executableFileLabel = new javax.swing.JLabel();
         sourceFile = new javax.swing.JTextField();
@@ -104,6 +106,23 @@ public class ProblemJPanel extends javax.swing.JPanel {
             }
         });
 
+        runTestsButton.setText("Run tests");
+        runTestsButton.setActionCommand("Run tests");
+        runTestsButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                runTestsButtonActionPerformed(evt);
+            }
+        });
+
+        abortTestsButton.setText("Abort tests");
+        abortTestsButton.setActionCommand("Abort tests");
+        abortTestsButton.setEnabled(false);
+        abortTestsButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                abortTestsButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout testcasePanelLayout = new javax.swing.GroupLayout(testcasePanel);
         testcasePanel.setLayout(testcasePanelLayout);
         testcasePanelLayout.setHorizontalGroup(
@@ -115,7 +134,11 @@ public class ProblemJPanel extends javax.swing.JPanel {
                 .addComponent(editTestcaseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(deleteTestcaseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(292, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(runTestsButton)
+                .addGap(18, 18, 18)
+                .addComponent(abortTestsButton)
+                .addContainerGap())
             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 730, Short.MAX_VALUE)
         );
         testcasePanelLayout.setVerticalGroup(
@@ -127,7 +150,9 @@ public class ProblemJPanel extends javax.swing.JPanel {
                 .addGroup(testcasePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(newTestcaseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(editTestcaseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(deleteTestcaseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(deleteTestcaseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(runTestsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(abortTestsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -205,8 +230,34 @@ public class ProblemJPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_deleteTestcaseButtonActionPerformed
 
+    private void runTestsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_runTestsButtonActionPerformed
+        runTestsButton.setEnabled(false);
+        problem.emptyResultsOfAllTestcases();
+        testTableModel.fireTableDataChanged();
+        problem.runTests(this);
+        abortTestsButton.setEnabled(true);
+        // now tests are running, they will call notifyResultsOfSingleTestcase and notifyEndOfTesting
+    }//GEN-LAST:event_runTestsButtonActionPerformed
 
+    private void abortTestsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_abortTestsButtonActionPerformed
+        abortTestsButton.setEnabled(false);
+        problem.abortTests();
+        runTestsButton.setEnabled(true);
+    }//GEN-LAST:event_abortTestsButtonActionPerformed
+
+    public void notifyResultsOfSingleTestcase (int index) {
+        // Testcase object is already updated by now
+        testTableModel.fireTableRowsUpdated(index, index);
+    }
+    
+    public void notifyEndOfTesting () {
+        abortTestsButton.setEnabled(false);
+        // TODO: report the main result of testing (all OK => OK, etc.)
+        runTestsButton.setEnabled(true);
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton abortTestsButton;
     private javax.swing.JButton deleteTestcaseButton;
     private javax.swing.JButton editTestcaseButton;
     private javax.swing.JLabel executableFileLabel;
@@ -214,6 +265,7 @@ public class ProblemJPanel extends javax.swing.JPanel {
     private javax.swing.JButton newTestcaseButton;
     private javax.swing.JButton openContainingDirectoryButton;
     private javax.swing.JPanel progressPanel;
+    private javax.swing.JButton runTestsButton;
     private javax.swing.JTextField sourceFile;
     private javax.swing.JTable testTable;
     private javax.swing.JPanel testcasePanel;

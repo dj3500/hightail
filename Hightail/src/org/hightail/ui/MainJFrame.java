@@ -55,6 +55,9 @@ public class MainJFrame extends javax.swing.JFrame {
         menuBar = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
         newEmpty = new javax.swing.JMenuItem();
+        newFromURL = new javax.swing.JMenuItem();
+        newContest = new javax.swing.JMenuItem();
+        jSeparator1 = new javax.swing.JPopupMenu.Separator();
         openConfig = new javax.swing.JMenuItem();
         exit = new javax.swing.JMenuItem();
         helpMenu = new javax.swing.JMenu();
@@ -71,17 +74,34 @@ public class MainJFrame extends javax.swing.JFrame {
         tabbedPane.setTabLayoutPolicy(javax.swing.JTabbedPane.SCROLL_TAB_LAYOUT);
         tabbedPane.setTabPlacement(javax.swing.JTabbedPane.LEFT);
         tabbedPane.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        tabbedPane.setFont(new java.awt.Font("Tahoma", 1, 13));
+        tabbedPane.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
 
         fileMenu.setText("File");
 
-        newEmpty.setText("New empty tab...");
+        newEmpty.setText("New empty problem...");
         newEmpty.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 newEmptyActionPerformed(evt);
             }
         });
         fileMenu.add(newEmpty);
+
+        newFromURL.setText("New problem from URL...");
+        newFromURL.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                newFromURLActionPerformed(evt);
+            }
+        });
+        fileMenu.add(newFromURL);
+
+        newContest.setText("New contest...");
+        newContest.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                newContestActionPerformed(evt);
+            }
+        });
+        fileMenu.add(newContest);
+        fileMenu.add(jSeparator1);
 
         openConfig.setText("Settings...");
         openConfig.addActionListener(new java.awt.event.ActionListener() {
@@ -132,16 +152,15 @@ public class MainJFrame extends javax.swing.JFrame {
         } else if (s.length() < 1 || s.length() > Problem.PROBLEM_NAME_MAX_LENGTH) {
             JOptionPane.showMessageDialog(this, "Problem name empty or too long.", "Wrong name", JOptionPane.ERROR_MESSAGE);
         } else {
-            createNewProblemAndTab(s);
+            Problem problem = new Problem(s);
+            addTabForProblem(problem);
         }
     }//GEN-LAST:event_newEmptyActionPerformed
 
-    protected void createNewProblemAndTab(String name) {
-        Problem problem = new Problem(name);
+    protected void addTabForProblem(Problem problem) {
         ProblemJPanel panel = new ProblemJPanel(problem, tabbedPane, this);
-
         // as recommended here: http://stackoverflow.com/questions/476678/tabs-with-equal-constant-width-in-jtabbedpane
-        tabbedPane.addTab("<html><body><table width='150'>"+name+"</table></body></html>",panel);
+        tabbedPane.addTab("<html><body><table width='150'>"+problem.getName()+"</table></body></html>",panel);
         tabbedPane.setSelectedComponent(panel);
     }
 
@@ -170,6 +189,14 @@ public class MainJFrame extends javax.swing.JFrame {
     private void openConfigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openConfigActionPerformed
         new ConfigJDialog(this).setVisible(true);
     }//GEN-LAST:event_openConfigActionPerformed
+
+    private void newContestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newContestActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_newContestActionPerformed
+
+    private void newFromURLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newFromURLActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_newFromURLActionPerformed
 
     /**
     * @param args the command line arguments
@@ -203,8 +230,11 @@ public class MainJFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem exit;
     private javax.swing.JMenu fileMenu;
     private javax.swing.JMenu helpMenu;
+    private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JMenuBar menuBar;
+    private javax.swing.JMenuItem newContest;
     private javax.swing.JMenuItem newEmpty;
+    private javax.swing.JMenuItem newFromURL;
     private javax.swing.JMenuItem openConfig;
     private javax.swing.JTabbedPane tabbedPane;
     // End of variables declaration//GEN-END:variables

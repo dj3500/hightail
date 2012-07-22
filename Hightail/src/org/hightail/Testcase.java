@@ -91,6 +91,10 @@ public class Testcase {
     
     public void save () {
         // testcase has been changed by user, so results are obsolete
+        emptyResultsOfTestCase();
+    }
+
+    public void emptyResultsOfTestCase() {
         programOutput = "";
         executionResult = new ExecutionResult();
     }

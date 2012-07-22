@@ -10,7 +10,7 @@ public class TestcaseJDialog extends javax.swing.JDialog {
 
     protected Testcase testcase;
     protected boolean isNew; // only used for some UI formatting
-    protected boolean hasTextChanged = false;
+    protected boolean hasTextChanged = false; // TODO: doesn't work; when editing, hasTextChanged=true always
     protected boolean returnValue = false; // false = no changes made, or user canceled
 
     public boolean getReturnValue() {
