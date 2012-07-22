@@ -5,6 +5,7 @@
 package org.hightail.parsers.contest;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 import org.htmlparser.Node;
@@ -49,6 +50,7 @@ public class CodeForcesContestParser extends ContestParser {
         // remove link duplicates
         Set<String> s = new HashSet<String>(result);
         result = new ArrayList<String>(s);
+        Collections.sort(result);
         
         return result;        
     }
