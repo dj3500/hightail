@@ -10,7 +10,7 @@ public class TestcaseJDialog extends javax.swing.JDialog {
 
     protected Testcase testcase;
     protected boolean isNew; // only used for some UI formatting
-    protected boolean hasTextChanged = false; // TODO: doesn't work; when editing testcase, hasTextChanged=true always
+    protected boolean hasTextChanged = false;
     protected boolean returnValue = false; // false = no changes made, or user canceled
 
     public boolean getReturnValue() {
@@ -43,9 +43,6 @@ public class TestcaseJDialog extends javax.swing.JDialog {
             }
         };
 
-        inputTextarea.getDocument().addDocumentListener(documentListener);
-        expectedOutputTextarea.getDocument().addDocumentListener(documentListener);
-
         inputTextarea.setText(testcase.getInput());
         expectedOutputTextarea.setText(testcase.getExpectedOutput());
         if (!isNew) {
@@ -57,6 +54,9 @@ public class TestcaseJDialog extends javax.swing.JDialog {
         }
         executionResultLabel.setText(testcase.getExecutionResult().getFormattedResult()); // this is read-only
         executionTimeLabel.setText(testcase.getExecutionResult().getFormattedTime()); // this is read-only
+
+        inputTextarea.getDocument().addDocumentListener(documentListener);
+        expectedOutputTextarea.getDocument().addDocumentListener(documentListener);
     }
 
     private void confirmAndClose () {
