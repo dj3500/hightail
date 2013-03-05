@@ -10,6 +10,23 @@
 <project name="Hightail" default="default" basedir=".">
     <description>Builds, tests, and runs the project Hightail.</description>
     <import file="nbproject/build-impl.xml"/>
+	
+	<!-- inserted by dj3500: -->
+	<target name="-post-jar">
+		<jar jarfile="dist/Hightail-combined.jar">
+			<zipfileset src="${dist.jar}" excludes="META-INF/*" />
+			<zipfileset src="lib/filterbuilder.jar" excludes="META-INF/*" />
+			<zipfileset src="lib/htmllexer.jar" excludes="META-INF/*" />
+			<zipfileset src="lib/htmlparser.jar" excludes="META-INF/*" />
+			<zipfileset src="lib/junit.jar" excludes="META-INF/*" />
+			<zipfileset src="lib/sax2.jar" excludes="META-INF/*" />
+			<zipfileset src="lib/thumbelina.jar" excludes="META-INF/*" />
+			<manifest>
+				<attribute name="Main-Class" value="org.hightail.ui.MainJFrame" />
+			</manifest>
+		</jar>
+	</target>
+	
     <!--
 
     There exist several targets which are by default empty and which can be 
