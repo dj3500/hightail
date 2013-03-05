@@ -24,6 +24,8 @@ public class ConfigJDialog extends javax.swing.JDialog {
 
         workingDirectoryChooser = new JFileChooser(); // TODO: make the chooser initially point to the directory saved in the settings
         workingDirectoryChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        
+        pathFromWorkingDirToExec.setText(Config.get("pathFromWorkingDirToExec"));
     }
 
     /** This method is called from within the constructor to
