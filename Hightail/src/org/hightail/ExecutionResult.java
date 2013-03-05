@@ -1,5 +1,6 @@
 package org.hightail;
 
+import java.awt.Color;
 import java.text.DecimalFormat;
 
 public class ExecutionResult {
@@ -38,9 +39,9 @@ public class ExecutionResult {
             case NOT_RUN:
                 return "-";
             case OK:
-                return "<span style=\"color: green;\">OK</span>";
+                return "OK";
             case WA:
-                return "<span style=\"color: red;\">WA</span>";
+                return "WA";
             case ABORTED:
                 return "aborted";
             case RUNTIME:
@@ -73,6 +74,23 @@ public class ExecutionResult {
                 return "runtime error";
             default:
                 throw new UnsupportedOperationException("Implementation error: toString doesn't know how to format result");
+        }
+    }
+
+    public Color getColor() {
+        switch (result) {
+            case NOT_RUN:
+                return Color.black;
+            case OK:
+                return new Color(0, 170, 0); // green
+            case WA:
+                return Color.red;
+            case ABORTED:
+                return Color.magenta;
+            case RUNTIME:
+                return Color.magenta;
+            default:
+                throw new UnsupportedOperationException("Implementation error: getColor doesn't know how to format result");
         }
     }
 }

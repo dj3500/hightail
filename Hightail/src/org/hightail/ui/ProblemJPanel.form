@@ -135,6 +135,9 @@
                   <Connection code="testTableModel" type="code"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="testTableMouseClicked"/>
+              </Events>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="testTable.setDefaultRenderer(String.class, new MultilineTableCellRenderer());"/>
               </AuxValues>

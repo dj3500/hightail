@@ -83,6 +83,11 @@ public class ProblemJPanel extends javax.swing.JPanel implements TestingListener
         testcasePanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Test cases"));
 
         testTable.setModel(testTableModel);
+        testTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                testTableMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(testTable);
 
         newTestcaseButton.setText("New test case");
@@ -211,6 +216,10 @@ public class ProblemJPanel extends javax.swing.JPanel implements TestingListener
     }//GEN-LAST:event_newTestcaseButtonActionPerformed
 
     private void editTestcaseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editTestcaseButtonActionPerformed
+        editCurrentTestcase();
+    }//GEN-LAST:event_editTestcaseButtonActionPerformed
+
+    private void editCurrentTestcase() {
         int selectedRow = testTable.getSelectedRow();
         if (selectedRow == -1) throw new UnsupportedOperationException("Implementation error: edit button clicked, but no row selected");
         Testcase editedTestcase = problem.getTestcase(selectedRow);
@@ -220,8 +229,8 @@ public class ProblemJPanel extends javax.swing.JPanel implements TestingListener
             // the test case was edited
             testTableModel.rowUpdated(selectedRow);
         }
-    }//GEN-LAST:event_editTestcaseButtonActionPerformed
-
+    }
+    
     private void deleteTestcaseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteTestcaseButtonActionPerformed
         int selectedRow = testTable.getSelectedRow();
         if (selectedRow == -1) throw new UnsupportedOperationException("Implementation error: delete button clicked, but no row selected");
@@ -272,6 +281,12 @@ public class ProblemJPanel extends javax.swing.JPanel implements TestingListener
     private void openContainingDirectoryButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openContainingDirectoryButtonActionPerformed
         // TODO implement this
     }//GEN-LAST:event_openContainingDirectoryButtonActionPerformed
+
+    private void testTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_testTableMouseClicked
+        if (evt.getClickCount() == 2) { // double-click
+            editCurrentTestcase();
+        }
+    }//GEN-LAST:event_testTableMouseClicked
 
     // TODO: add a Browse... button for the executable file
     

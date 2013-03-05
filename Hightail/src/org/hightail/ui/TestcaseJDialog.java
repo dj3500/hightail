@@ -53,6 +53,7 @@ public class TestcaseJDialog extends javax.swing.JDialog {
             // TODO: find a better way to show that this textarea is disabled (or remove it altogether)
         }
         executionResultLabel.setText(testcase.getExecutionResult().getFormattedResult()); // this is read-only
+        executionResultLabel.setForeground(testcase.getExecutionResult().getColor());
         executionTimeLabel.setText(testcase.getExecutionResult().getFormattedTime()); // this is read-only
 
         inputTextarea.getDocument().addDocumentListener(documentListener);
