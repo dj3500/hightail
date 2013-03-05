@@ -7,7 +7,6 @@ package org.hightail.parsers.task;
 import org.hightail.Testcase;
 import org.hightail.TestcaseSet;
 import org.htmlparser.NodeFilter;
-import org.htmlparser.Parser;
 import org.htmlparser.beans.FilterBean;
 import org.htmlparser.filters.CssSelectorNodeFilter;
 import org.htmlparser.filters.HasParentFilter;
@@ -40,13 +39,14 @@ public class CodeForcesTaskParser extends TaskParser {
         fb.setURL(URL);
         String[] outputs = fb.getText().split("Output");
         
-                
-        if (inputs.length != outputs.length)
-                throw new ParserException();
+        if (inputs.length != outputs.length) {
+            throw new ParserException();
+        }
         
         TestcaseSet result = new TestcaseSet();
-        for (int i = 1; i < inputs.length; ++i)
+        for (int i = 1; i < inputs.length; ++i) {
             result.add(new Testcase(inputs[i].trim(), outputs[i].trim()));
+        }
         
         return result;
     }

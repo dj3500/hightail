@@ -14,7 +14,7 @@ public class Config {
         return properties.setProperty(key, value);
     }
 
-    static public String get(String key, String defaultValue) { // TODO: check whether this method is necessary
+    static public String get(String key, String defaultValue) {
         return properties.getProperty(key, defaultValue);
     }
 
@@ -31,6 +31,7 @@ public class Config {
     static protected void fillInUnsetValuesWithDefaults() {
         setIfUnset("workingDirectory", new File("").getAbsolutePath());
         setIfUnset("pathFromWorkingDirToExec", "%P.exe");
+        // TODO: if under Unix, this better be "%L"
     }
 
     static public boolean load() {

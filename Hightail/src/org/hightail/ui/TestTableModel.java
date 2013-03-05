@@ -1,7 +1,6 @@
 package org.hightail.ui;
 
 import javax.swing.table.AbstractTableModel;
-import org.hightail.ExecutionResult;
 import org.hightail.TestcaseSet;
 
 class TestTableModel extends AbstractTableModel {

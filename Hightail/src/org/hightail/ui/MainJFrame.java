@@ -34,7 +34,7 @@ public class MainJFrame extends javax.swing.JFrame {
                 Config.save();
             } catch (IOException e2) {
                 JOptionPane.showMessageDialog(this,
-                        "The configuration file could not be created. Make sure the program has write rights to its directory.",
+                        "The configuration file could not be created. Make sure Hightail has write rights to its directory.",
                         "Output error",
                         JOptionPane.ERROR_MESSAGE);
                 System.exit(0);
@@ -138,7 +138,7 @@ public class MainJFrame extends javax.swing.JFrame {
     protected void addTabForProblem(Problem problem) {
         ProblemJPanel panel = new ProblemJPanel(problem, tabbedPane, this);
         // as recommended here: http://stackoverflow.com/questions/476678/tabs-with-equal-constant-width-in-jtabbedpane
-        tabbedPane.addTab("<html><body><table width='150'>"+problem.getName()+"</table></body></html>",panel);
+        tabbedPane.addTab("<html><body><table width='150'>" + problem.getName() + "</table></body></html>", panel);
         tabbedPane.setSelectedComponent(panel);
     }
 
@@ -187,19 +187,13 @@ public class MainJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_newFromURLActionPerformed
 
     /**
-* @param args the command line arguments
-*/
+    * @param args the command line arguments
+    */
     public static void main(String args[]) {
         // We set the look and feel for Swing
         try {
-            /*for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
-if ("Nimbus".equals(info.getName())) {
-UIManager.setLookAndFeel(info.getClassName());
-break;
-}
-}*/
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-            //UIManager.put("TabbedPane.tabInsets", new Insets(5,20,6,20));
+            // UIManager.put("TabbedPane.tabInsets", new Insets(5,20,6,20));
         } catch (Exception e) {
             // We fall back to Metal
         }

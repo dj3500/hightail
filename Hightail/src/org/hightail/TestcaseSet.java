@@ -17,7 +17,7 @@ public class TestcaseSet extends ArrayList<Testcase> {
         }
     }
     
-    public void abort(){
+    public void abort() {
         for (Testcase test : this) {
             test.killTest();
         }

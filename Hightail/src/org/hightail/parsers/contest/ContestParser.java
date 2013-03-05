@@ -4,11 +4,6 @@ import java.util.ArrayList;
 import org.hightail.util.StringPair;
 import org.htmlparser.util.ParserException;
 
-/**
- *
- * @author jtarnawski
- */
-
 public abstract class ContestParser {
     // return list of pairs <task url, task name> 
     abstract public ArrayList<StringPair> parse(String URL) throws ParserException;

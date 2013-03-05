@@ -1,9 +1,5 @@
 package org.hightail.exception;
 
-/**
- *
- * @author D
- */
 public class CommandExecutionException extends Exception {
 
     protected String command;

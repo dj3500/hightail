@@ -6,8 +6,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.hightail.diff.OutputDiff;
 
-public class Testcase implements Runnable{
-    
+public class Testcase implements Runnable {
     protected int index = 0;
     protected String input;
     protected String expectedOutput;
@@ -64,7 +63,7 @@ public class Testcase implements Runnable{
         this.expectedOutput = expectedOutput;
     }
     
-    public void save () {
+    public void save() {
         // testcase has been changed by user, so results are obsolete
         emptyResultsOfTestCase();
     }
@@ -81,10 +80,9 @@ public class Testcase implements Runnable{
     public void killTest() {
         try {
             executionProcess.exitValue();
-        }
-        catch (IllegalThreadStateException ex) {
+        } catch (IllegalThreadStateException ex) {
             executionProcess.destroy();
-            executionResult.setResult(ExecutionResult.WA);
+            executionResult.setResult(ExecutionResult.WA); // TODO: ?
         }
     }
 
@@ -92,13 +90,15 @@ public class Testcase implements Runnable{
     public void run() {
         try {
             String line;
+            BufferedReader br;
             
             double startTime = Calendar.getInstance().getTimeInMillis();
+            // TODO: measure CPU time of executionProcess instead
             
             // TODO: change path to running file
             executionProcess = Runtime.getRuntime().exec(pathToExecFile);
             
-            OutputStream stdin = executionProcess.getOutputStream ();
+            OutputStream stdin = executionProcess.getOutputStream();
             InputStream stderr = executionProcess.getErrorStream();
             InputStream stdout = executionProcess.getInputStream();
             
@@ -108,66 +108,51 @@ public class Testcase implements Runnable{
             stdin.close();
             
             // reading stdout
-            BufferedReader br = new BufferedReader (new InputStreamReader (stdout));
-            while ((line = br.readLine ()) != null) {
+            br = new BufferedReader(new InputStreamReader(stdout));
+            programOutput = "";
+            while ((line = br.readLine()) != null) {
                 programOutput = programOutput + line + "\n";
             }
             br.close();
 
             // reading stderr
-            br = new BufferedReader (new InputStreamReader (stderr));
-            while ((line = br.readLine ()) != null) {
+            br = new BufferedReader(new InputStreamReader(stderr));
+            programError = "";
+            while ((line = br.readLine()) != null) {
                 programError = programError + line + "\n";
             }
             br.close();
             
             int execRes = executionProcess.waitFor();
             
-            System.err.println("skonczony proces z komunikatem "+ execRes);
-            
             if (execRes == 0) {
                 String res = OutputDiff.diff(expectedOutput, programOutput);
-                System.err.println("result " + res);
                 if (res.equals("OK")) {
                     executionResult.setResult(ExecutionResult.OK);
-                    System.err.println("ok");
-                }
-                else {
+                } else {
                     executionResult.setResult(ExecutionResult.WA);
                     executionResult.setMsg(res);
-                    System.err.println("wa");
-                }
-                
-                
-            }
-            else if(execRes == 143) {
-                System.err.println("wywlaszczony");
+                }             
+            } else if (execRes == 143) { // TODO: ?
                 executionResult.setResult(ExecutionResult.ABORTED);
-            }
-            else {
-                System.err.println("runtime error");
+            } else {
                 executionResult.setResult(ExecutionResult.RUNTIME);
-            }
-            
+            }            
             
             double endTime = Calendar.getInstance().getTimeInMillis();
-            executionResult.setTime((endTime-startTime) / 1000.0);
-            System.err.println("czas to: "+ executionResult.getTime());
+            executionResult.setTime((endTime - startTime) / 1000.0);
             
             callback.notifyResultsOfSingleTestcase(index);
             
         } catch (InterruptedException ex) {
-            System.err.println("dupa1");
             Logger.getLogger(Testcase.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
-            System.err.println("raczej wywlaszczony");
+            // probably aborted (maybe by the OS?)
             executionResult.setResult(ExecutionResult.ABORTED);
-//            Logger.getLogger(Testcase.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     void setPathToExecFile(String pathToExecFile) {
         this.pathToExecFile = pathToExecFile;
     }
-
 }

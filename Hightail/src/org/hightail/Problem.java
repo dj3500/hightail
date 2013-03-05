@@ -53,6 +53,6 @@ public class Problem {
 
     public String getDefaultExecutableFilename() {
         return Config.get("workingDirectory") + java.io.File.separator + 
-                Config.get("pathFromWorkingDirToExec").replace("%P", name).replace("%L", name.toLowerCase());
+               Config.get("pathFromWorkingDirToExec").replace("%P", name).replace("%L", name.toLowerCase());
     }
 }

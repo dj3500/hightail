@@ -12,7 +12,6 @@ public class ExecutionResult {
     
     public ExecutionResult() {
     }
-    
 
     public int getResult() {
         return result;
@@ -39,9 +38,9 @@ public class ExecutionResult {
             case NOT_RUN:
                 return "-";
             case OK:
-                return "<span style='color: green;'>OK</span>";
+                return "<span style=\"color: green;\">OK</span>";
             case WA:
-                return "<span style='color: red;'>WA</span>";
+                return "<span style=\"color: red;\">WA</span>";
             case ABORTED:
                 return "aborted";
             case RUNTIME:
@@ -65,7 +64,7 @@ public class ExecutionResult {
             case NOT_RUN:
                 return "-";
             case OK:
-                return "OK "+ time;
+                return "OK " + time;
             case WA:
                 return msg;
             case ABORTED:
@@ -73,7 +72,7 @@ public class ExecutionResult {
             case RUNTIME:
                 return "runtime error";
             default:
-                throw new UnsupportedOperationException("Implementation error: getFormattedResult doesn't know how to format result");
+                throw new UnsupportedOperationException("Implementation error: toString doesn't know how to format result");
         }
     }
 }
