@@ -1,5 +1,6 @@
 package org.hightail.ui;
 
+import java.awt.KeyboardFocusManager;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.event.DocumentEvent;
@@ -58,6 +59,14 @@ public class TestcaseJDialog extends javax.swing.JDialog {
 
         inputTextarea.getDocument().addDocumentListener(documentListener);
         expectedOutputTextarea.getDocument().addDocumentListener(documentListener);
+        
+        // when TAB is pressed, cycle textareas instead of writing the \t
+        inputTextarea.setFocusTraversalKeys(KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS, null);
+        inputTextarea.setFocusTraversalKeys(KeyboardFocusManager.BACKWARD_TRAVERSAL_KEYS, null);
+        expectedOutputTextarea.setFocusTraversalKeys(KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS, null);
+        expectedOutputTextarea.setFocusTraversalKeys(KeyboardFocusManager.BACKWARD_TRAVERSAL_KEYS, null);
+        programOutputTextarea.setFocusTraversalKeys(KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS, null);
+        programOutputTextarea.setFocusTraversalKeys(KeyboardFocusManager.BACKWARD_TRAVERSAL_KEYS, null);
     }
 
     private void confirmAndClose () {
