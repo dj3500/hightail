@@ -81,13 +81,14 @@ public class Testcase implements Runnable {
         try {
             executionProcess.exitValue();
         } catch (IllegalThreadStateException ex) {
+            executionResult.setResult(ExecutionResult.ABORTED);
             executionProcess.destroy();
-            executionResult.setResult(ExecutionResult.WA); // TODO: ?
         }
     }
 
     @Override
     public void run() {
+        emptyResultsOfTestCase();
         try {
             String line;
             BufferedReader br;
@@ -133,9 +134,7 @@ public class Testcase implements Runnable {
                     executionResult.setResult(ExecutionResult.WA);
                     executionResult.setMsg(res);
                 }             
-            } else if (execRes == 143) { // TODO: ?
-                executionResult.setResult(ExecutionResult.ABORTED);
-            } else {
+            } else if (executionResult.getResult() == ExecutionResult.NOT_RUN) {
                 executionResult.setResult(ExecutionResult.RUNTIME);
             }            
             

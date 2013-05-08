@@ -3,6 +3,10 @@ package org.hightail.diff;
 import java.util.StringTokenizer;
 
 public class OutputDiff {
+    private static String format = "WA\n"
+                                    + "expected %s\n"
+                                    + "received %s";
+    
     public static String diff(String expectedOutput, String actualOutput) {
         
         StringTokenizer expectedOutputStringTokenizer = new StringTokenizer(expectedOutput),
@@ -15,20 +19,22 @@ public class OutputDiff {
                    actualToken = actualOutputStringTokenizer.nextToken();
             
             if (!expectedToken.equals(actualToken)) {
-                return String.format("WA - expected %s and received %s", 
+                return String.format(format, 
                                      expectedToken, actualToken);
             }
         }
         
         if (expectedOutputStringTokenizer.hasMoreElements()) {
             String expectedToken = expectedOutputStringTokenizer.nextToken();
-            return String.format("WA - expected %s and received EOF",
-                                 expectedToken);
+            return String.format(format,
+                                 expectedToken,
+                                 "EOF");
         }
         
         if (actualOutputStringTokenizer.hasMoreElements()) {
             String actualToken = actualOutputStringTokenizer.nextToken();
-            return String.format("WA - expected EOF and received %s",
+            return String.format(format,
+                                 "EOF",
                                  actualToken);
         }
         

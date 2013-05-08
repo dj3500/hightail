@@ -7,7 +7,7 @@ class TestTableModel extends AbstractTableModel {
 
     protected TestcaseSet testcaseSet;
     protected final String[] columnNames = {"Input", "Expected output", "Program output", "Result"};
-    protected final Class[] columnClasses = {String.class, String.class, String.class, Object.class}; // TODO: custom shit
+    protected final Class[] columnClasses = {String.class, String.class, String.class, String.class}; // TODO: custom shit
 
     public TestTableModel(TestcaseSet testcaseSet) {
         this.testcaseSet = testcaseSet;
@@ -43,7 +43,7 @@ class TestTableModel extends AbstractTableModel {
             case 2:
                 return testcaseSet.get(rowIndex).getProgramOutput();
             case 3:
-                return testcaseSet.get(rowIndex).getExecutionResult();
+                return testcaseSet.get(rowIndex).getExecutionResult().toString();
             default:
                 throw new UnsupportedOperationException("Implementation error: invalid columnIndex.");
         }

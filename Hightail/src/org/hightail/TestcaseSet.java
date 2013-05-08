@@ -4,11 +4,12 @@ import java.util.ArrayList;
 import org.hightail.util.TestingListener;
 
 public class TestcaseSet extends ArrayList<Testcase> {
-    private int noOfFinishedTests = 0;
+    private int noOfFinishedTests;
     private TestingListener callback;
         
     public void run(TestingListener callback, String pathToExecFile) {
         this.callback = callback;
+        noOfFinishedTests = 0;
         for (Testcase test : this) {
             test.setCallback(this);
             test.setPathToExecFile(pathToExecFile);
@@ -26,7 +27,7 @@ public class TestcaseSet extends ArrayList<Testcase> {
     void notifyResultsOfSingleTestcase(int index) {
         callback.notifyResultsOfSingleTestcase(index);
         noOfFinishedTests++;
-        if (noOfFinishedTests >= this.size()) {
+        if (noOfFinishedTests == this.size()) {
             callback.notifyEndOfTesting();
         }
     }
