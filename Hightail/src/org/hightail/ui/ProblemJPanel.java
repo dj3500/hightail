@@ -6,6 +6,8 @@
 
 package org.hightail.ui;
 
+import java.io.File;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTabbedPane;
@@ -258,16 +260,33 @@ public class ProblemJPanel extends javax.swing.JPanel implements TestingListener
     }
     
     private void runTestsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_runTestsButtonActionPerformed
+        String pathToExecFile = sourceFile.getText();
+        File execFile = new File(pathToExecFile);
+        if(!execFile.exists()) {
+            // executable file does not exist
+            JOptionPane.showMessageDialog(this, "Selected file does not exist.", "Wrong file", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if(execFile.isDirectory()) {
+            // file path points to a directory, not a file
+            JOptionPane.showMessageDialog(this, "Selected path is a directory.", "Wrong file", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if(!execFile.canExecute()) {
+            // application cannot execute this file
+            JOptionPane.showMessageDialog(this, "Selected file cannot be executed.", "Wrong file", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         if (problem.getTestcaseSet().isEmpty()) {
             // no tests
             JOptionPane.showMessageDialog(this, "No tests to run.", "No tests", JOptionPane.ERROR_MESSAGE);
+            return;
         }
-        // TODO: check whether the executable exists
         setEnabledOnInvasiveButtons(false);
         problem.emptyResultsOfAllTestcases();
         testTableModel.fireTableDataChanged();
         testTableModel.setTemporaryIndexesForTestcases();
-        problem.runTests(this, sourceFile.getText());
+        problem.runTests(this, pathToExecFile);
         abortTestsButton.setEnabled(true);
         // now tests are running, they will call notifyResultsOfSingleTestcase and notifyEndOfTesting
     }//GEN-LAST:event_runTestsButtonActionPerformed
@@ -279,7 +298,17 @@ public class ProblemJPanel extends javax.swing.JPanel implements TestingListener
     }//GEN-LAST:event_abortTestsButtonActionPerformed
 
     private void openContainingDirectoryButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openContainingDirectoryButtonActionPerformed
-        // TODO implement this
+        File currentDirectory = new File(sourceFile.getText());
+        if(!currentDirectory.isDirectory()) {
+            currentDirectory = currentDirectory.getParentFile();
+        }
+        // the dialog will open the current selected directory if it's correct or home directory otherwise
+        JFileChooser fc = new JFileChooser(currentDirectory);
+        int returnVal = fc.showOpenDialog(this);
+        if(returnVal == JFileChooser.APPROVE_OPTION) {
+            String filePath = fc.getSelectedFile().getAbsolutePath();
+            sourceFile.setText(filePath);
+        }
     }//GEN-LAST:event_openContainingDirectoryButtonActionPerformed
 
     private void testTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_testTableMouseClicked
