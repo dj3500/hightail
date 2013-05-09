@@ -7,8 +7,13 @@
 package org.hightail.ui;
 
 //import java.awt.Insets;
+import java.awt.Component;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 import java.io.IOException;
+import javax.swing.AbstractAction;
 import javax.swing.JOptionPane;
+import javax.swing.KeyStroke;
 import javax.swing.UIManager;
 import org.hightail.Config;
 import org.hightail.Problem;
@@ -19,6 +24,8 @@ public class MainJFrame extends javax.swing.JFrame {
     @SuppressWarnings("LeakingThisInConstructor")
     public MainJFrame() {
         initComponents();
+        
+        makeShortcuts();
 
         // We load the configuration
         boolean ok = Config.load();
@@ -135,6 +142,12 @@ public class MainJFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    protected void makeShortcuts() {
+        newFromURL.setAccelerator(KeyStroke.getKeyStroke('N', KeyEvent.CTRL_DOWN_MASK));
+        newContest.setAccelerator(KeyStroke.getKeyStroke('B', KeyEvent.CTRL_DOWN_MASK));
+        
+    }
+    
     protected void addTabForProblem(Problem problem) {
         ProblemJPanel panel = new ProblemJPanel(problem, tabbedPane, this);
         // as recommended here: http://stackoverflow.com/questions/476678/tabs-with-equal-constant-width-in-jtabbedpane
@@ -169,7 +182,16 @@ public class MainJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_openConfigActionPerformed
 
     private void newContestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newContestActionPerformed
-        NewContestJDialog dialog = new NewContestJDialog(this);
+        final NewContestJDialog dialog = new NewContestJDialog(this);
+        dialog.setTitle("New contest");
+        // escape key will close the dialog
+        dialog.getRootPane().getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "close");
+        dialog.getRootPane().getActionMap().put("close", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dialog.dispose();
+            }
+        });
         dialog.setVisible(true); // this is modal; it will block until window is closed
         for (Problem problem : dialog.getProblemList()) { // possibly none, if parsing failed or user clicked Cancel
             addTabForProblem(problem);
