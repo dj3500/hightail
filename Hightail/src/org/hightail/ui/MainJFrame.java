@@ -25,8 +25,6 @@ public class MainJFrame extends javax.swing.JFrame {
     public MainJFrame() {
         initComponents();
         
-        makeShortcuts();
-
         // We load the configuration
         boolean ok = Config.load();
         if (!ok) { // couldn't load
@@ -84,6 +82,7 @@ public class MainJFrame extends javax.swing.JFrame {
 
         fileMenu.setText("File");
 
+        newFromURL.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
         newFromURL.setText("New problem...");
         newFromURL.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -92,6 +91,7 @@ public class MainJFrame extends javax.swing.JFrame {
         });
         fileMenu.add(newFromURL);
 
+        newContest.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_B, java.awt.event.InputEvent.CTRL_MASK));
         newContest.setText("New contest...");
         newContest.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -109,6 +109,7 @@ public class MainJFrame extends javax.swing.JFrame {
         });
         fileMenu.add(openConfig);
 
+        exit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_ESCAPE, 0));
         exit.setText("Exit");
         exit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -136,18 +137,12 @@ public class MainJFrame extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 558, Short.MAX_VALUE)
+            .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 562, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    protected void makeShortcuts() {
-        newFromURL.setAccelerator(KeyStroke.getKeyStroke('N', KeyEvent.CTRL_DOWN_MASK));
-        newContest.setAccelerator(KeyStroke.getKeyStroke('B', KeyEvent.CTRL_DOWN_MASK));
-        
-    }
-    
     protected void addTabForProblem(Problem problem) {
         ProblemJPanel panel = new ProblemJPanel(problem, tabbedPane, this);
         // as recommended here: http://stackoverflow.com/questions/476678/tabs-with-equal-constant-width-in-jtabbedpane
@@ -182,22 +177,12 @@ public class MainJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_openConfigActionPerformed
 
     private void newContestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newContestActionPerformed
-        final NewContestJDialog dialog = new NewContestJDialog(this);
-        dialog.setTitle("New contest");
-        // escape key will close the dialog
-        dialog.getRootPane().getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "close");
-        dialog.getRootPane().getActionMap().put("close", new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                dialog.dispose();
-            }
-        });
+        NewContestJDialog dialog = new NewContestJDialog(this);
         dialog.setVisible(true); // this is modal; it will block until window is closed
         for (Problem problem : dialog.getProblemList()) { // possibly none, if parsing failed or user clicked Cancel
             addTabForProblem(problem);
         }
     }//GEN-LAST:event_newContestActionPerformed
-
 
     private void newFromURLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newFromURLActionPerformed
         // show user a dialog to type the name, and the URL
@@ -207,6 +192,7 @@ public class MainJFrame extends javax.swing.JFrame {
             addTabForProblem(dialog.getProblem());
         }
     }//GEN-LAST:event_newFromURLActionPerformed
+
 
     /**
     * @param args the command line arguments

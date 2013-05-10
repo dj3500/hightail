@@ -92,7 +92,8 @@ public class Testcase implements Runnable {
         try {
             String line;
             BufferedReader br;
-            
+            executionResult.setResult(ExecutionResult.RUNNING);
+			
             double startTime = Calendar.getInstance().getTimeInMillis();
             // TODO: measure CPU time of executionProcess instead
             
@@ -108,6 +109,10 @@ public class Testcase implements Runnable {
             stdin.flush();
             stdin.close();
             
+            int execRes = executionProcess.waitFor();
+            double endTime = Calendar.getInstance().getTimeInMillis();
+            executionResult.setTime((endTime - startTime) / 1000.0);
+			
             // reading stdout
             br = new BufferedReader(new InputStreamReader(stdout));
             programOutput = "";
@@ -124,7 +129,6 @@ public class Testcase implements Runnable {
             }
             br.close();
             
-            int execRes = executionProcess.waitFor();
             
             if (execRes == 0) {
                 String res = OutputDiff.diff(expectedOutput, programOutput);
@@ -138,8 +142,6 @@ public class Testcase implements Runnable {
                 executionResult.setResult(ExecutionResult.RUNTIME);
             }            
             
-            double endTime = Calendar.getInstance().getTimeInMillis();
-            executionResult.setTime((endTime - startTime) / 1000.0);
             
             callback.notifyResultsOfSingleTestcase(index);
             

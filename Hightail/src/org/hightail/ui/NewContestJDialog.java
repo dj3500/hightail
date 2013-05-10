@@ -1,7 +1,11 @@
 package org.hightail.ui;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import javax.swing.AbstractAction;
 import javax.swing.JOptionPane;
+import javax.swing.KeyStroke;
 import org.hightail.Problem;
 import org.hightail.TestcaseSet;
 import org.hightail.parsers.contest.ContestParser;
@@ -21,6 +25,16 @@ public class NewContestJDialog extends javax.swing.JDialog {
     public NewContestJDialog(java.awt.Frame parent) {
         super(parent,true); // makes it modal
         initComponents();
+		
+		setTitle("New contest");
+        // escape key will close the dialog
+        getRootPane().getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "close");
+        getRootPane().getActionMap().put("close", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+            }
+        });
     }
 
     /**

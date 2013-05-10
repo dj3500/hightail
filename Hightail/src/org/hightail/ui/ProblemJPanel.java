@@ -6,11 +6,16 @@
 
 package org.hightail.ui;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 import java.io.File;
+import javax.swing.AbstractAction;
+import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTabbedPane;
+import javax.swing.KeyStroke;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import org.hightail.Problem;
@@ -32,6 +37,8 @@ public class ProblemJPanel extends javax.swing.JPanel implements TestingListener
         this.parentWindow = parentWindow;
 
         initComponents();
+		
+		makeShortcuts();
 
         ListSelectionListener listSelectionListener = new ListSelectionListener() {
             @Override
@@ -206,8 +213,25 @@ public class ProblemJPanel extends javax.swing.JPanel implements TestingListener
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void newTestcaseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newTestcaseButtonActionPerformed
-        Testcase newTestcase = new Testcase();
+	private void makeShortcuts() {
+		getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_R, KeyEvent.CTRL_DOWN_MASK), "run tests");
+        getActionMap().put("run tests", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                runTests();
+            }
+        });
+		getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_T, KeyEvent.CTRL_DOWN_MASK), "new testcase");
+        getActionMap().put("new testcase", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                newTestcase();
+            }
+        }); 
+	}
+	
+	private void newTestcase() {
+		Testcase newTestcase = new Testcase();
         TestcaseJDialog dialog = new TestcaseJDialog(parentWindow, newTestcase, true);
         dialog.setVisible(true); // this is modal; it will block until window is closed
         if (dialog.getReturnValue()) {
@@ -215,6 +239,10 @@ public class ProblemJPanel extends javax.swing.JPanel implements TestingListener
             problem.addTestcase(newTestcase);
             testTableModel.rowInserted();
         }
+	}
+	
+    private void newTestcaseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newTestcaseButtonActionPerformed
+        newTestcase();
     }//GEN-LAST:event_newTestcaseButtonActionPerformed
 
     private void editTestcaseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editTestcaseButtonActionPerformed
@@ -259,7 +287,7 @@ public class ProblemJPanel extends javax.swing.JPanel implements TestingListener
         }
     }
     
-    private void runTestsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_runTestsButtonActionPerformed
+	protected void runTests() {
         String pathToExecFile = sourceFile.getText();
         File execFile = new File(pathToExecFile);
         if(!execFile.exists()) {
@@ -289,6 +317,10 @@ public class ProblemJPanel extends javax.swing.JPanel implements TestingListener
         problem.runTests(this, pathToExecFile);
         abortTestsButton.setEnabled(true);
         // now tests are running, they will call notifyResultsOfSingleTestcase and notifyEndOfTesting
+	}
+	
+    private void runTestsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_runTestsButtonActionPerformed
+		runTests();
     }//GEN-LAST:event_runTestsButtonActionPerformed
 
     private void abortTestsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_abortTestsButtonActionPerformed

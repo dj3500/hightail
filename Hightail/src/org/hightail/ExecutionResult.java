@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.text.DecimalFormat;
 
 public class ExecutionResult {
-    static public final int NOT_RUN = -1, OK = 1, WA = 2, ABORTED = 3, RUNTIME = 4;
+    static public final int NOT_RUN = -1, RUNNING = 0, OK = 1, WA = 2, ABORTED = 3, RUNTIME = 4;
     // TODO: other codes (like TLE)
 
     protected double time = NOT_RUN;
@@ -38,6 +38,8 @@ public class ExecutionResult {
         switch (result) {
             case NOT_RUN:
                 return "-";
+			case RUNNING:
+				return "running...";
             case OK:
                 return "OK";
             case WA:
@@ -64,6 +66,8 @@ public class ExecutionResult {
         switch (result) {
             case NOT_RUN:
                 return "-";
+			case RUNNING:
+				return "running...";
             case OK:
                 return "OK " + time;
             case WA:
@@ -80,6 +84,7 @@ public class ExecutionResult {
     public Color getColor() {
         switch (result) {
             case NOT_RUN:
+			case RUNNING:
                 return Color.black;
             case OK:
                 return new Color(0, 170, 0); // green
