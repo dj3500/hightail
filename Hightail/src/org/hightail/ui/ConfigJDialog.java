@@ -19,13 +19,13 @@ import org.hightail.Config;
 
 public class ConfigJDialog extends javax.swing.JDialog {
     protected final JFileChooser workingDirectoryChooser;
-
+    
     /** Creates new form ConfigJDialog */
     public ConfigJDialog(JFrame parent) {
         super(parent, true); // makes it modal
         initComponents();
-		
-		// escape key will close the dialog
+        
+        // escape key will close the dialog
         getRootPane().getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "close");
         getRootPane().getActionMap().put("close", new AbstractAction() {
             @Override
@@ -33,17 +33,17 @@ public class ConfigJDialog extends javax.swing.JDialog {
                 confirmAndClose();
             }
         });
-		
-		String workingDirectory = Config.get("workingDirectory");
-
+        
+        String workingDirectory = Config.get("workingDirectory");
+        
         workingDirectoryTextField.setText(workingDirectory);
-
+        
         workingDirectoryChooser = new JFileChooser(new File(workingDirectory));
         workingDirectoryChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         
         pathFromWorkingDirToExec.setText(Config.get("pathFromWorkingDirToExec"));
     }
-
+    
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -168,51 +168,51 @@ public class ConfigJDialog extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
     private void workingDirectoryBrowseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_workingDirectoryBrowseButtonActionPerformed
         int returnVal = workingDirectoryChooser.showOpenDialog(this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             workingDirectoryTextField.setText(workingDirectoryChooser.getSelectedFile().getAbsolutePath());
         }
     }//GEN-LAST:event_workingDirectoryBrowseButtonActionPerformed
-
-	private boolean unsavedChanges() {
-		if(!Config.get("workingDirectory").equals(workingDirectoryTextField.getText())) {
-			return true;
-		}
-		if(!Config.get("pathFromWorkingDirToExec").equals(pathFromWorkingDirToExec.getText())) {
-			return true;
-		}
-		return false;
-	}
-	
+    
+    private boolean unsavedChanges() {
+        if(!Config.get("workingDirectory").equals(workingDirectoryTextField.getText())) {
+            return true;
+        }
+        if(!Config.get("pathFromWorkingDirToExec").equals(pathFromWorkingDirToExec.getText())) {
+            return true;
+        }
+        return false;
+    }
+    
     private void confirmAndClose () {
         // ask for confirmation only if there is something unsaved
         if(unsavedChanges()) {
-			// Display confirm dialog
-			int confirmed = JOptionPane.showConfirmDialog(this,
-					"Are you sure? There's unsaved changes.",
-					"Confirm close",
-					JOptionPane.YES_NO_OPTION);
-
-			// Close iff user confirmed
-			if (confirmed == JOptionPane.YES_OPTION) {
-				this.dispose();
-			}
-		}
-		else {
-			this.dispose();
-		}
+            // Display confirm dialog
+            int confirmed = JOptionPane.showConfirmDialog(this,
+                    "Are you sure? There's unsaved changes.",
+                    "Confirm close",
+                    JOptionPane.YES_NO_OPTION);
+            
+            // Close iff user confirmed
+            if (confirmed == JOptionPane.YES_OPTION) {
+                this.dispose();
+            }
+        }
+        else {
+            this.dispose();
+        }
     }
-
+    
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         confirmAndClose();
     }//GEN-LAST:event_formWindowClosing
-
+    
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
         confirmAndClose();
     }//GEN-LAST:event_cancelButtonActionPerformed
-
+    
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
         Config.set("workingDirectory", workingDirectoryTextField.getText());
         Config.set("pathFromWorkingDirToExec", pathFromWorkingDirToExec.getText());
@@ -225,10 +225,10 @@ public class ConfigJDialog extends javax.swing.JDialog {
                     "\n\nThe new settings will be used until the end of the session, but haven't been saved.",
                     "Error!", JOptionPane.ERROR_MESSAGE);
         }
-
+        
         this.dispose();
     }//GEN-LAST:event_saveButtonActionPerformed
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelButton;
     private javax.swing.JTextField pathFromWorkingDirToExec;
@@ -240,5 +240,5 @@ public class ConfigJDialog extends javax.swing.JDialog {
     private javax.swing.JLabel workingDirectoryLabel;
     private javax.swing.JTextField workingDirectoryTextField;
     // End of variables declaration//GEN-END:variables
-
+    
 }

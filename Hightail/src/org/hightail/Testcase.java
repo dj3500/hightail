@@ -2,11 +2,10 @@ package org.hightail;
 
 import java.io.*;
 import java.util.Calendar;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.concurrent.Callable;
 import org.hightail.diff.OutputDiff;
 
-public class Testcase implements Runnable {
+public class Testcase implements Callable<ExecutionResult> {
     protected int index = 0;
     protected String input;
     protected String expectedOutput;
@@ -16,40 +15,40 @@ public class Testcase implements Runnable {
     protected Process executionProcess;
     protected TestcaseSet callback;
     private String pathToExecFile;
-
+    
     public Testcase() {
         this.input = "";
         this.expectedOutput = "";
     }
-
+    
     public String getInput() {
         return input;
     }
-
+    
     public void setInput(String input) {
         this.input = input;
     }
-
+    
     public String getExpectedOutput() {
         return expectedOutput;
     }
-
+    
     public void setExpectedOutput(String expectedOutput) {
         this.expectedOutput = expectedOutput;
     }
-
+    
     public String getProgramOutput() {
         return programOutput;
     }
-
+    
     public void setProgramOutput(String programOutput) {
         this.programOutput = programOutput;
     }
-
+    
     public ExecutionResult getExecutionResult() {
         return executionResult;
     }
-
+    
     public void setExecutionResult(ExecutionResult result) {
         this.executionResult = result;
     }
@@ -57,7 +56,7 @@ public class Testcase implements Runnable {
     public void setIndex(int index) {
         this.index = index;
     }
-
+    
     public Testcase(String input, String expectedOutput) {
         this.input = input;
         this.expectedOutput = expectedOutput;
@@ -67,7 +66,7 @@ public class Testcase implements Runnable {
         // testcase has been changed by user, so results are obsolete
         emptyResultsOfTestCase();
     }
-
+    
     public void emptyResultsOfTestCase() {
         programOutput = "";
         executionResult = new ExecutionResult();
@@ -78,6 +77,9 @@ public class Testcase implements Runnable {
     }
     
     public void killTest() {
+        if(executionProcess == null) {
+            return;
+        }
         try {
             executionProcess.exitValue();
         } catch (IllegalThreadStateException ex) {
@@ -85,15 +87,15 @@ public class Testcase implements Runnable {
             executionProcess.destroy();
         }
     }
-
+    
     @Override
-    public void run() {
+    public ExecutionResult call() {
         emptyResultsOfTestCase();
         try {
             String line;
             BufferedReader br;
             executionResult.setResult(ExecutionResult.RUNNING);
-			
+            
             double startTime = Calendar.getInstance().getTimeInMillis();
             // TODO: measure CPU time of executionProcess instead
             
@@ -112,7 +114,7 @@ public class Testcase implements Runnable {
             int execRes = executionProcess.waitFor();
             double endTime = Calendar.getInstance().getTimeInMillis();
             executionResult.setTime((endTime - startTime) / 1000.0);
-			
+            
             // reading stdout
             br = new BufferedReader(new InputStreamReader(stdout));
             programOutput = "";
@@ -120,7 +122,7 @@ public class Testcase implements Runnable {
                 programOutput = programOutput + line + "\n";
             }
             br.close();
-
+            
             // reading stderr
             br = new BufferedReader(new InputStreamReader(stderr));
             programError = "";
@@ -137,22 +139,24 @@ public class Testcase implements Runnable {
                 } else {
                     executionResult.setResult(ExecutionResult.WA);
                     executionResult.setMsg(res);
-                }             
-            } else if (executionResult.getResult() == ExecutionResult.NOT_RUN) {
+                }
+            } else if (executionResult.getResult() == ExecutionResult.RUNNING) {
                 executionResult.setResult(ExecutionResult.RUNTIME);
-            }            
+            }
             
             
-            callback.notifyResultsOfSingleTestcase(index);
             
         } catch (InterruptedException ex) {
-            Logger.getLogger(Testcase.class.getName()).log(Level.SEVERE, null, ex);
+            //            Logger.getLogger(Testcase.class.getName()).log(Level.SEVERE, null, ex);
+            executionResult.setResult(ExecutionResult.TLE);
         } catch (IOException ex) {
             // probably aborted (maybe by the OS?)
             executionResult.setResult(ExecutionResult.ABORTED);
         }
+        callback.notifyResultsOfSingleTestcase(index);
+        return executionResult;
     }
-
+    
     void setPathToExecFile(String pathToExecFile) {
         this.pathToExecFile = pathToExecFile;
     }
