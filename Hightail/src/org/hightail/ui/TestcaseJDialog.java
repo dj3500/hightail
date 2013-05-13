@@ -1,30 +1,35 @@
 package org.hightail.ui;
 
 import java.awt.KeyboardFocusManager;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import javax.swing.AbstractAction;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.KeyStroke;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import org.hightail.Testcase;
 
 public class TestcaseJDialog extends javax.swing.JDialog {
-
+    
     protected Testcase testcase;
     protected boolean isNew; // only used for some UI formatting
     protected boolean hasTextChanged = false;
     protected boolean returnValue = false; // false = no changes made, or user canceled
-
+    
     public boolean getReturnValue() {
         return returnValue;
     }
-
+    
     public TestcaseJDialog(JFrame parent, Testcase testcase, boolean isNew) {
         super(parent,true); // makes it modal
         this.isNew = isNew;
         this.testcase = testcase;
-
+        
         initComponents();
-
+        
         DocumentListener documentListener = new DocumentListener() {
             @Override
             public void changedUpdate(DocumentEvent e) {
@@ -43,7 +48,24 @@ public class TestcaseJDialog extends javax.swing.JDialog {
                 saveButton.setEnabled(true);
             }
         };
-
+        
+        // escape key will close the dialog
+        getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "close");
+        getRootPane().getActionMap().put("close", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                confirmAndClose();
+            }
+        });
+        // ctrl+enter will perform the same action as save button
+        getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, KeyEvent.CTRL_MASK), "save");
+        getRootPane().getActionMap().put("save", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                save();
+            }
+        });
+        
         inputTextarea.setText(testcase.getInput());
         expectedOutputTextarea.setText(testcase.getExpectedOutput());
         if (!isNew) {
@@ -56,7 +78,7 @@ public class TestcaseJDialog extends javax.swing.JDialog {
         executionResultLabel.setText(testcase.getExecutionResult().getFormattedResult()); // this is read-only
         executionResultLabel.setForeground(testcase.getExecutionResult().getColor());
         executionTimeLabel.setText(testcase.getExecutionResult().getFormattedTime()); // this is read-only
-
+        
         inputTextarea.getDocument().addDocumentListener(documentListener);
         expectedOutputTextarea.getDocument().addDocumentListener(documentListener);
         
@@ -68,10 +90,10 @@ public class TestcaseJDialog extends javax.swing.JDialog {
         programOutputTextarea.setFocusTraversalKeys(KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS, null);
         programOutputTextarea.setFocusTraversalKeys(KeyboardFocusManager.BACKWARD_TRAVERSAL_KEYS, null);
     }
-
+    
     private void confirmAndClose () {
         boolean doClose = !hasTextChanged; // if there was no change, we will just close
-
+        
         if (!doClose) {
             // If there are unsaved changes, display confirm dialog
             int confirmed = JOptionPane.showConfirmDialog(this,
@@ -80,14 +102,14 @@ public class TestcaseJDialog extends javax.swing.JDialog {
                     JOptionPane.YES_NO_OPTION);
             doClose = (confirmed == JOptionPane.YES_OPTION);
         }
-
+        
         if (doClose) {
             // returnValue will be = false
             this.dispose();
         }
     }
-
-
+    
+    
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -233,24 +255,28 @@ public class TestcaseJDialog extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         confirmAndClose();
     }//GEN-LAST:event_formWindowClosing
-
+    
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
         confirmAndClose();
     }//GEN-LAST:event_cancelButtonActionPerformed
-
-    private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
+    
+    private void save() {
         testcase.setInput(inputTextarea.getText());
         testcase.setExpectedOutput(expectedOutputTextarea.getText());
         testcase.save();
         this.returnValue = true;
         this.dispose();
+    }
+    
+    private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
+        save();
     }//GEN-LAST:event_saveButtonActionPerformed
-
-
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelButton;
     private javax.swing.JLabel executionResultLabel;
@@ -268,5 +294,5 @@ public class TestcaseJDialog extends javax.swing.JDialog {
     private javax.swing.JTextArea programOutputTextarea;
     private javax.swing.JButton saveButton;
     // End of variables declaration//GEN-END:variables
-
+    
 }

@@ -6,11 +6,16 @@
 
 package org.hightail.ui;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 import java.io.File;
+import javax.swing.AbstractAction;
+import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTabbedPane;
+import javax.swing.KeyStroke;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import org.hightail.Problem;
@@ -18,34 +23,36 @@ import org.hightail.Testcase;
 import org.hightail.util.TestingListener;
 
 public class ProblemJPanel extends javax.swing.JPanel implements TestingListener {
-
+    
     protected Problem problem;
     protected JTabbedPane parentTabbedPane; // used for deletion of tab (in the future)
     protected JFrame parentWindow; // used as parent for modal dialogs
     private TestTableModel testTableModel; // used to notify testTable about the testcaseSet changes
-
+    
     /** Creates new form ProblemJPanel */
     public ProblemJPanel(Problem problem, JTabbedPane tabbedPane, JFrame parentWindow) {
         this.problem = problem;
         this.testTableModel = new TestTableModel(problem.getTestcaseSet());
         this.parentTabbedPane = tabbedPane;
         this.parentWindow = parentWindow;
-
+        
         initComponents();
-
+        
+        makeShortcuts();
+        
         ListSelectionListener listSelectionListener = new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
-                 boolean enable = !(testTable.getSelectionModel().isSelectionEmpty());
-                 editTestcaseButton.setEnabled(enable);
-                 deleteTestcaseButton.setEnabled(enable);
+                boolean enable = !(testTable.getSelectionModel().isSelectionEmpty());
+                editTestcaseButton.setEnabled(enable);
+                deleteTestcaseButton.setEnabled(enable);
             }
         };
         testTable.getSelectionModel().addListSelectionListener(listSelectionListener);
         
         sourceFile.setText(problem.getDefaultExecutableFilename());
     }
-
+    
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -79,7 +86,7 @@ public class ProblemJPanel extends javax.swing.JPanel implements TestingListener
         );
         progressPanelLayout.setVerticalGroup(
             progressPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 56, Short.MAX_VALUE)
+            .addGap(0, 58, Short.MAX_VALUE)
         );
 
         testcasePanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Test cases"));
@@ -122,7 +129,7 @@ public class ProblemJPanel extends javax.swing.JPanel implements TestingListener
             }
         });
 
-        abortTestsButton.setText("Abort tests");
+        abortTestsButton.setText("Abort test");
         abortTestsButton.setEnabled(false);
         abortTestsButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -152,7 +159,7 @@ public class ProblemJPanel extends javax.swing.JPanel implements TestingListener
             testcasePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, testcasePanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 343, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 333, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(testcasePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(newTestcaseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -205,8 +212,35 @@ public class ProblemJPanel extends javax.swing.JPanel implements TestingListener
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void newTestcaseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newTestcaseButtonActionPerformed
+    
+    private void makeShortcuts() {
+        // ctrl+r for run tests
+        getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_R, KeyEvent.CTRL_DOWN_MASK), "run tests");
+        getActionMap().put("run tests", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                runTests();
+            }
+        });
+        // ctrl+t for new testcase
+        getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_T, KeyEvent.CTRL_DOWN_MASK), "new testcase");
+        getActionMap().put("new testcase", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                newTestcase();
+            }
+        });
+        // ctrl+a for abort testing
+        getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_A, KeyEvent.CTRL_DOWN_MASK), "abort tests");
+        getActionMap().put("abort tests", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                abortTests();
+            }
+        });
+    }
+    
+    private void newTestcase() {
         Testcase newTestcase = new Testcase();
         TestcaseJDialog dialog = new TestcaseJDialog(parentWindow, newTestcase, true);
         dialog.setVisible(true); // this is modal; it will block until window is closed
@@ -215,12 +249,16 @@ public class ProblemJPanel extends javax.swing.JPanel implements TestingListener
             problem.addTestcase(newTestcase);
             testTableModel.rowInserted();
         }
+    }
+    
+    private void newTestcaseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newTestcaseButtonActionPerformed
+        newTestcase();
     }//GEN-LAST:event_newTestcaseButtonActionPerformed
-
+    
     private void editTestcaseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editTestcaseButtonActionPerformed
         editCurrentTestcase();
     }//GEN-LAST:event_editTestcaseButtonActionPerformed
-
+    
     private void editCurrentTestcase() {
         int selectedRow = testTable.getSelectedRow();
         if (selectedRow == -1) throw new UnsupportedOperationException("Implementation error: edit button clicked, but no row selected");
@@ -238,14 +276,14 @@ public class ProblemJPanel extends javax.swing.JPanel implements TestingListener
         if (selectedRow == -1) throw new UnsupportedOperationException("Implementation error: delete button clicked, but no row selected");
         // display confirm dialog
         int confirmed = JOptionPane.showConfirmDialog(this, "Are you sure?", "Confirm delete", JOptionPane.YES_NO_OPTION);
-
+        
         if (confirmed == JOptionPane.YES_OPTION) {
             // we need to delete
             problem.deleteTestcase(selectedRow);
             testTableModel.rowDeleted(selectedRow);
         }
     }//GEN-LAST:event_deleteTestcaseButtonActionPerformed
-
+    
     private boolean stateOfEditAndDeleteTestcaseButtonsBefore = false;
     private void setEnabledOnInvasiveButtons(boolean state) {
         runTestsButton.setEnabled(state);
@@ -259,8 +297,8 @@ public class ProblemJPanel extends javax.swing.JPanel implements TestingListener
         }
     }
     
-    private void runTestsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_runTestsButtonActionPerformed
-        String pathToExecFile = sourceFile.getText();
+    protected void runTests() {
+        final String pathToExecFile = sourceFile.getText();
         File execFile = new File(pathToExecFile);
         if(!execFile.exists()) {
             // executable file does not exist
@@ -286,17 +324,30 @@ public class ProblemJPanel extends javax.swing.JPanel implements TestingListener
         problem.emptyResultsOfAllTestcases();
         testTableModel.fireTableDataChanged();
         testTableModel.setTemporaryIndexesForTestcases();
-        problem.runTests(this, pathToExecFile);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                problem.runTests(ProblemJPanel.this, pathToExecFile);
+            }
+        }).start();
         abortTestsButton.setEnabled(true);
         // now tests are running, they will call notifyResultsOfSingleTestcase and notifyEndOfTesting
+    }
+    
+    private void runTestsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_runTestsButtonActionPerformed
+        runTests();
     }//GEN-LAST:event_runTestsButtonActionPerformed
-
-    private void abortTestsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_abortTestsButtonActionPerformed
+    
+    private void abortTests() {
         abortTestsButton.setEnabled(false);
         problem.abortTests();
         setEnabledOnInvasiveButtons(true);
+    }
+    
+    private void abortTestsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_abortTestsButtonActionPerformed
+        abortTests();
     }//GEN-LAST:event_abortTestsButtonActionPerformed
-
+    
     private void openContainingDirectoryButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openContainingDirectoryButtonActionPerformed
         File currentDirectory = new File(sourceFile.getText());
         if(!currentDirectory.isDirectory()) {
@@ -310,13 +361,13 @@ public class ProblemJPanel extends javax.swing.JPanel implements TestingListener
             sourceFile.setText(filePath);
         }
     }//GEN-LAST:event_openContainingDirectoryButtonActionPerformed
-
+    
     private void testTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_testTableMouseClicked
         if (evt.getClickCount() == 2) { // double-click
             editCurrentTestcase();
         }
     }//GEN-LAST:event_testTableMouseClicked
-
+    
     // TODO: add a Browse... button for the executable file
     
     @Override
@@ -346,5 +397,5 @@ public class ProblemJPanel extends javax.swing.JPanel implements TestingListener
     private javax.swing.JTable testTable;
     private javax.swing.JPanel testcasePanel;
     // End of variables declaration//GEN-END:variables
-
+    
 }

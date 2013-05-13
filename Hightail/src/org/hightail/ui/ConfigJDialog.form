@@ -7,6 +7,7 @@
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
+    <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
   </SyntheticProperties>
   <Events>
     <EventHandler event="windowClosing" listener="java.awt.event.WindowListener" parameters="java.awt.event.WindowEvent" handler="formWindowClosing"/>
@@ -74,7 +75,7 @@
                       <Group type="102" attributes="0">
                           <Component id="workingDirectoryLabel" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="workingDirectory" max="32767" attributes="0"/>
+                          <Component id="workingDirectoryTextField" max="32767" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="workingDirectoryBrowseButton" min="-2" max="-2" attributes="0"/>
                       </Group>
@@ -97,7 +98,7 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="workingDirectory" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="workingDirectoryTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="workingDirectoryBrowseButton" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="workingDirectoryLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -117,12 +118,12 @@
         <Component class="javax.swing.JLabel" name="workingDirectoryLabel">
           <Properties>
             <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
-              <ComponentRef name="workingDirectory"/>
+              <ComponentRef name="workingDirectoryTextField"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Working directory:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="workingDirectory">
+        <Component class="javax.swing.JTextField" name="workingDirectoryTextField">
         </Component>
         <Component class="javax.swing.JButton" name="workingDirectoryBrowseButton">
           <Properties>
