@@ -8,11 +8,17 @@ package org.hightail.ui;
 
 //import java.awt.Insets;
 import java.awt.Component;
+import java.awt.event.ActionEvent;
 import java.io.IOException;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+import javax.swing.JComponent;
 import javax.swing.JOptionPane;
+import javax.swing.KeyStroke;
 import javax.swing.UIManager;
 import org.hightail.Config;
 import org.hightail.Problem;
+import org.hightail.util.AbstractActionWithInteger;
 
 public class MainJFrame extends javax.swing.JFrame {
     
@@ -20,6 +26,8 @@ public class MainJFrame extends javax.swing.JFrame {
     @SuppressWarnings("LeakingThisInConstructor")
     public MainJFrame() {
         initComponents();
+        
+        makeShortcuts();
         
         // We load the configuration
         boolean ok = Config.load();
@@ -138,6 +146,20 @@ public class MainJFrame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    
+    private void makeShortcuts() {
+        for(int index=1;index<=9;index++) {
+            tabbedPane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("alt " + index), "switch tab " + index);
+            tabbedPane.getActionMap().put("switch tab " + index, new AbstractActionWithInteger(index) {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    if(tabbedPane.getTabCount() >= getInteger()) {
+                        tabbedPane.setSelectedIndex(getInteger()-1);
+                    }
+                }
+            });
+        }
+    }
     
     protected void addTabForProblem(Problem problem) {
         ProblemJPanel panel = new ProblemJPanel(problem, tabbedPane, this);
