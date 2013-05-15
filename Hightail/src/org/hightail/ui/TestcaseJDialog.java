@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import org.hightail.KeyboardShortcuts;
 import org.hightail.Testcase;
 
 public class TestcaseJDialog extends javax.swing.JDialog {
@@ -49,22 +50,7 @@ public class TestcaseJDialog extends javax.swing.JDialog {
             }
         };
         
-        // escape key will close the dialog
-        getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "close");
-        getRootPane().getActionMap().put("close", new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                confirmAndClose();
-            }
-        });
-        // ctrl+enter will perform the same action as save button
-        getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, KeyEvent.CTRL_MASK), "save");
-        getRootPane().getActionMap().put("save", new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                save();
-            }
-        });
+        makeShortcuts();
         
         inputTextarea.setText(testcase.getInput());
         expectedOutputTextarea.setText(testcase.getExpectedOutput());
@@ -89,6 +75,25 @@ public class TestcaseJDialog extends javax.swing.JDialog {
         expectedOutputTextarea.setFocusTraversalKeys(KeyboardFocusManager.BACKWARD_TRAVERSAL_KEYS, null);
         programOutputTextarea.setFocusTraversalKeys(KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS, null);
         programOutputTextarea.setFocusTraversalKeys(KeyboardFocusManager.BACKWARD_TRAVERSAL_KEYS, null);
+    }
+    
+    private void makeShortcuts() {
+        // escape key will close the dialog
+        getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "close");
+        getRootPane().getActionMap().put("close", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                confirmAndClose();
+            }
+        });
+        
+        getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyboardShortcuts.getShortcut("save testcase"), "save");
+        getRootPane().getActionMap().put("save", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                save();
+            }
+        });
     }
     
     private void confirmAndClose () {

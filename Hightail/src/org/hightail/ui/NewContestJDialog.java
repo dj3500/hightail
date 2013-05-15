@@ -185,6 +185,7 @@ public class NewContestJDialog extends javax.swing.JDialog {
             public void run() {
                 try {
                     parsingStatusLabel.setText("Parsing...");
+                    parsingStatusLabel.setToolTipText("");
                     ContestParser contestParser = ContestParser.getContestParser(URL);
                     TaskParser taskParser = TaskParser.getTaskParser(URL);
                     List<StringPair> tasks = contestParser.parse(URL);
@@ -199,10 +200,10 @@ public class NewContestJDialog extends javax.swing.JDialog {
                     abortParsingButton.setEnabled(false); // to avoid interruption during dispose
                     dispose(); // TODO: is this okay?
                 } catch (ParserException ex) {
-                    // TODO: report errors to user
                     abortParsingButton.setEnabled(false);
                     parseContestButton.setEnabled(true);
                     parsingStatusLabel.setText("Parsing failed");
+                    parsingStatusLabel.setToolTipText(ex.getMessage());
                     problemList.clear();
                 }
             }

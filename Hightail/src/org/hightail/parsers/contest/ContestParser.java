@@ -13,6 +13,6 @@ public abstract class ContestParser {
             return new CodeForcesContestParser();
         }
         
-        throw new ParserException("This site is currently unsupported.");
+        throw new ParserException("Incorrect url or this site is currently unsupported.");
     }
 }

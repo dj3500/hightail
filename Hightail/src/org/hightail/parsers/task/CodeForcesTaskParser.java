@@ -40,7 +40,7 @@ public class CodeForcesTaskParser extends TaskParser {
         String[] outputs = fb.getText().split("Output");
         
         if (inputs.length != outputs.length) {
-            throw new ParserException();
+            throw new ParserException("Number of inputs is not equal to number od outputs.");
         }
         
         TestcaseSet result = new TestcaseSet();

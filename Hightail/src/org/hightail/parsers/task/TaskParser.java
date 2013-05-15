@@ -11,6 +11,6 @@ public abstract class TaskParser {
             return new CodeForcesTaskParser();
         }
         
-        throw new ParserException("This site is currently unsupported.");
+        throw new ParserException("Incorrect url or this site is currently unsupported.");
     }
 }

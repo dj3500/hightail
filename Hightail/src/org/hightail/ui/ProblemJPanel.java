@@ -21,6 +21,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.KeyStroke;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import org.hightail.KeyboardShortcuts;
 import org.hightail.Problem;
 import org.hightail.Testcase;
 import org.hightail.util.TestingListener;
@@ -243,48 +244,55 @@ public class ProblemJPanel extends javax.swing.JPanel implements TestingListener
     }// </editor-fold>//GEN-END:initComponents
     
     private void makeShortcuts() {
-        // ctrl+r for run tests
-        getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_R, KeyEvent.CTRL_DOWN_MASK), "run tests");
+        getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyboardShortcuts.getShortcut("run tests"), "run tests");
         getActionMap().put("run tests", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 runTests();
             }
         });
-        // ctrl+t for new testcase
-        getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_T, KeyEvent.CTRL_DOWN_MASK), "new testcase");
+        
+        getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyboardShortcuts.getShortcut("new testcase"), "new testcase");
         getActionMap().put("new testcase", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 newTestcase();
             }
         });
-        // ctrl+a for abort testing
-        getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_A, KeyEvent.CTRL_DOWN_MASK), "abort tests");
+        
+        getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyboardShortcuts.getShortcut("copy input"), "copy input");
+        getActionMap().put("copy input", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                copyInput();
+            }
+        });
+        
+        getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyboardShortcuts.getShortcut("abort tests"), "abort tests");
         getActionMap().put("abort tests", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 abortAllTests();
             }
         });
-        // ctrl+shift+a for abort testing
-        getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_A, KeyEvent.CTRL_DOWN_MASK | KeyEvent.SHIFT_DOWN_MASK), "abort current test");
+        
+        getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyboardShortcuts.getShortcut("abort current test"), "abort current test");
         getActionMap().put("abort current test", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 abortCurrentTest();
             }
         });
-        // ctrl+a for abort testing
-        testTable.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_A, KeyEvent.CTRL_DOWN_MASK), "abort tests");
+        
+        testTable.getInputMap().put(KeyboardShortcuts.getShortcut("abort tests"), "abort tests");
         testTable.getActionMap().put("abort tests", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 abortAllTests();
             }
         });
-        // ctrl+shift+a for abort current test
-        testTable.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_A, KeyEvent.CTRL_DOWN_MASK | KeyEvent.SHIFT_DOWN_MASK), "abort current test");
+        
+        testTable.getInputMap().put(KeyboardShortcuts.getShortcut("abort current test"), "abort current test");
         testTable.getActionMap().put("abort current test", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {

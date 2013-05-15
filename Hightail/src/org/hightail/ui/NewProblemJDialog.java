@@ -266,6 +266,7 @@ public class NewProblemJDialog extends javax.swing.JDialog {
             public void run() {
                 try {
                     parsingStatusLabel.setText("Parsing...");
+                    parsingStatusLabel.setToolTipText("");
                     TaskParser parser = TaskParser.getTaskParser(URL);
                     testcaseSet = parser.parse(URL);
                     if(testcaseSet.isEmpty()) {
@@ -275,6 +276,7 @@ public class NewProblemJDialog extends javax.swing.JDialog {
                 } catch (ParserException ex) {
                     // TODO: report errors to user
                     parsingStatusLabel.setText("Parsing failed");
+                    parsingStatusLabel.setToolTipText(ex.getMessage());
                     testcaseSet = null;
                 }
                 setButtonStateForAfterParsing();
