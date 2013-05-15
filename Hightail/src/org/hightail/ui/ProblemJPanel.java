@@ -76,8 +76,9 @@ public class ProblemJPanel extends javax.swing.JPanel implements TestingListener
         editTestcaseButton = new javax.swing.JButton();
         deleteTestcaseButton = new javax.swing.JButton();
         runTestsButton = new javax.swing.JButton();
-        abortTestsButton = new javax.swing.JButton();
+        abortAllTestsButton = new javax.swing.JButton();
         copyInputButton = new javax.swing.JButton();
+        abortCurrentTestButton = new javax.swing.JButton();
         openContainingDirectoryButton = new javax.swing.JButton();
         executableFileLabel = new javax.swing.JLabel();
         sourceFile = new javax.swing.JTextField();
@@ -88,7 +89,7 @@ public class ProblemJPanel extends javax.swing.JPanel implements TestingListener
         progressPanel.setLayout(progressPanelLayout);
         progressPanelLayout.setHorizontalGroup(
             progressPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 730, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         progressPanelLayout.setVerticalGroup(
             progressPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -128,18 +129,18 @@ public class ProblemJPanel extends javax.swing.JPanel implements TestingListener
             }
         });
 
-        runTestsButton.setText("Run tests");
+        runTestsButton.setText("<html><center>Run<br />tests</center></html>");
         runTestsButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 runTestsButtonActionPerformed(evt);
             }
         });
 
-        abortTestsButton.setText("Abort test");
-        abortTestsButton.setEnabled(false);
-        abortTestsButton.addActionListener(new java.awt.event.ActionListener() {
+        abortAllTestsButton.setText("<html><center>Abort<br />all</center></html>");
+        abortAllTestsButton.setEnabled(false);
+        abortAllTestsButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                abortTestsButtonActionPerformed(evt);
+                abortAllTestsButtonActionPerformed(evt);
             }
         });
 
@@ -148,6 +149,14 @@ public class ProblemJPanel extends javax.swing.JPanel implements TestingListener
         copyInputButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 copyInputButtonActionPerformed(evt);
+            }
+        });
+
+        abortCurrentTestButton.setText("<html><center>Abort<br />current</center></html>");
+        abortCurrentTestButton.setEnabled(false);
+        abortCurrentTestButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                abortCurrentTestButtonActionPerformed(evt);
             }
         });
 
@@ -164,28 +173,30 @@ public class ProblemJPanel extends javax.swing.JPanel implements TestingListener
                 .addComponent(deleteTestcaseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(copyInputButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(runTestsButton)
-                .addGap(18, 18, 18)
-                .addComponent(abortTestsButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 132, Short.MAX_VALUE)
+                .addComponent(runTestsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(abortCurrentTestButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(abortAllTestsButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 730, Short.MAX_VALUE)
+            .addComponent(jScrollPane1)
         );
         testcasePanelLayout.setVerticalGroup(
             testcasePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, testcasePanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 321, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 298, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(testcasePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(testcasePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(editTestcaseButton, javax.swing.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)
-                        .addComponent(runTestsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(abortTestsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(editTestcaseButton, javax.swing.GroupLayout.DEFAULT_SIZE, 52, Short.MAX_VALUE)
                     .addComponent(copyInputButton, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(newTestcaseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(deleteTestcaseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addGap(16, 16, 16))
+                    .addComponent(deleteTestcaseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(runTestsButton)
+                    .addComponent(abortCurrentTestButton)
+                    .addComponent(abortAllTestsButton))
+                .addGap(25, 25, 25))
         );
 
         openContainingDirectoryButton.setText("Open containing directory");
@@ -253,7 +264,15 @@ public class ProblemJPanel extends javax.swing.JPanel implements TestingListener
         getActionMap().put("abort tests", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                abortTests();
+                abortAllTests();
+            }
+        });
+        // ctrl+shift+a for abort testing
+        getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_A, KeyEvent.CTRL_DOWN_MASK | KeyEvent.SHIFT_DOWN_MASK), "abort current test");
+        getActionMap().put("abort current test", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                abortCurrentTest();
             }
         });
         // ctrl+a for abort testing
@@ -261,7 +280,15 @@ public class ProblemJPanel extends javax.swing.JPanel implements TestingListener
         testTable.getActionMap().put("abort tests", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                abortTests();
+                abortAllTests();
+            }
+        });
+        // ctrl+shift+a for abort current test
+        testTable.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_A, KeyEvent.CTRL_DOWN_MASK | KeyEvent.SHIFT_DOWN_MASK), "abort current test");
+        testTable.getActionMap().put("abort current test", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                abortCurrentTest();
             }
         });
         // delete key for delete testcase
@@ -377,7 +404,8 @@ public class ProblemJPanel extends javax.swing.JPanel implements TestingListener
                 problem.runTests(ProblemJPanel.this, pathToExecFile);
             }
         }).start();
-        abortTestsButton.setEnabled(true);
+        abortAllTestsButton.setEnabled(true);
+        abortCurrentTestButton.setEnabled(true);
         // now tests are running, they will call notifyResultsOfSingleTestcase and notifyEndOfTesting
     }
     
@@ -385,14 +413,14 @@ public class ProblemJPanel extends javax.swing.JPanel implements TestingListener
         runTests();
     }//GEN-LAST:event_runTestsButtonActionPerformed
     
-    private void abortTests() {
+    private void abortAllTests() {
         if(!isTesting) return;
-        problem.abortTests();
+        problem.abortAllTests();
     }
     
-    private void abortTestsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_abortTestsButtonActionPerformed
-        abortTests();
-    }//GEN-LAST:event_abortTestsButtonActionPerformed
+    private void abortAllTestsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_abortAllTestsButtonActionPerformed
+        abortAllTests();
+    }//GEN-LAST:event_abortAllTestsButtonActionPerformed
     
     private void openContainingDirectoryButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openContainingDirectoryButtonActionPerformed
         File currentDirectory = new File(sourceFile.getText());
@@ -427,6 +455,15 @@ public class ProblemJPanel extends javax.swing.JPanel implements TestingListener
     private void copyInputButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_copyInputButtonActionPerformed
         copyInput();
     }//GEN-LAST:event_copyInputButtonActionPerformed
+
+    private void abortCurrentTest() {
+        if(!isTesting) return;
+        problem.abortCurrentTest();
+    }
+    
+    private void abortCurrentTestButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_abortCurrentTestButtonActionPerformed
+        abortCurrentTest();
+    }//GEN-LAST:event_abortCurrentTestButtonActionPerformed
     
     // TODO: add a Browse... button for the executable file
     
@@ -438,14 +475,16 @@ public class ProblemJPanel extends javax.swing.JPanel implements TestingListener
     
     @Override
     public void notifyEndOfTesting () {
-        abortTestsButton.setEnabled(false);
+        abortAllTestsButton.setEnabled(false);
+        abortCurrentTestButton.setEnabled(false);
         // TODO: report the main result of testing (all OK => OK, etc.)
         setEnabledOnInvasiveButtons(true);
         isTesting = false;
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton abortTestsButton;
+    private javax.swing.JButton abortAllTestsButton;
+    private javax.swing.JButton abortCurrentTestButton;
     private javax.swing.JButton copyInputButton;
     private javax.swing.JButton deleteTestcaseButton;
     private javax.swing.JButton editTestcaseButton;

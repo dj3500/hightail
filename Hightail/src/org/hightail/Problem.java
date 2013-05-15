@@ -43,8 +43,12 @@ public class Problem {
         }
     }
 
-    public void abortTests() {
-        testcaseSet.abort();
+    public void abortCurrentTest() {
+        testcaseSet.abortCurrent();
+    }
+    
+    public void abortAllTests() {
+        testcaseSet.abortAll();
     }
 
     public void runTests(TestingListener callback, String pathToExecFile) {

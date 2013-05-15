@@ -11,9 +11,9 @@ public class Testcase implements Callable<ExecutionResult> {
     protected String expectedOutput;
     protected String programOutput = "";
     protected String programError = "";
+    protected int timeLimit = 3;
     protected ExecutionResult executionResult = new ExecutionResult();
     protected Process executionProcess;
-    protected TestcaseSet callback;
     private String pathToExecFile;
     
     public Testcase() {
@@ -49,12 +49,21 @@ public class Testcase implements Callable<ExecutionResult> {
         return executionResult;
     }
     
-    public void setExecutionResult(ExecutionResult result) {
-        this.executionResult = result;
+    public void setExecutionResultCode(ExecutionResultCode result) {
+        emptyResultsOfTestCase();
+        this.executionResult.setResult(result);
     }
     
     public void setIndex(int index) {
         this.index = index;
+    }
+    
+    public int getIndex() {
+        return index;
+    }
+    
+    public int getTimeLimit() {
+        return timeLimit;
     }
     
     public Testcase(String input, String expectedOutput) {
@@ -72,18 +81,10 @@ public class Testcase implements Callable<ExecutionResult> {
         executionResult = new ExecutionResult();
     }
     
-    public void setCallback(TestcaseSet cb) {
-        callback = cb;
-    }
-    
     public void killTest() {
-        if(executionProcess == null) {
-            return;
-        }
         try {
             executionProcess.exitValue();
         } catch (IllegalThreadStateException ex) {
-            executionResult.setResult(ExecutionResult.ABORTED);
             executionProcess.destroy();
         }
     }
@@ -94,7 +95,7 @@ public class Testcase implements Callable<ExecutionResult> {
         try {
             String line;
             BufferedReader br;
-            executionResult.setResult(ExecutionResult.RUNNING);
+            executionResult.setResult(ExecutionResultCode.RUNNING);
             
             double startTime = Calendar.getInstance().getTimeInMillis();
             // TODO: measure CPU time of executionProcess instead
@@ -135,25 +136,20 @@ public class Testcase implements Callable<ExecutionResult> {
             if (execRes == 0) {
                 String res = OutputDiff.diff(expectedOutput, programOutput);
                 if (res.equals("OK")) {
-                    executionResult.setResult(ExecutionResult.OK);
+                    executionResult.setResult(ExecutionResultCode.OK);
                 } else {
-                    executionResult.setResult(ExecutionResult.WA);
+                    executionResult.setResult(ExecutionResultCode.WA);
                     executionResult.setMsg(res);
                 }
-            } else if (executionResult.getResult() == ExecutionResult.RUNNING) {
-                executionResult.setResult(ExecutionResult.RUNTIME);
+            } else if (executionResult.getResult() == ExecutionResultCode.RUNNING) {
+                executionResult.setResult(ExecutionResultCode.RUNTIME);
             }
             
             
             
-        } catch (InterruptedException ex) {
+        } catch (InterruptedException | IOException ex) {
             //            Logger.getLogger(Testcase.class.getName()).log(Level.SEVERE, null, ex);
-            executionResult.setResult(ExecutionResult.TLE);
-        } catch (IOException ex) {
-            // probably aborted (maybe by the OS?)
-            executionResult.setResult(ExecutionResult.ABORTED);
         }
-        callback.notifyResultsOfSingleTestcase(index);
         return executionResult;
     }
     
