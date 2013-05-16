@@ -6,12 +6,14 @@ import java.util.concurrent.Callable;
 import org.hightail.diff.OutputDiff;
 
 public class Testcase implements Callable<ExecutionResult> {
+    public static final int DEFAULT_TIME_LIMIT = 3;
+    
     protected int index = 0;
     protected String input;
     protected String expectedOutput;
     protected String programOutput = "";
     protected String programError = "";
-    protected int timeLimit = 3;
+    protected int timeLimit = DEFAULT_TIME_LIMIT;
     protected ExecutionResult executionResult = new ExecutionResult();
     protected Process executionProcess;
     private String pathToExecFile;
@@ -62,13 +64,22 @@ public class Testcase implements Callable<ExecutionResult> {
         return index;
     }
     
+    public void setTimeLimit(int timeLimit) {
+        this.timeLimit = timeLimit;
+    }
+    
     public int getTimeLimit() {
         return timeLimit;
     }
     
     public Testcase(String input, String expectedOutput) {
+        this(input, expectedOutput, DEFAULT_TIME_LIMIT);
+    }
+    
+    public Testcase(String input, String expectedOutput, int timeLimit) {
         this.input = input;
         this.expectedOutput = expectedOutput;
+        this.timeLimit = timeLimit;
     }
     
     public void save() {

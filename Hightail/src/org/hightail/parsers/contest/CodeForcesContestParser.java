@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
+import org.hightail.Problem;
+import org.hightail.parsers.task.CodeForcesTaskParser;
+import org.hightail.parsers.task.TaskParser;
 import org.hightail.util.StringPair;
 import org.htmlparser.Node;
 import org.htmlparser.Parser;
@@ -15,9 +18,10 @@ import org.htmlparser.visitors.TagFindingVisitor;
 public class CodeForcesContestParser extends ContestParser {
 
     final static private String taskUrlRegExp = "/contest/(.*)/problem/(.*)";
+    final static private TaskParser taskParser = new CodeForcesTaskParser();
     
     @Override
-    public ArrayList<StringPair> parse(String URL) throws ParserException {
+    public ArrayList<Problem> parse(String URL) throws ParserException {
         
         URL = URL.trim();
         
@@ -45,19 +49,16 @@ public class CodeForcesContestParser extends ContestParser {
         links = new ArrayList<>(s);
         Collections.sort(links);
         
-        ArrayList<String> names = new ArrayList<>();
-        for (String link: links) {
-            String[] splitted = link.split("/");
-            String name = splitted[splitted.length - 1];
-            names.add(name);
+        if(links.isEmpty()) {
+            throw new ParserException("No links to tasks found.");
         }
         
-        ArrayList<StringPair> result = new ArrayList<>();
-        for (int i = 0; i < links.size(); ++i) {
-            result.add(new StringPair(links.get(i), names.get(i)));
+        ArrayList<Problem> problems = new ArrayList<>();
+        for (String link : links) {
+            problems.add(taskParser.parse(link));
         }
         
-        return result;        
+        return problems;
     }
     
 }

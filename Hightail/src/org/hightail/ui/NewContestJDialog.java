@@ -188,14 +188,12 @@ public class NewContestJDialog extends javax.swing.JDialog {
                     parsingStatusLabel.setToolTipText("");
                     ContestParser contestParser = ContestParser.getContestParser(URL);
                     TaskParser taskParser = TaskParser.getTaskParser(URL);
-                    List<StringPair> tasks = contestParser.parse(URL);
+                    ArrayList<Problem> tasks = contestParser.parse(URL);
                     if(tasks.isEmpty()) {
                         throw new ParserException();
                     }
-                    for (StringPair pair : tasks) {
-                        String name = pair.getSecond(), taskUrl = pair.getFirst();
-                        TestcaseSet testcaseSet = taskParser.parse(taskUrl);
-                        problemList.add(new Problem(name,testcaseSet));
+                    for (Problem problem : tasks) {
+                        problemList.add(problem);
                     }
                     abortParsingButton.setEnabled(false); // to avoid interruption during dispose
                     dispose(); // TODO: is this okay?

@@ -7,14 +7,13 @@ import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 import org.hightail.Problem;
-import org.hightail.TestcaseSet;
 import org.hightail.parsers.task.TaskParser;
 import org.htmlparser.util.ParserException;
 
 public class NewProblemJDialog extends javax.swing.JDialog {
     
     protected boolean returnValue = false;
-    protected TestcaseSet testcaseSet = null;
+    protected Problem problem;
     
     /**
      * Creates new form NewProblemJDialog
@@ -58,11 +57,11 @@ public class NewProblemJDialog extends javax.swing.JDialog {
             return null;
         }
         
-        if (testcaseSet == null) {
-            return new Problem(nameField.getText());
-        } else {
-            return new Problem(nameField.getText(), testcaseSet);
+        if (problem == null) {
+            problem = new Problem(nameField.getText());
         }
+        
+        return problem;
     }
     
     /**
@@ -211,7 +210,7 @@ public class NewProblemJDialog extends javax.swing.JDialog {
             return;
         }
         
-        if (!urlField.getText().isEmpty() && testcaseSet == null) {
+        if (!urlField.getText().isEmpty() && problem == null) {
             // it seems that the user didn't press Parse
             // TODO: do something here
         }
@@ -268,16 +267,14 @@ public class NewProblemJDialog extends javax.swing.JDialog {
                     parsingStatusLabel.setText("Parsing...");
                     parsingStatusLabel.setToolTipText("");
                     TaskParser parser = TaskParser.getTaskParser(URL);
-                    testcaseSet = parser.parse(URL);
-                    if(testcaseSet.isEmpty()) {
-                        throw new ParserException();
-                    }
+                    problem = parser.parse(URL);
+                    // TODO: check if problem is correct (non empty testcaseSet etc)
                     parsingStatusLabel.setText("Parsing ok");
+                    nameField.setText(problem.getName());
                 } catch (ParserException ex) {
-                    // TODO: report errors to user
                     parsingStatusLabel.setText("Parsing failed");
                     parsingStatusLabel.setToolTipText(ex.getMessage());
-                    testcaseSet = null;
+                    problem = null;
                 }
                 setButtonStateForAfterParsing();
             }
@@ -287,7 +284,7 @@ public class NewProblemJDialog extends javax.swing.JDialog {
     
     private void abortParsing() {
         thread.interrupt();
-        testcaseSet = null;
+        problem = null;
         parsingStatusLabel.setText("Parsing aborted");
         setButtonStateForAfterParsing();
     }
