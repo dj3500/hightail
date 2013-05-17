@@ -53,6 +53,8 @@ public class MainJFrame extends javax.swing.JFrame {
         }
         
         addPopupMenu();
+        
+        setLocationRelativeTo(null);
     }
     
     /** This method is called from within the constructor to

@@ -11,6 +11,7 @@ import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
 import javax.swing.AbstractAction;
+import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -25,14 +26,9 @@ public class ConfigJDialog extends javax.swing.JDialog {
         super(parent, true); // makes it modal
         initComponents();
         
-        // escape key will close the dialog
-        getRootPane().getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "close");
-        getRootPane().getActionMap().put("close", new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                confirmAndClose();
-            }
-        });
+        makeShortcuts();
+        
+        setLocationRelativeTo(parent);
         
         String workingDirectory = Config.get("workingDirectory");
         
@@ -169,6 +165,25 @@ public class ConfigJDialog extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     
+    private void makeShortcuts() {
+        // escape key will close the dialog
+        getRootPane().getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "close");
+        getRootPane().getActionMap().put("close", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                confirmAndClose();
+            }
+        });
+        // enter key will perform the same action as save button
+        getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), "enter");
+        getRootPane().getActionMap().put("enter", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                save();
+            }
+        });
+        
+    }
     private void workingDirectoryBrowseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_workingDirectoryBrowseButtonActionPerformed
         int returnVal = workingDirectoryChooser.showOpenDialog(this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
@@ -213,7 +228,7 @@ public class ConfigJDialog extends javax.swing.JDialog {
         confirmAndClose();
     }//GEN-LAST:event_cancelButtonActionPerformed
     
-    private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
+    private void save() {
         Config.set("workingDirectory", workingDirectoryTextField.getText());
         Config.set("pathFromWorkingDirToExec", pathFromWorkingDirToExec.getText());
         try {
@@ -227,6 +242,10 @@ public class ConfigJDialog extends javax.swing.JDialog {
         }
         
         this.dispose();
+    }
+    
+    private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
+        save();
     }//GEN-LAST:event_saveButtonActionPerformed
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
