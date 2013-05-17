@@ -4,7 +4,6 @@
  */
 package org.hightail.parsers.task;
 
-import java.net.URLDecoder;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.hightail.Problem;
@@ -21,7 +20,7 @@ import org.htmlparser.util.Translate;
  *
  * @author robertrosolek
  */
-public class CodeForcesTaskParser extends TaskParser {
+public class CodeForcesTaskParser implements TaskParser {
 
     @Override
     public Problem parse(String URL) throws ParserException {
@@ -77,6 +76,11 @@ public class CodeForcesTaskParser extends TaskParser {
         Problem problem = new Problem(problemName, testcaseSet);
         
         return problem;
+    }
+
+    @Override
+    public boolean isCorrectURL(String URL) {
+        return URL.contains("codeforces.");
     }
     
 }

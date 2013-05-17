@@ -3,6 +3,8 @@ package org.hightail;
 import java.io.*;
 import java.util.Calendar;
 import java.util.concurrent.Callable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.hightail.diff.OutputDiff;
 
 public class Testcase implements Callable<ExecutionResult> {
@@ -106,6 +108,7 @@ public class Testcase implements Callable<ExecutionResult> {
         try {
             String line;
             BufferedReader br;
+            StringBuilder sb;
             executionResult.setResult(ExecutionResultCode.RUNNING);
             
             double startTime = Calendar.getInstance().getTimeInMillis();
@@ -123,26 +126,27 @@ public class Testcase implements Callable<ExecutionResult> {
             stdin.flush();
             stdin.close();
             
-            int execRes = executionProcess.waitFor();
-            double endTime = Calendar.getInstance().getTimeInMillis();
-            executionResult.setTime((endTime - startTime) / 1000.0);
-            
             // reading stdout
             br = new BufferedReader(new InputStreamReader(stdout));
-            programOutput = "";
+            sb = new StringBuilder();
             while ((line = br.readLine()) != null) {
-                programOutput = programOutput + line + "\n";
+                sb.append(line).append("\n");
             }
+            programOutput = sb.toString();
             br.close();
             
             // reading stderr
             br = new BufferedReader(new InputStreamReader(stderr));
-            programError = "";
+            sb = new StringBuilder();
             while ((line = br.readLine()) != null) {
-                programError = programError + line + "\n";
+                sb.append(line).append("\n");
             }
+            programError = sb.toString();
             br.close();
             
+            int execRes = executionProcess.waitFor();
+            double endTime = Calendar.getInstance().getTimeInMillis();
+            executionResult.setTime((endTime - startTime) / 1000.0);
             
             if (execRes == 0) {
                 String res = OutputDiff.diff(expectedOutput, programOutput);
@@ -159,7 +163,8 @@ public class Testcase implements Callable<ExecutionResult> {
             
             
         } catch (InterruptedException | IOException ex) {
-            //            Logger.getLogger(Testcase.class.getName()).log(Level.SEVERE, null, ex);
+            // time out or abort or something else
+//            Logger.getLogger(Testcase.class.getName()).log(Level.SEVERE, null, ex);
         }
         return executionResult;
     }

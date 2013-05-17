@@ -52,6 +52,8 @@ public class TestcaseJDialog extends javax.swing.JDialog {
         
         makeShortcuts();
         
+        setLocationRelativeTo(parent);
+        
         inputTextarea.setText(testcase.getInput());
         expectedOutputTextarea.setText(testcase.getExpectedOutput());
         if (!isNew) {
@@ -70,14 +72,6 @@ public class TestcaseJDialog extends javax.swing.JDialog {
         inputTextarea.getDocument().addDocumentListener(documentListener);
         expectedOutputTextarea.getDocument().addDocumentListener(documentListener);
         timeLimitTextField.getDocument().addDocumentListener(documentListener);
-        
-        // when TAB is pressed, cycle textareas instead of writing the \t
-        inputTextarea.setFocusTraversalKeys(KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS, null);
-        inputTextarea.setFocusTraversalKeys(KeyboardFocusManager.BACKWARD_TRAVERSAL_KEYS, null);
-        expectedOutputTextarea.setFocusTraversalKeys(KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS, null);
-        expectedOutputTextarea.setFocusTraversalKeys(KeyboardFocusManager.BACKWARD_TRAVERSAL_KEYS, null);
-        programOutputTextarea.setFocusTraversalKeys(KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS, null);
-        programOutputTextarea.setFocusTraversalKeys(KeyboardFocusManager.BACKWARD_TRAVERSAL_KEYS, null);
     }
     
     private void makeShortcuts() {
@@ -97,6 +91,14 @@ public class TestcaseJDialog extends javax.swing.JDialog {
                 save();
             }
         });
+        
+        // when TAB is pressed, cycle textareas instead of writing the \t
+        inputTextarea.setFocusTraversalKeys(KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS, null);
+        inputTextarea.setFocusTraversalKeys(KeyboardFocusManager.BACKWARD_TRAVERSAL_KEYS, null);
+        expectedOutputTextarea.setFocusTraversalKeys(KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS, null);
+        expectedOutputTextarea.setFocusTraversalKeys(KeyboardFocusManager.BACKWARD_TRAVERSAL_KEYS, null);
+        programOutputTextarea.setFocusTraversalKeys(KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS, null);
+        programOutputTextarea.setFocusTraversalKeys(KeyboardFocusManager.BACKWARD_TRAVERSAL_KEYS, null);
     }
     
     private void confirmAndClose () {

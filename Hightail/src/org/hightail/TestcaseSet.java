@@ -38,6 +38,7 @@ public class TestcaseSet extends ArrayList<Testcase> {
     
     public void abortCurrent() {
         if(executor == null || !executor.isShutdown()) return;
+        currentTest.killTest();
         executor.shutdownNow();
         currentTest.setExecutionResultCode(ExecutionResultCode.ABORTED);
     }

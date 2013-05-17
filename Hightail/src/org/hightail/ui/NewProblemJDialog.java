@@ -8,6 +8,7 @@ import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 import org.hightail.Problem;
 import org.hightail.parsers.task.TaskParser;
+import org.hightail.parsers.task.TaskParserGetter;
 import org.htmlparser.util.ParserException;
 
 public class NewProblemJDialog extends javax.swing.JDialog {
@@ -19,10 +20,20 @@ public class NewProblemJDialog extends javax.swing.JDialog {
      * Creates new form NewProblemJDialog
      */
     public NewProblemJDialog(java.awt.Frame parent) {
-        super(parent,true); // makes it modal
+        super(parent, true); // makes it modal
         initComponents();
         
         setTitle("New problem");
+        
+        makeShortcuts();
+        
+        // sets cursor in problem name field
+        nameField.requestFocus();
+        
+        setLocationRelativeTo(parent);
+    }
+    
+    private void makeShortcuts() {
         // escape key will close the dialog
         getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "close");
         getRootPane().getActionMap().put("close", new AbstractAction() {
@@ -31,9 +42,6 @@ public class NewProblemJDialog extends javax.swing.JDialog {
                 cancel();
             }
         });
-        
-        // sets cursor in problem name field
-        nameField.requestFocus();
         // hitting enter will perform the same action as clicking create button
         nameField.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), "enter");
         nameField.getActionMap().put("enter", new AbstractAction() {
@@ -266,11 +274,13 @@ public class NewProblemJDialog extends javax.swing.JDialog {
                 try {
                     parsingStatusLabel.setText("Parsing...");
                     parsingStatusLabel.setToolTipText("");
-                    TaskParser parser = TaskParser.getTaskParser(URL);
+                    TaskParser parser = TaskParserGetter.getTaskParser(URL);
                     problem = parser.parse(URL);
                     // TODO: check if problem is correct (non empty testcaseSet etc)
                     parsingStatusLabel.setText("Parsing ok");
-                    nameField.setText(problem.getName());
+                    if(nameField.getText().isEmpty()) {
+                        nameField.setText(problem.getName());
+                    }
                 } catch (ParserException ex) {
                     parsingStatusLabel.setText("Parsing failed");
                     parsingStatusLabel.setToolTipText(ex.getMessage());

@@ -7,7 +7,6 @@ import java.util.Set;
 import org.hightail.Problem;
 import org.hightail.parsers.task.CodeForcesTaskParser;
 import org.hightail.parsers.task.TaskParser;
-import org.hightail.util.StringPair;
 import org.htmlparser.Node;
 import org.htmlparser.Parser;
 import org.htmlparser.filters.LinkRegexFilter;
@@ -15,7 +14,7 @@ import org.htmlparser.tags.LinkTag;
 import org.htmlparser.util.ParserException;
 import org.htmlparser.visitors.TagFindingVisitor;
 
-public class CodeForcesContestParser extends ContestParser {
+public class CodeForcesContestParser implements ContestParser {
 
     final static private String taskUrlRegExp = "/contest/(.*)/problem/(.*)";
     final static private TaskParser taskParser = new CodeForcesTaskParser();
@@ -59,6 +58,11 @@ public class CodeForcesContestParser extends ContestParser {
         }
         
         return problems;
+    }
+
+    @Override
+    public boolean isCorrectURL(String URL) {
+        return URL.contains("codeforces.");
     }
     
 }
