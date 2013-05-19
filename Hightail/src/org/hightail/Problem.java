@@ -16,6 +16,10 @@ public class Problem {
         this.name = name;
         this.testcaseSet = testcaseSet;
     }
+    
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public String getName() {
         return name;

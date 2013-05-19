@@ -223,6 +223,7 @@ public class NewProblemJDialog extends javax.swing.JDialog {
             // TODO: do something here
         }
         
+        problem.setName(name);
         returnValue = true;
         this.dispose(); // TODO: is this okay?
     }
