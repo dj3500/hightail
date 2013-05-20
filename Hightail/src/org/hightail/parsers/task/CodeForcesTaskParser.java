@@ -28,10 +28,12 @@ public class CodeForcesTaskParser implements TaskParser {
         URL = URL.trim();
         
         FilterBean fb = new FilterBean();
+        fb.setURL(URL);
         
         // extract problem name
-        fb.setFilters(new NodeFilter[] {new CssSelectorNodeFilter("div.header"), new CssSelectorNodeFilter("div.title")});
-        fb.setURL(URL);
+        fb.setFilters(new NodeFilter[] {
+            new CssSelectorNodeFilter("div.header"),
+            new CssSelectorNodeFilter("div.title")});
         String problemName = fb.getText();
         if(problemName.isEmpty()) {
             throw new ParserException("Problem name not extracted (probably incorrect url).");
@@ -42,14 +44,12 @@ public class CodeForcesTaskParser implements TaskParser {
         CssSelectorNodeFilter inputFilter = new CssSelectorNodeFilter("div.input");
         HasParentFilter preInputFilter = new HasParentFilter(inputFilter);
         fb.setFilters(new NodeFilter[] {preInputFilter});
-        fb.setURL(URL);
         String[] inputs = Translate.decode(fb.getText()).split("Input");
         
         // extract outputs
         CssSelectorNodeFilter outputFilter = new CssSelectorNodeFilter("div.output");
         HasParentFilter preOutputFilter = new HasParentFilter(outputFilter);
         fb.setFilters(new NodeFilter[] {preOutputFilter});
-        fb.setURL(URL);
         String[] outputs = Translate.decode(fb.getText()).split("Output");
         
         if (inputs.length != outputs.length) {
@@ -58,7 +58,6 @@ public class CodeForcesTaskParser implements TaskParser {
         
         // extract time limit
         fb.setFilters(new NodeFilter[] {new CssSelectorNodeFilter("div.time-limit")});
-        fb.setURL(URL);
         String timeLimitText = fb.getText(); // should be "time limit per testXXX second"
         Pattern pattern = Pattern.compile("\\d+");
         Matcher matcher = pattern.matcher(timeLimitText);
