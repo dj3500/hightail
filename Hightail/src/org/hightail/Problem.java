@@ -16,6 +16,10 @@ public class Problem {
         this.name = name;
         this.testcaseSet = testcaseSet;
     }
+    
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public String getName() {
         return name;
@@ -43,8 +47,12 @@ public class Problem {
         }
     }
 
-    public void abortTests() {
-        testcaseSet.abort();
+    public void abortCurrentTest() {
+        testcaseSet.abortCurrent();
+    }
+    
+    public void abortAllTests() {
+        testcaseSet.abortAll();
     }
 
     public void runTests(TestingListener callback, String pathToExecFile) {

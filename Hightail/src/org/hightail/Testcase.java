@@ -3,17 +3,21 @@ package org.hightail;
 import java.io.*;
 import java.util.Calendar;
 import java.util.concurrent.Callable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.hightail.diff.OutputDiff;
 
 public class Testcase implements Callable<ExecutionResult> {
+    public static final int DEFAULT_TIME_LIMIT = 3;
+    
     protected int index = 0;
     protected String input;
     protected String expectedOutput;
     protected String programOutput = "";
     protected String programError = "";
+    protected int timeLimit = DEFAULT_TIME_LIMIT;
     protected ExecutionResult executionResult = new ExecutionResult();
     protected Process executionProcess;
-    protected TestcaseSet callback;
     private String pathToExecFile;
     
     public Testcase() {
@@ -49,17 +53,35 @@ public class Testcase implements Callable<ExecutionResult> {
         return executionResult;
     }
     
-    public void setExecutionResult(ExecutionResult result) {
-        this.executionResult = result;
+    public void setExecutionResultCode(ExecutionResultCode result) {
+        emptyResultsOfTestCase();
+        this.executionResult.setResult(result);
     }
     
     public void setIndex(int index) {
         this.index = index;
     }
     
+    public int getIndex() {
+        return index;
+    }
+    
+    public void setTimeLimit(int timeLimit) {
+        this.timeLimit = timeLimit;
+    }
+    
+    public int getTimeLimit() {
+        return timeLimit;
+    }
+    
     public Testcase(String input, String expectedOutput) {
+        this(input, expectedOutput, DEFAULT_TIME_LIMIT);
+    }
+    
+    public Testcase(String input, String expectedOutput, int timeLimit) {
         this.input = input;
         this.expectedOutput = expectedOutput;
+        this.timeLimit = timeLimit;
     }
     
     public void save() {
@@ -72,18 +94,10 @@ public class Testcase implements Callable<ExecutionResult> {
         executionResult = new ExecutionResult();
     }
     
-    public void setCallback(TestcaseSet cb) {
-        callback = cb;
-    }
-    
     public void killTest() {
-        if(executionProcess == null) {
-            return;
-        }
         try {
             executionProcess.exitValue();
         } catch (IllegalThreadStateException ex) {
-            executionResult.setResult(ExecutionResult.ABORTED);
             executionProcess.destroy();
         }
     }
@@ -94,7 +108,8 @@ public class Testcase implements Callable<ExecutionResult> {
         try {
             String line;
             BufferedReader br;
-            executionResult.setResult(ExecutionResult.RUNNING);
+            StringBuilder sb;
+            executionResult.setResult(ExecutionResultCode.RUNNING);
             
             double startTime = Calendar.getInstance().getTimeInMillis();
             // TODO: measure CPU time of executionProcess instead
@@ -111,49 +126,46 @@ public class Testcase implements Callable<ExecutionResult> {
             stdin.flush();
             stdin.close();
             
-            int execRes = executionProcess.waitFor();
-            double endTime = Calendar.getInstance().getTimeInMillis();
-            executionResult.setTime((endTime - startTime) / 1000.0);
-            
             // reading stdout
             br = new BufferedReader(new InputStreamReader(stdout));
-            programOutput = "";
+            sb = new StringBuilder();
             while ((line = br.readLine()) != null) {
-                programOutput = programOutput + line + "\n";
+                sb.append(line).append("\n");
             }
+            programOutput = sb.toString();
             br.close();
             
             // reading stderr
             br = new BufferedReader(new InputStreamReader(stderr));
-            programError = "";
+            sb = new StringBuilder();
             while ((line = br.readLine()) != null) {
-                programError = programError + line + "\n";
+                sb.append(line).append("\n");
             }
+            programError = sb.toString();
             br.close();
             
+            int execRes = executionProcess.waitFor();
+            double endTime = Calendar.getInstance().getTimeInMillis();
+            executionResult.setTime((endTime - startTime) / 1000.0);
             
             if (execRes == 0) {
                 String res = OutputDiff.diff(expectedOutput, programOutput);
                 if (res.equals("OK")) {
-                    executionResult.setResult(ExecutionResult.OK);
+                    executionResult.setResult(ExecutionResultCode.OK);
                 } else {
-                    executionResult.setResult(ExecutionResult.WA);
+                    executionResult.setResult(ExecutionResultCode.WA);
                     executionResult.setMsg(res);
                 }
-            } else if (executionResult.getResult() == ExecutionResult.RUNNING) {
-                executionResult.setResult(ExecutionResult.RUNTIME);
+            } else if (executionResult.getResult() == ExecutionResultCode.RUNNING) {
+                executionResult.setResult(ExecutionResultCode.RUNTIME);
             }
             
             
             
-        } catch (InterruptedException ex) {
-            //            Logger.getLogger(Testcase.class.getName()).log(Level.SEVERE, null, ex);
-            executionResult.setResult(ExecutionResult.TLE);
-        } catch (IOException ex) {
-            // probably aborted (maybe by the OS?)
-            executionResult.setResult(ExecutionResult.ABORTED);
+        } catch (InterruptedException | IOException ex) {
+            // time out or abort or something else
+//            Logger.getLogger(Testcase.class.getName()).log(Level.SEVERE, null, ex);
         }
-        callback.notifyResultsOfSingleTestcase(index);
         return executionResult;
     }
     

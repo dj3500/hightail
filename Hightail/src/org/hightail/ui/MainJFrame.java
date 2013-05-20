@@ -6,13 +6,21 @@
 
 package org.hightail.ui;
 
-//import java.awt.Insets;
 import java.awt.Component;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.IOException;
+import javax.swing.JComponent;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.JPopupMenu;
+import javax.swing.KeyStroke;
 import javax.swing.UIManager;
 import org.hightail.Config;
 import org.hightail.Problem;
+import org.hightail.util.AbstractActionWithInteger;
 
 public class MainJFrame extends javax.swing.JFrame {
     
@@ -20,6 +28,8 @@ public class MainJFrame extends javax.swing.JFrame {
     @SuppressWarnings("LeakingThisInConstructor")
     public MainJFrame() {
         initComponents();
+        
+        makeShortcuts();
         
         // We load the configuration
         boolean ok = Config.load();
@@ -41,6 +51,10 @@ public class MainJFrame extends javax.swing.JFrame {
                 System.exit(0);
             }
         }
+        
+        addPopupMenu();
+        
+        setLocationRelativeTo(null);
     }
     
     /** This method is called from within the constructor to
@@ -139,6 +153,54 @@ public class MainJFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     
+    private void addPopupMenu() {
+        // adds popup menu to tabs with option to delete a tab
+        final JPopupMenu singleTabJPopupMenu = new JPopupMenu();
+        JMenuItem deleteJMenuItem = new JMenuItem("Delete");
+        deleteJMenuItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                tabbedPane.remove(tabbedPane.getSelectedComponent());
+            }
+        });
+        singleTabJPopupMenu.add(deleteJMenuItem);
+        tabbedPane.addMouseListener(new MouseAdapter() {
+            
+            @Override
+            public void mousePressed(MouseEvent e) {
+                if(e.isPopupTrigger()) {
+                    doPop(e);
+                }
+            }
+            
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                if(e.isPopupTrigger()) {
+                    doPop(e);
+                }
+            }
+            
+            private void doPop(MouseEvent e) {
+                singleTabJPopupMenu.show(e.getComponent(), e.getX(), e.getY());
+            }
+            
+        });
+    }
+    
+    private void makeShortcuts() {
+        for(int index=1;index<=9;index++) {
+            tabbedPane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("alt " + index), "switch tab " + index);
+            tabbedPane.getActionMap().put("switch tab " + index, new AbstractActionWithInteger(index) {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    if(tabbedPane.getTabCount() >= getInteger()) {
+                        tabbedPane.setSelectedIndex(getInteger()-1);
+                    }
+                }
+            });
+        }
+    }
+    
     protected void addTabForProblem(Problem problem) {
         ProblemJPanel panel = new ProblemJPanel(problem, tabbedPane, this);
         // as recommended here: http://stackoverflow.com/questions/476678/tabs-with-equal-constant-width-in-jtabbedpane
@@ -230,5 +292,5 @@ public class MainJFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem openConfig;
     private javax.swing.JTabbedPane tabbedPane;
     // End of variables declaration//GEN-END:variables
-    
+
 }

@@ -1,7 +1,6 @@
 package org.hightail;
 
 import java.util.ArrayList;
-import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -10,40 +9,42 @@ import java.util.logging.Logger;
 import org.hightail.util.TestingListener;
 
 public class TestcaseSet extends ArrayList<Testcase> {
-    private int noOfFinishedTests;
-    private TestingListener callback;
+    private ExecutorService executor;
+    private Testcase currentTest;
+    private boolean aborted;
     
     public void run(TestingListener callback, String pathToExecFile) {
-        this.callback = callback;
-        noOfFinishedTests = 0;
+        aborted = false;
         for (Testcase test : this) {
-            test.setCallback(this);
+            currentTest = test;
             test.setPathToExecFile(pathToExecFile);
-            ExecutorService executor = Executors.newSingleThreadExecutor();
-            ArrayList<Callable<ExecutionResult>> tasksList = new ArrayList<>();
-            tasksList.add(test);
+            executor = Executors.newSingleThreadExecutor();
             try {
-                executor.invokeAll(tasksList, 3, TimeUnit.SECONDS);
+                executor.submit(test);
+                executor.shutdown();
+                if(!executor.awaitTermination(test.getTimeLimit(), TimeUnit.SECONDS)) {
+                    test.killTest();
+                    test.setExecutionResultCode(ExecutionResultCode.TLE);
+                }
             } catch (InterruptedException ex) {
+                test.setExecutionResultCode(ExecutionResultCode.INT);
                 Logger.getLogger(TestcaseSet.class.getName()).log(Level.SEVERE, null, ex);
             }
-            executor.shutdown();
-            //            Thread thr = new Thread(test);
-            //            thr.start();
+            callback.notifyResultsOfSingleTestcase(test.getIndex());
+            if(aborted) break;
         }
+        callback.notifyEndOfTesting();
     }
     
-    public void abort() {
-        for (Testcase test : this) {
-            test.killTest();
-        }
+    public void abortCurrent() {
+        if(executor == null || !executor.isShutdown()) return;
+        currentTest.killTest();
+        executor.shutdownNow();
+        currentTest.setExecutionResultCode(ExecutionResultCode.ABORTED);
     }
     
-    void notifyResultsOfSingleTestcase(int index) {
-        callback.notifyResultsOfSingleTestcase(index);
-        noOfFinishedTests++;
-        if (noOfFinishedTests == this.size()) {
-            callback.notifyEndOfTesting();
-        }
+    public void abortAll() {
+        aborted = true;
+        abortCurrent();
     }
 }
