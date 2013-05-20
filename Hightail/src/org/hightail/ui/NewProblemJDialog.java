@@ -7,23 +7,33 @@ import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 import org.hightail.Problem;
-import org.hightail.TestcaseSet;
 import org.hightail.parsers.task.TaskParser;
+import org.hightail.parsers.task.TaskParserGetter;
 import org.htmlparser.util.ParserException;
 
 public class NewProblemJDialog extends javax.swing.JDialog {
     
     protected boolean returnValue = false;
-    protected TestcaseSet testcaseSet = null;
+    protected Problem problem;
     
     /**
      * Creates new form NewProblemJDialog
      */
     public NewProblemJDialog(java.awt.Frame parent) {
-        super(parent,true); // makes it modal
+        super(parent, true); // makes it modal
         initComponents();
         
         setTitle("New problem");
+        
+        makeShortcuts();
+        
+        // sets cursor in problem name field
+        nameField.requestFocus();
+        
+        setLocationRelativeTo(parent);
+    }
+    
+    private void makeShortcuts() {
         // escape key will close the dialog
         getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "close");
         getRootPane().getActionMap().put("close", new AbstractAction() {
@@ -32,9 +42,6 @@ public class NewProblemJDialog extends javax.swing.JDialog {
                 cancel();
             }
         });
-        
-        // sets cursor in problem name field
-        nameField.requestFocus();
         // hitting enter will perform the same action as clicking create button
         nameField.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), "enter");
         nameField.getActionMap().put("enter", new AbstractAction() {
@@ -58,11 +65,11 @@ public class NewProblemJDialog extends javax.swing.JDialog {
             return null;
         }
         
-        if (testcaseSet == null) {
-            return new Problem(nameField.getText());
-        } else {
-            return new Problem(nameField.getText(), testcaseSet);
+        if (problem == null) {
+            problem = new Problem(nameField.getText());
         }
+        
+        return problem;
     }
     
     /**
@@ -211,11 +218,12 @@ public class NewProblemJDialog extends javax.swing.JDialog {
             return;
         }
         
-        if (!urlField.getText().isEmpty() && testcaseSet == null) {
+        if (!urlField.getText().isEmpty() && problem == null) {
             // it seems that the user didn't press Parse
             // TODO: do something here
         }
         
+        problem.setName(name);
         returnValue = true;
         this.dispose(); // TODO: is this okay?
     }
@@ -266,16 +274,18 @@ public class NewProblemJDialog extends javax.swing.JDialog {
             public void run() {
                 try {
                     parsingStatusLabel.setText("Parsing...");
-                    TaskParser parser = TaskParser.getTaskParser(URL);
-                    testcaseSet = parser.parse(URL);
-                    if(testcaseSet.isEmpty()) {
-                        throw new ParserException();
-                    }
+                    parsingStatusLabel.setToolTipText("");
+                    TaskParser parser = TaskParserGetter.getTaskParser(URL);
+                    problem = parser.parse(URL);
+                    // TODO: check if problem is correct (non empty testcaseSet etc)
                     parsingStatusLabel.setText("Parsing ok");
+                    if(nameField.getText().isEmpty()) {
+                        nameField.setText(problem.getName());
+                    }
                 } catch (ParserException ex) {
-                    // TODO: report errors to user
                     parsingStatusLabel.setText("Parsing failed");
-                    testcaseSet = null;
+                    parsingStatusLabel.setToolTipText(ex.getMessage());
+                    problem = null;
                 }
                 setButtonStateForAfterParsing();
             }
@@ -285,7 +295,7 @@ public class NewProblemJDialog extends javax.swing.JDialog {
     
     private void abortParsing() {
         thread.interrupt();
-        testcaseSet = null;
+        problem = null;
         parsingStatusLabel.setText("Parsing aborted");
         setButtonStateForAfterParsing();
     }

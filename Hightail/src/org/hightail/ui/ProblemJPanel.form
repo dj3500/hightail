@@ -65,12 +65,12 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="730" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="58" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="62" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
       </Layout>
@@ -89,34 +89,40 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="newTestcaseButton" min="-2" pref="120" max="-2" attributes="0"/>
+                  <Component id="newTestcaseButton" min="-2" pref="100" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="editTestcaseButton" min="-2" pref="133" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="deleteTestcaseButton" min="-2" pref="139" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
-                  <Component id="runTestsButton" min="-2" max="-2" attributes="0"/>
+                  <Component id="deleteTestcaseButton" min="-2" pref="100" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="abortTestsButton" min="-2" max="-2" attributes="0"/>
+                  <Component id="copyInputButton" min="-2" pref="80" max="-2" attributes="0"/>
+                  <EmptySpace pref="132" max="32767" attributes="0"/>
+                  <Component id="runTestsButton" min="-2" pref="75" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="abortCurrentTestButton" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="abortAllTestsButton" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
-              <Component id="jScrollPane1" alignment="0" pref="730" max="32767" attributes="0"/>
+              <Component id="jScrollPane1" alignment="0" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jScrollPane1" pref="329" max="32767" attributes="0"/>
+                  <Component id="jScrollPane1" pref="286" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="newTestcaseButton" alignment="3" min="-2" pref="43" max="-2" attributes="0"/>
-                      <Component id="editTestcaseButton" alignment="3" min="-2" pref="44" max="-2" attributes="0"/>
-                      <Component id="deleteTestcaseButton" alignment="3" min="-2" pref="43" max="-2" attributes="0"/>
-                      <Component id="runTestsButton" alignment="3" min="-2" pref="43" max="-2" attributes="0"/>
-                      <Component id="abortTestsButton" alignment="3" min="-2" pref="43" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="editTestcaseButton" alignment="0" pref="52" max="32767" attributes="0"/>
+                      <Component id="copyInputButton" alignment="0" pref="0" max="32767" attributes="0"/>
+                      <Component id="newTestcaseButton" alignment="0" pref="0" max="32767" attributes="0"/>
+                      <Component id="deleteTestcaseButton" alignment="0" pref="0" max="32767" attributes="0"/>
+                      <Component id="runTestsButton" alignment="0" max="32767" attributes="0"/>
+                      <Component id="abortCurrentTestButton" alignment="0" max="32767" attributes="0"/>
+                      <Component id="abortAllTestsButton" alignment="0" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -134,6 +140,12 @@
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                   <Connection code="testTableModel" type="code"/>
                 </Property>
+                <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
+                  <TableColumnModel selectionModel="0"/>
+                </Property>
+                <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
+                  <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
+                </Property>
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="testTableMouseClicked"/>
@@ -146,7 +158,7 @@
         </Container>
         <Component class="javax.swing.JButton" name="newTestcaseButton">
           <Properties>
-            <Property name="text" type="java.lang.String" value="New test case"/>
+            <Property name="text" type="java.lang.String" value="&lt;html&gt;&lt;center&gt;New&lt;br /&gt;test case&lt;/center&gt;&lt;/html"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="newTestcaseButtonActionPerformed"/>
@@ -163,7 +175,7 @@
         </Component>
         <Component class="javax.swing.JButton" name="deleteTestcaseButton">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Delete test case"/>
+            <Property name="text" type="java.lang.String" value="&lt;html&gt;&lt;center&gt;Delete&lt;br /&gt;test case&lt;/center&gt;&lt;/html&gt;"/>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <Events>
@@ -172,19 +184,37 @@
         </Component>
         <Component class="javax.swing.JButton" name="runTestsButton">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Run tests"/>
+            <Property name="text" type="java.lang.String" value="&lt;html&gt;&lt;center&gt;Run&lt;br /&gt;tests&lt;/center&gt;&lt;/html&gt;"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="runTestsButtonActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="abortTestsButton">
+        <Component class="javax.swing.JButton" name="abortAllTestsButton">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Abort test"/>
+            <Property name="text" type="java.lang.String" value="&lt;html&gt;&lt;center&gt;Abort&lt;br /&gt;all&lt;/center&gt;&lt;/html&gt;"/>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="abortTestsButtonActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="abortAllTestsButtonActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="copyInputButton">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="&lt;html&gt;&lt;center&gt;Copy&lt;br /&gt;input&lt;/center&gt;&lt;/html&gt;"/>
+            <Property name="enabled" type="boolean" value="false"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="copyInputButtonActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="abortCurrentTestButton">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="&lt;html&gt;&lt;center&gt;Abort&lt;br /&gt;current&lt;/center&gt;&lt;/html&gt;"/>
+            <Property name="enabled" type="boolean" value="false"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="abortCurrentTestButtonActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

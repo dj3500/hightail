@@ -3,16 +3,15 @@ package org.hightail.ui;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
-import java.util.List;
 import javax.swing.AbstractAction;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 import org.hightail.Problem;
-import org.hightail.TestcaseSet;
 import org.hightail.parsers.contest.ContestParser;
+import org.hightail.parsers.contest.ContestParserGetter;
 import org.hightail.parsers.task.TaskParser;
-import org.hightail.util.StringPair;
+import org.hightail.parsers.task.TaskParserGetter;
 import org.htmlparser.util.ParserException;
 
 
@@ -29,25 +28,13 @@ public class NewContestJDialog extends javax.swing.JDialog {
         initComponents();
         
         setTitle("New contest");
-        // escape key will close the dialog
-        getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "close");
-        getRootPane().getActionMap().put("close", new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cancel();
-            }
-        });
+        
+        makeShortcuts();
         
         // sets cursor in problem name field
         contestUrlField.requestFocus();
-        // hitting enter will perform the same action as clicking parse contest button
-        contestUrlField.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), "enter");
-        contestUrlField.getActionMap().put("enter", new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                parseContest();
-            }
-        });
+        
+        setLocationRelativeTo(parent);
     }
     
     /**
@@ -135,6 +122,25 @@ public class NewContestJDialog extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     
+    private void makeShortcuts() {
+        // escape key will close the dialog
+        getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "close");
+        getRootPane().getActionMap().put("close", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cancel();
+            }
+        });
+        // hitting enter will perform the same action as clicking parse contest button
+        contestUrlField.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), "enter");
+        contestUrlField.getActionMap().put("enter", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                parseContest();
+            }
+        });
+    }
+    
     private void parseContest() {
         String URL = contestUrlField.getText();
         if (URL.isEmpty()) {
@@ -185,24 +191,23 @@ public class NewContestJDialog extends javax.swing.JDialog {
             public void run() {
                 try {
                     parsingStatusLabel.setText("Parsing...");
-                    ContestParser contestParser = ContestParser.getContestParser(URL);
-                    TaskParser taskParser = TaskParser.getTaskParser(URL);
-                    List<StringPair> tasks = contestParser.parse(URL);
+                    parsingStatusLabel.setToolTipText("");
+                    ContestParser contestParser = ContestParserGetter.getContestParser(URL);
+                    TaskParser taskParser = TaskParserGetter.getTaskParser(URL);
+                    ArrayList<Problem> tasks = contestParser.parse(URL);
                     if(tasks.isEmpty()) {
                         throw new ParserException();
                     }
-                    for (StringPair pair : tasks) {
-                        String name = pair.getSecond(), taskUrl = pair.getFirst();
-                        TestcaseSet testcaseSet = taskParser.parse(taskUrl);
-                        problemList.add(new Problem(name,testcaseSet));
+                    for (Problem problem : tasks) {
+                        problemList.add(problem);
                     }
                     abortParsingButton.setEnabled(false); // to avoid interruption during dispose
                     dispose(); // TODO: is this okay?
                 } catch (ParserException ex) {
-                    // TODO: report errors to user
                     abortParsingButton.setEnabled(false);
                     parseContestButton.setEnabled(true);
                     parsingStatusLabel.setText("Parsing failed");
+                    parsingStatusLabel.setToolTipText(ex.getMessage());
                     problemList.clear();
                 }
             }

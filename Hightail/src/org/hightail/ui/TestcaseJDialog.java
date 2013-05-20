@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import org.hightail.KeyboardShortcuts;
 import org.hightail.Testcase;
 
 public class TestcaseJDialog extends javax.swing.JDialog {
@@ -49,22 +50,9 @@ public class TestcaseJDialog extends javax.swing.JDialog {
             }
         };
         
-        // escape key will close the dialog
-        getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "close");
-        getRootPane().getActionMap().put("close", new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                confirmAndClose();
-            }
-        });
-        // ctrl+enter will perform the same action as save button
-        getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, KeyEvent.CTRL_MASK), "save");
-        getRootPane().getActionMap().put("save", new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                save();
-            }
-        });
+        makeShortcuts();
+        
+        setLocationRelativeTo(parent);
         
         inputTextarea.setText(testcase.getInput());
         expectedOutputTextarea.setText(testcase.getExpectedOutput());
@@ -79,8 +67,30 @@ public class TestcaseJDialog extends javax.swing.JDialog {
         executionResultLabel.setForeground(testcase.getExecutionResult().getColor());
         executionTimeLabel.setText(testcase.getExecutionResult().getFormattedTime()); // this is read-only
         
+        timeLimitTextField.setText(String.valueOf(testcase.getTimeLimit()));
+        
         inputTextarea.getDocument().addDocumentListener(documentListener);
         expectedOutputTextarea.getDocument().addDocumentListener(documentListener);
+        timeLimitTextField.getDocument().addDocumentListener(documentListener);
+    }
+    
+    private void makeShortcuts() {
+        // escape key will close the dialog
+        getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "close");
+        getRootPane().getActionMap().put("close", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                confirmAndClose();
+            }
+        });
+        
+        getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyboardShortcuts.getShortcut("save testcase"), "save");
+        getRootPane().getActionMap().put("save", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                save();
+            }
+        });
         
         // when TAB is pressed, cycle textareas instead of writing the \t
         inputTextarea.setFocusTraversalKeys(KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS, null);
@@ -134,6 +144,8 @@ public class TestcaseJDialog extends javax.swing.JDialog {
         jLabel7 = new javax.swing.JLabel();
         saveButton = new javax.swing.JButton();
         cancelButton = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        timeLimitTextField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Test case");
@@ -145,37 +157,37 @@ public class TestcaseJDialog extends javax.swing.JDialog {
 
         jLabel1.setText("Execution result:");
 
-        executionResultLabel.setFont(new java.awt.Font("Tahoma", 1, 11));
+        executionResultLabel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         executionResultLabel.setText("jLabel2");
 
         jLabel3.setText("Execution time:");
 
-        executionTimeLabel.setFont(new java.awt.Font("Tahoma", 1, 11));
+        executionTimeLabel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         executionTimeLabel.setText("jLabel4");
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel5.setText("Input:");
 
         inputTextarea.setColumns(20);
-        inputTextarea.setFont(new java.awt.Font("Courier New", 0, 12));
+        inputTextarea.setFont(new java.awt.Font("Courier New", 0, 12)); // NOI18N
         inputTextarea.setRows(5);
         jScrollPane2.setViewportView(inputTextarea);
 
         expectedOutputTextarea.setColumns(20);
-        expectedOutputTextarea.setFont(new java.awt.Font("Courier New", 0, 12));
+        expectedOutputTextarea.setFont(new java.awt.Font("Courier New", 0, 12)); // NOI18N
         expectedOutputTextarea.setRows(5);
         jScrollPane1.setViewportView(expectedOutputTextarea);
 
         programOutputTextarea.setColumns(20);
         programOutputTextarea.setEditable(false);
-        programOutputTextarea.setFont(new java.awt.Font("Courier New", 0, 12));
+        programOutputTextarea.setFont(new java.awt.Font("Courier New", 0, 12)); // NOI18N
         programOutputTextarea.setRows(5);
         jScrollPane3.setViewportView(programOutputTextarea);
 
-        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel6.setText("Expected output:");
 
-        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel7.setText("Program output:");
 
         saveButton.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -194,37 +206,44 @@ public class TestcaseJDialog extends javax.swing.JDialog {
             }
         });
 
+        jLabel2.setText("Time limit:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(executionResultLabel)
-                        .addGap(111, 111, 111)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(executionResultLabel)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(executionTimeLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel2))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel7)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(timeLimitTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(cancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(saveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel5))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel6))
-                        .addGap(10, 10, 10)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel7)
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(saveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -246,7 +265,9 @@ public class TestcaseJDialog extends javax.swing.JDialog {
                         .addComponent(jLabel1)
                         .addComponent(executionResultLabel)
                         .addComponent(jLabel3)
-                        .addComponent(executionTimeLabel))
+                        .addComponent(executionTimeLabel)
+                        .addComponent(jLabel2)
+                        .addComponent(timeLimitTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(saveButton)
                         .addComponent(cancelButton)))
@@ -267,6 +288,12 @@ public class TestcaseJDialog extends javax.swing.JDialog {
     private void save() {
         testcase.setInput(inputTextarea.getText());
         testcase.setExpectedOutput(expectedOutputTextarea.getText());
+        int timeLimit = Testcase.DEFAULT_TIME_LIMIT;
+        try {
+            timeLimit = Integer.parseInt(timeLimitTextField.getText());
+        }
+        catch(NumberFormatException ex) {}
+        testcase.setTimeLimit(timeLimit);
         testcase.save();
         this.returnValue = true;
         this.dispose();
@@ -284,6 +311,7 @@ public class TestcaseJDialog extends javax.swing.JDialog {
     private javax.swing.JTextArea expectedOutputTextarea;
     private javax.swing.JTextArea inputTextarea;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -293,6 +321,7 @@ public class TestcaseJDialog extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTextArea programOutputTextarea;
     private javax.swing.JButton saveButton;
+    private javax.swing.JTextField timeLimitTextField;
     // End of variables declaration//GEN-END:variables
     
 }
