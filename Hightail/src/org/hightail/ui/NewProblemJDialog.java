@@ -223,7 +223,9 @@ public class NewProblemJDialog extends javax.swing.JDialog {
             // TODO: do something here
         }
         
-        problem.setName(name);
+        if(problem == null) {
+            problem = new Problem(name);
+        }
         returnValue = true;
         this.dispose(); // TODO: is this okay?
     }
