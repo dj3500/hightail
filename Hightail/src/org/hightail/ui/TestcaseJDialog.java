@@ -67,7 +67,7 @@ public class TestcaseJDialog extends javax.swing.JDialog {
         executionResultLabel.setForeground(testcase.getExecutionResult().getColor());
         executionTimeLabel.setText(testcase.getExecutionResult().getFormattedTime()); // this is read-only
         
-        timeLimitTextField.setText(String.valueOf(testcase.getTimeLimit()));
+        timeLimitTextField.setText(String.valueOf(testcase.getTimeLimitInSeconds()));
         
         inputTextarea.getDocument().addDocumentListener(documentListener);
         expectedOutputTextarea.getDocument().addDocumentListener(documentListener);
@@ -239,8 +239,8 @@ public class TestcaseJDialog extends javax.swing.JDialog {
                             .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(timeLimitTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(timeLimitTextField)
+                        .addGap(18, 18, 18)
                         .addComponent(cancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(saveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -290,7 +290,7 @@ public class TestcaseJDialog extends javax.swing.JDialog {
         testcase.setExpectedOutput(expectedOutputTextarea.getText());
         int timeLimit = Testcase.DEFAULT_TIME_LIMIT;
         try {
-            timeLimit = Integer.parseInt(timeLimitTextField.getText());
+            timeLimit = (int) (Double.parseDouble(timeLimitTextField.getText()) * 1000.);
         }
         catch(NumberFormatException ex) {}
         testcase.setTimeLimit(timeLimit);

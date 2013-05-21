@@ -191,7 +191,7 @@ public class NewContestJDialog extends javax.swing.JDialog {
             public void run() {
                 try {
                     parsingStatusLabel.setText("Parsing...");
-                    parsingStatusLabel.setToolTipText("");
+                    parsingStatusLabel.setToolTipText(null);
                     ContestParser contestParser = ContestParserGetter.getContestParser(URL);
                     TaskParser taskParser = TaskParserGetter.getTaskParser(URL);
                     ArrayList<Problem> tasks = contestParser.parse(URL);

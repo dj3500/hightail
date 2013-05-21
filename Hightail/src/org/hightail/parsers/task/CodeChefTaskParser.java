@@ -9,15 +9,9 @@ import org.hightail.Testcase;
 import org.hightail.TestcaseSet;
 import org.htmlparser.Node;
 import org.htmlparser.NodeFilter;
-import org.htmlparser.Parser;
 import org.htmlparser.beans.FilterBean;
-import org.htmlparser.filters.AndFilter;
 import org.htmlparser.filters.CssSelectorNodeFilter;
 import org.htmlparser.filters.HasAttributeFilter;
-import org.htmlparser.filters.HasChildFilter;
-import org.htmlparser.filters.HasParentFilter;
-import org.htmlparser.filters.StringFilter;
-import org.htmlparser.filters.TagNameFilter;
 import org.htmlparser.util.ParserException;
 
 /**
@@ -34,9 +28,10 @@ public class CodeChefTaskParser implements TaskParser {
         Node node;
         
         // extract problem name
-        fb.setFilters(new NodeFilter[]{
+        fb.setFilters(new NodeFilter[] {
             new CssSelectorNodeFilter("table.pagetitle-prob"),
-            new CssSelectorNodeFilter("p")});
+            new CssSelectorNodeFilter("p")
+        });
         fb.setURL(URL);
         String problemName = fb.getText(); // should be "Problem code: XXX"
         if(problemName.isEmpty()) {
@@ -49,7 +44,7 @@ public class CodeChefTaskParser implements TaskParser {
         // TODO: this part should be better implemented
         int timeLimit = Testcase.DEFAULT_TIME_LIMIT;
         fb.setFilters(new NodeFilter[] {
-                new HasAttributeFilter("class", "meta"),
+            new HasAttributeFilter("class", "meta"),
         });
         node = fb.getNodes().elementAt(0);
         node = node.getNextSibling().getNextSibling();
@@ -57,7 +52,7 @@ public class CodeChefTaskParser implements TaskParser {
         for(Node child : node.getChildren().toNodeArray()) {
             if(child.toString().contains("Time Limit:")) {
                 String stringTimeLimit = child.getChildren().elementAt(3).getChildren().elementAt(0).getText(); // should be XX sec
-                timeLimit = Integer.valueOf(stringTimeLimit.split(" ")[0]);
+                timeLimit = (int) (Double.valueOf(stringTimeLimit.split(" ")[0]) * 1000);
                 break;
             }
         }
@@ -65,7 +60,7 @@ public class CodeChefTaskParser implements TaskParser {
         // extract inputs and outputs
         // TODO: this part should be better implemented
         fb.setFilters(new NodeFilter[] {
-                new HasAttributeFilter("class", "meta"),
+            new HasAttributeFilter("class", "meta"),
         });
         node = fb.getNodes().elementAt(0);
         node = node.getNextSibling().getNextSibling();

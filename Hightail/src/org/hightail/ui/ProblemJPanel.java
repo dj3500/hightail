@@ -361,6 +361,7 @@ public class ProblemJPanel extends javax.swing.JPanel implements TestingListener
             // we need to delete
             problem.deleteTestcase(selectedRow);
             testTableModel.rowDeleted(selectedRow);
+            copyInputButton.setEnabled(false);
         }
     }
     

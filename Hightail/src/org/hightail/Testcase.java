@@ -8,7 +8,7 @@ import java.util.logging.Logger;
 import org.hightail.diff.OutputDiff;
 
 public class Testcase implements Callable<ExecutionResult> {
-    public static final int DEFAULT_TIME_LIMIT = 3;
+    public static final int DEFAULT_TIME_LIMIT = 3000; // in milliseconds
     
     protected int index = 0;
     protected String input;
@@ -72,6 +72,10 @@ public class Testcase implements Callable<ExecutionResult> {
     
     public int getTimeLimit() {
         return timeLimit;
+    }
+    
+    public double getTimeLimitInSeconds() {
+        return getTimeLimit()/1000.;
     }
     
     public Testcase(String input, String expectedOutput) {

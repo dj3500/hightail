@@ -6,7 +6,8 @@ import org.htmlparser.util.ParserException;
 
 public abstract class ContestParserGetter {
     private static final ContestParser[] parsers = new ContestParser[] {
-        new CodeForcesContestParser()
+        new CodeForcesContestParser(),
+        new CodeChefContestParser(),
     };
     public static ContestParser getContestParser(String URL) throws ParserException {
         for(ContestParser parser : parsers) {

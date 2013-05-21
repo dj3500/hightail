@@ -5,7 +5,7 @@ import org.htmlparser.util.ParserException;
 public abstract class TaskParserGetter {
     private static final TaskParser[] parsers = new TaskParser[] {
         new CodeForcesTaskParser(),
-        new CodeChefTaskParser()
+        new CodeChefTaskParser(),
     };
 
     public static TaskParser getTaskParser(String URL) throws ParserException {

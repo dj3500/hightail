@@ -63,7 +63,7 @@ public class CodeForcesTaskParser implements TaskParser {
         Matcher matcher = pattern.matcher(timeLimitText);
         int timeLimit = Testcase.DEFAULT_TIME_LIMIT;
         if(matcher.find()) {
-            timeLimit = Integer.valueOf(matcher.group());
+            timeLimit = (int) (Double.valueOf(matcher.group()) * 1000);
         }
         
         

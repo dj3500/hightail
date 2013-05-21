@@ -276,7 +276,7 @@ public class NewProblemJDialog extends javax.swing.JDialog {
             public void run() {
                 try {
                     parsingStatusLabel.setText("Parsing...");
-                    parsingStatusLabel.setToolTipText("");
+                    parsingStatusLabel.setToolTipText(null);
                     TaskParser parser = TaskParserGetter.getTaskParser(URL);
                     problem = parser.parse(URL);
                     // TODO: check if problem is correct (non empty testcaseSet etc)
