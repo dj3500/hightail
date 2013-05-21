@@ -54,7 +54,10 @@ public class ExecutionResult {
                 str = str + " " + time;
             break;
             case WA:
-                str = str + "\n" + msg;
+            case RUNTIME:
+                if (!msg.isEmpty()) {
+                    str = str + "\n" + msg;
+                }
             break;
         }
         return str;

@@ -13,7 +13,6 @@ import org.hightail.parsers.task.CodeChefTaskParser;
 import org.hightail.parsers.task.TaskParser;
 import org.htmlparser.Node;
 import org.htmlparser.Parser;
-import org.htmlparser.beans.FilterBean;
 import org.htmlparser.filters.LinkRegexFilter;
 import org.htmlparser.tags.LinkTag;
 import org.htmlparser.util.ParserException;

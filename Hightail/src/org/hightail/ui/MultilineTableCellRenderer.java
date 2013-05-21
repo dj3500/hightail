@@ -17,11 +17,20 @@ import javax.swing.table.TableCellRenderer;
 public class MultilineTableCellRenderer extends JTextArea
 implements TableCellRenderer {
     private List<List<Integer>> rowColHeight = new ArrayList<>();
+    private static final int MAX_LEN = 150;
     
     public MultilineTableCellRenderer() {
         setLineWrap(true);
         setWrapStyleWord(true);
         setOpaque(true);
+    }
+    
+    protected String shortener(String str) {
+        if (str.length() < MAX_LEN) {
+            return str;
+        } else {
+          return str.substring(0, MAX_LEN - 10) + "...";
+        }
     }
     
     @Override
@@ -46,7 +55,7 @@ implements TableCellRenderer {
             setBorder(new EmptyBorder(1, 2, 1, 2));
         }
         if (value != null) {
-            setText(value.toString());
+            setText(shortener(value.toString()));
         } else {
             setText("");
         }
