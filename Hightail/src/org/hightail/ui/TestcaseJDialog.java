@@ -18,7 +18,7 @@ public class TestcaseJDialog extends javax.swing.JDialog {
     protected Testcase testcase;
     protected boolean isNew; // only used for some UI formatting
     protected boolean hasTextChanged = false;
-    protected boolean returnValue = false; // false = no changes made, or user canceled
+    protected boolean returnValue = false; // false = no changes made, or user cancelled
     
     public boolean getReturnValue() {
         return returnValue;
@@ -291,8 +291,7 @@ public class TestcaseJDialog extends javax.swing.JDialog {
         int timeLimit = Testcase.DEFAULT_TIME_LIMIT;
         try {
             timeLimit = (int) (Double.parseDouble(timeLimitTextField.getText()) * 1000.);
-        }
-        catch(NumberFormatException ex) {}
+        } catch (NumberFormatException ex) {}
         testcase.setTimeLimit(timeLimit);
         testcase.save();
         this.returnValue = true;

@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.hightail;
 
 import java.awt.Color;
@@ -11,7 +7,7 @@ import java.awt.Color;
  * @author krig
  */
 public enum ExecutionResultCode {
-	NOT_RUN("-",
+    NOT_RUN("-",
             Color.black),
     RUNNING("running...",
             Color.black),

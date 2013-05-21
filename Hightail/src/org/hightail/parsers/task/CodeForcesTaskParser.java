@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.hightail.parsers.task;
 
 import java.util.regex.Matcher;
@@ -35,7 +31,7 @@ public class CodeForcesTaskParser implements TaskParser {
             new CssSelectorNodeFilter("div.header"),
             new CssSelectorNodeFilter("div.title")});
         String problemName = fb.getText();
-        if(problemName.isEmpty()) {
+        if (problemName.isEmpty()) {
             throw new ParserException("Problem name not extracted (probably incorrect url).");
         }
         problemName = String.valueOf(problemName.charAt(0));
@@ -62,7 +58,7 @@ public class CodeForcesTaskParser implements TaskParser {
         Pattern pattern = Pattern.compile("\\d+");
         Matcher matcher = pattern.matcher(timeLimitText);
         int timeLimit = Testcase.DEFAULT_TIME_LIMIT;
-        if(matcher.find()) {
+        if (matcher.find()) {
             timeLimit = (int) (Double.valueOf(matcher.group()) * 1000);
         }
         

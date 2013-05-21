@@ -3,8 +3,6 @@ package org.hightail;
 import java.io.*;
 import java.util.Calendar;
 import java.util.concurrent.Callable;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.hightail.diff.OutputDiff;
 
 public class Testcase implements Callable<ExecutionResult> {
@@ -118,7 +116,6 @@ public class Testcase implements Callable<ExecutionResult> {
             double startTime = Calendar.getInstance().getTimeInMillis();
             // TODO: measure CPU time of executionProcess instead
             
-            // TODO: change path to running file
             executionProcess = Runtime.getRuntime().exec(pathToExecFile);
             
             OutputStream stdin = executionProcess.getOutputStream();
@@ -168,7 +165,6 @@ public class Testcase implements Callable<ExecutionResult> {
             
         } catch (InterruptedException | IOException ex) {
             // time out or abort or something else
-//            Logger.getLogger(Testcase.class.getName()).log(Level.SEVERE, null, ex);
         }
         return executionResult;
     }

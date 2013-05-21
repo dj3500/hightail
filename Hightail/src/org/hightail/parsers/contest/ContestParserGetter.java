@@ -1,7 +1,5 @@
 package org.hightail.parsers.contest;
 
-import java.util.ArrayList;
-import org.hightail.Problem;
 import org.htmlparser.util.ParserException;
 
 public abstract class ContestParserGetter {
@@ -10,8 +8,8 @@ public abstract class ContestParserGetter {
         new CodeChefContestParser(),
     };
     public static ContestParser getContestParser(String URL) throws ParserException {
-        for(ContestParser parser : parsers) {
-            if(parser.isCorrectURL(URL)) {
+        for (ContestParser parser : parsers) {
+            if (parser.isCorrectURL(URL)) {
                 return parser;
             }
         }

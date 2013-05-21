@@ -9,8 +9,8 @@ public abstract class TaskParserGetter {
     };
 
     public static TaskParser getTaskParser(String URL) throws ParserException {
-        for(TaskParser parser : parsers) {
-            if(parser.isCorrectURL(URL)) {
+        for (TaskParser parser : parsers) {
+            if (parser.isCorrectURL(URL)) {
                 return parser;
             }
         }

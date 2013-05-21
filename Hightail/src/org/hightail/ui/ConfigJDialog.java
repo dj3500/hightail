@@ -192,10 +192,10 @@ public class ConfigJDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_workingDirectoryBrowseButtonActionPerformed
     
     private boolean unsavedChanges() {
-        if(!Config.get("workingDirectory").equals(workingDirectoryTextField.getText())) {
+        if (!Config.get("workingDirectory").equals(workingDirectoryTextField.getText())) {
             return true;
         }
-        if(!Config.get("pathFromWorkingDirToExec").equals(pathFromWorkingDirToExec.getText())) {
+        if (!Config.get("pathFromWorkingDirToExec").equals(pathFromWorkingDirToExec.getText())) {
             return true;
         }
         return false;
@@ -203,7 +203,7 @@ public class ConfigJDialog extends javax.swing.JDialog {
     
     private void confirmAndClose () {
         // ask for confirmation only if there is something unsaved
-        if(unsavedChanges()) {
+        if (unsavedChanges()) {
             // Display confirm dialog
             int confirmed = JOptionPane.showConfirmDialog(this,
                     "Are you sure? There's unsaved changes.",
