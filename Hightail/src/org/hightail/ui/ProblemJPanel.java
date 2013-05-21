@@ -29,15 +29,14 @@ import org.hightail.util.TestingListener;
 public class ProblemJPanel extends javax.swing.JPanel implements TestingListener {
     
     protected Problem problem;
-    protected JTabbedPane parentTabbedPane; // used for deletion of tab (in the future)
     protected JFrame parentWindow; // used as parent for modal dialogs
     protected boolean isTesting; // are the tests running now
     private TestTableModel testTableModel; // used to notify testTable about the testcaseSet changes
+
     /** Creates new form ProblemJPanel */
     public ProblemJPanel(Problem problem, JTabbedPane tabbedPane, JFrame parentWindow) {
         this.problem = problem;
         this.testTableModel = new TestTableModel(problem.getTestcaseSet());
-        this.parentTabbedPane = tabbedPane;
         this.parentWindow = parentWindow;
         this.isTesting = false;
         
@@ -260,13 +259,19 @@ public class ProblemJPanel extends javax.swing.JPanel implements TestingListener
             }
         });
         
-        getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyboardShortcuts.getShortcut("copy input"), "copy input");
-        getActionMap().put("copy input", new AbstractAction() {
+        AbstractAction copyInputAction = new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 copyInput();
             }
-        });
+        };
+        getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyboardShortcuts.getShortcut("copy input"), "copy input");
+        getActionMap().put("copy input", copyInputAction);
+        testTable.getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyboardShortcuts.getShortcut("copy input"), "copy input");
+        testTable.getActionMap().put("copy input", copyInputAction);
+        // both of these are needed: the second one gets invoked if the row/table has focus, while the first one gets invoked
+        // when something else has focus (it's possible that no row is selected or even exists; in that case we do nothing)
+        // (and to have a Ctrl+C shortcut, we needed to override JTable's default behaviour for Ctrl+C)
         
         getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyboardShortcuts.getShortcut("abort tests"), "abort tests");
         getActionMap().put("abort tests", new AbstractAction() {
@@ -318,7 +323,9 @@ public class ProblemJPanel extends javax.swing.JPanel implements TestingListener
     }
     
     private void newTestcase() {
-        if(isTesting) return;
+        if (isTesting) {
+            return;
+        }
         Testcase newTestcase = new Testcase();
         TestcaseJDialog dialog = new TestcaseJDialog(parentWindow, newTestcase, true);
         dialog.setVisible(true); // this is modal; it will block until window is closed
@@ -338,9 +345,13 @@ public class ProblemJPanel extends javax.swing.JPanel implements TestingListener
     }//GEN-LAST:event_editTestcaseButtonActionPerformed
     
     private void editCurrentTestcase() {
-        if(isTesting) return;
+        if (isTesting) {
+            return;
+        }
         int selectedRow = testTable.getSelectedRow();
-        if (selectedRow == -1) throw new UnsupportedOperationException("Implementation error: edit button clicked, but no row selected");
+        if (selectedRow == -1) {
+            throw new UnsupportedOperationException("Implementation error: edit button clicked, but no row selected");
+        }
         Testcase editedTestcase = problem.getTestcase(selectedRow);
         TestcaseJDialog dialog = new TestcaseJDialog(parentWindow, editedTestcase, false);
         dialog.setVisible(true); // this is modal; it will block until window is closed
@@ -351,9 +362,13 @@ public class ProblemJPanel extends javax.swing.JPanel implements TestingListener
     }
     
     private void deleteTestcase() {
-        if(isTesting) return;
+        if (isTesting) {
+            return;
+        }
         int selectedRow = testTable.getSelectedRow();
-        if (selectedRow == -1) throw new UnsupportedOperationException("Implementation error: delete button clicked, but no row selected");
+        if (selectedRow == -1) {
+            throw new UnsupportedOperationException("Implementation error: delete button clicked, but no row selected");
+        }
         // display confirm dialog
         int confirmed = JOptionPane.showConfirmDialog(this, "Are you sure?", "Confirm delete", JOptionPane.YES_NO_OPTION);
         
@@ -378,20 +393,22 @@ public class ProblemJPanel extends javax.swing.JPanel implements TestingListener
     }
     
     protected void runTests() {
-        if(isTesting) return;
+        if (isTesting) {
+            return;
+        }
         final String pathToExecFile = sourceFile.getText();
         File execFile = new File(pathToExecFile);
-        if(!execFile.exists()) {
+        if (!execFile.exists()) {
             // executable file does not exist
             JOptionPane.showMessageDialog(this, "Selected file does not exist.", "Wrong file", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        if(execFile.isDirectory()) {
+        if (execFile.isDirectory()) {
             // file path points to a directory, not a file
             JOptionPane.showMessageDialog(this, "Selected path is a directory.", "Wrong file", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        if(!execFile.canExecute()) {
+        if (!execFile.canExecute()) {
             // application cannot execute this file
             JOptionPane.showMessageDialog(this, "Selected file cannot be executed.", "Wrong file", JOptionPane.ERROR_MESSAGE);
             return;
@@ -422,7 +439,9 @@ public class ProblemJPanel extends javax.swing.JPanel implements TestingListener
     }//GEN-LAST:event_runTestsButtonActionPerformed
     
     private void abortAllTests() {
-        if(!isTesting) return;
+        if (!isTesting) {
+            return;
+        }
         problem.abortAllTests();
     }
     
@@ -432,13 +451,13 @@ public class ProblemJPanel extends javax.swing.JPanel implements TestingListener
     
     private void openContainingDirectoryButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openContainingDirectoryButtonActionPerformed
         File currentDirectory = new File(sourceFile.getText());
-        if(!currentDirectory.isDirectory()) {
+        if (!currentDirectory.isDirectory()) {
             currentDirectory = currentDirectory.getParentFile();
         }
         // the dialog will open the current selected directory if it's correct or home directory otherwise
         JFileChooser fc = new JFileChooser(currentDirectory);
         int returnVal = fc.showOpenDialog(this);
-        if(returnVal == JFileChooser.APPROVE_OPTION) {
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
             String filePath = fc.getSelectedFile().getAbsolutePath();
             sourceFile.setText(filePath);
         }
@@ -451,9 +470,13 @@ public class ProblemJPanel extends javax.swing.JPanel implements TestingListener
     }//GEN-LAST:event_testTableMouseClicked
 
     private void copyInput() {
-        if(isTesting) return;
+        if (isTesting) {
+            return;
+        }
         int selectedRow = testTable.getSelectedRow();
-        if (selectedRow == -1) throw new UnsupportedOperationException("Implementation error: copy button clicked, but no row selected");
+        if (selectedRow == -1) {
+            return; // this is possible if keyboard shortcut was pressed but no row is selected (maybe no row even exists)
+        }
         Testcase testcase = problem.getTestcase(selectedRow);
         StringSelection strSel = new StringSelection(testcase.getInput());
         Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
@@ -465,15 +488,15 @@ public class ProblemJPanel extends javax.swing.JPanel implements TestingListener
     }//GEN-LAST:event_copyInputButtonActionPerformed
 
     private void abortCurrentTest() {
-        if(!isTesting) return;
+        if (!isTesting) {
+            return;
+        }
         problem.abortCurrentTest();
     }
     
     private void abortCurrentTestButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_abortCurrentTestButtonActionPerformed
         abortCurrentTest();
     }//GEN-LAST:event_abortCurrentTestButtonActionPerformed
-    
-    // TODO: add a Browse... button for the executable file
     
     @Override
     public void notifyResultsOfSingleTestcase (int index) {

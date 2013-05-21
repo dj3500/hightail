@@ -223,7 +223,7 @@ public class NewProblemJDialog extends javax.swing.JDialog {
             // TODO: do something here
         }
         
-        if(problem == null) {
+        if (problem == null) {
             problem = new Problem(name);
         }
         returnValue = true;
@@ -279,9 +279,8 @@ public class NewProblemJDialog extends javax.swing.JDialog {
                     parsingStatusLabel.setToolTipText("");
                     TaskParser parser = TaskParserGetter.getTaskParser(URL);
                     problem = parser.parse(URL);
-                    // TODO: check if problem is correct (non empty testcaseSet etc)
                     parsingStatusLabel.setText("Parsing ok");
-                    if(nameField.getText().isEmpty()) {
+                    if (nameField.getText().isEmpty()) {
                         nameField.setText(problem.getName());
                     }
                 } catch (ParserException ex) {

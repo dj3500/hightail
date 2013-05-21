@@ -119,7 +119,6 @@ public class MainJFrame extends javax.swing.JFrame {
         });
         fileMenu.add(openConfig);
 
-        exit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_ESCAPE, 0));
         exit.setText("Exit");
         exit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -147,7 +146,7 @@ public class MainJFrame extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 562, Short.MAX_VALUE)
+            .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 586, Short.MAX_VALUE)
         );
 
         pack();
@@ -164,18 +163,17 @@ public class MainJFrame extends javax.swing.JFrame {
             }
         });
         singleTabJPopupMenu.add(deleteJMenuItem);
-        tabbedPane.addMouseListener(new MouseAdapter() {
-            
+        tabbedPane.addMouseListener(new MouseAdapter() {            
             @Override
             public void mousePressed(MouseEvent e) {
-                if(e.isPopupTrigger()) {
+                if (e.isPopupTrigger()) {
                     doPop(e);
                 }
             }
             
             @Override
             public void mouseReleased(MouseEvent e) {
-                if(e.isPopupTrigger()) {
+                if (e.isPopupTrigger()) {
                     doPop(e);
                 }
             }
@@ -183,18 +181,17 @@ public class MainJFrame extends javax.swing.JFrame {
             private void doPop(MouseEvent e) {
                 singleTabJPopupMenu.show(e.getComponent(), e.getX(), e.getY());
             }
-            
         });
     }
     
     private void makeShortcuts() {
-        for(int index=1;index<=9;index++) {
+        for (int index = 1; index <= 9; index++) {
             tabbedPane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("alt " + index), "switch tab " + index);
             tabbedPane.getActionMap().put("switch tab " + index, new AbstractActionWithInteger(index) {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    if(tabbedPane.getTabCount() >= getInteger()) {
-                        tabbedPane.setSelectedIndex(getInteger()-1);
+                    if (tabbedPane.getTabCount() >= getInteger()) {
+                        tabbedPane.setSelectedIndex(getInteger() - 1);
                     }
                 }
             });
@@ -240,11 +237,11 @@ public class MainJFrame extends javax.swing.JFrame {
         Component firstProblem = null;
         for (Problem problem : dialog.getProblemList()) { // possibly none, if parsing failed or user clicked Cancel
             addTabForProblem(problem);
-            if(firstProblem == null) {
-                firstProblem = tabbedPane.getComponentAt(tabbedPane.getTabCount()-1);
+            if (firstProblem == null) {
+                firstProblem = tabbedPane.getComponentAt(tabbedPane.getTabCount() - 1);
             }
         }
-        if(firstProblem != null) {
+        if (firstProblem != null) {
             tabbedPane.setSelectedComponent(firstProblem);
         }
     }//GEN-LAST:event_newContestActionPerformed

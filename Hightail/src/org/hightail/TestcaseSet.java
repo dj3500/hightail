@@ -22,7 +22,7 @@ public class TestcaseSet extends ArrayList<Testcase> {
             try {
                 executor.submit(test);
                 executor.shutdown();
-                if(!executor.awaitTermination(test.getTimeLimit(), TimeUnit.SECONDS)) {
+                if (!executor.awaitTermination(test.getTimeLimit(), TimeUnit.SECONDS)) {
                     test.killTest();
                     test.setExecutionResultCode(ExecutionResultCode.TLE);
                 }
@@ -31,13 +31,17 @@ public class TestcaseSet extends ArrayList<Testcase> {
                 Logger.getLogger(TestcaseSet.class.getName()).log(Level.SEVERE, null, ex);
             }
             callback.notifyResultsOfSingleTestcase(test.getIndex());
-            if(aborted) break;
+            if (aborted) {
+                break;
+            }
         }
         callback.notifyEndOfTesting();
     }
     
     public void abortCurrent() {
-        if(executor == null || !executor.isShutdown()) return;
+        if (executor == null || !executor.isShutdown()) {
+            return;
+        }
         currentTest.killTest();
         executor.shutdownNow();
         currentTest.setExecutionResultCode(ExecutionResultCode.ABORTED);

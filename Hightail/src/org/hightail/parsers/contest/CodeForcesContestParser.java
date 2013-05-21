@@ -48,7 +48,7 @@ public class CodeForcesContestParser implements ContestParser {
         links = new ArrayList<>(s);
         Collections.sort(links);
         
-        if(links.isEmpty()) {
+        if (links.isEmpty()) {
             throw new ParserException("No links to tasks found.");
         }
         

@@ -10,8 +10,6 @@ import javax.swing.KeyStroke;
 import org.hightail.Problem;
 import org.hightail.parsers.contest.ContestParser;
 import org.hightail.parsers.contest.ContestParserGetter;
-import org.hightail.parsers.task.TaskParser;
-import org.hightail.parsers.task.TaskParserGetter;
 import org.htmlparser.util.ParserException;
 
 
@@ -193,9 +191,8 @@ public class NewContestJDialog extends javax.swing.JDialog {
                     parsingStatusLabel.setText("Parsing...");
                     parsingStatusLabel.setToolTipText("");
                     ContestParser contestParser = ContestParserGetter.getContestParser(URL);
-                    TaskParser taskParser = TaskParserGetter.getTaskParser(URL);
                     ArrayList<Problem> tasks = contestParser.parse(URL);
-                    if(tasks.isEmpty()) {
+                    if (tasks.isEmpty()) {
                         throw new ParserException();
                     }
                     for (Problem problem : tasks) {

@@ -1,6 +1,5 @@
 package org.hightail.ui;
 
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.util.ArrayList;
@@ -17,7 +16,7 @@ import javax.swing.table.TableCellRenderer;
  */
 public class MultilineTableCellRenderer extends JTextArea
 implements TableCellRenderer {
-    private List<List<Integer>> rowColHeight = new ArrayList<List<Integer>>();
+    private List<List<Integer>> rowColHeight = new ArrayList<>();
     
     public MultilineTableCellRenderer() {
         setLineWrap(true);
