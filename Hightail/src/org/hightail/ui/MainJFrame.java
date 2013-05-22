@@ -12,6 +12,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.swing.JComponent;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
@@ -231,19 +232,24 @@ public class MainJFrame extends javax.swing.JFrame {
         new ConfigJDialog(this).setVisible(true);
     }//GEN-LAST:event_openConfigActionPerformed
     
-    private void newContestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newContestActionPerformed
-        NewContestJDialog dialog = new NewContestJDialog(this);
-        dialog.setVisible(true); // this is modal; it will block until window is closed
+    public void addProblems(ArrayList<Problem> problems) {
+        if (problems == null || problems.isEmpty()) {
+            return;
+        }
         Component firstProblem = null;
-        for (Problem problem : dialog.getProblemList()) { // possibly none, if parsing failed or user clicked Cancel
+        for (Problem problem : problems) {
             addTabForProblem(problem);
             if (firstProblem == null) {
                 firstProblem = tabbedPane.getComponentAt(tabbedPane.getTabCount() - 1);
             }
         }
-        if (firstProblem != null) {
-            tabbedPane.setSelectedComponent(firstProblem);
-        }
+        tabbedPane.setSelectedComponent(firstProblem);
+    }
+    
+    private void newContestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newContestActionPerformed
+        NewContestJDialog dialog = new NewContestJDialog(this);
+        dialog.setVisible(true); // this is modal; it will block until window is closed
+        addProblems(dialog.getProblemList());
     }//GEN-LAST:event_newContestActionPerformed
     
     private void newFromURLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newFromURLActionPerformed
