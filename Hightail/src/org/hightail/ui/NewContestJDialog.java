@@ -3,8 +3,6 @@ package org.hightail.ui;
 import java.awt.event.ActionEvent;
 import java.awt.event.ItemEvent;
 import java.awt.event.KeyEvent;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -62,6 +60,9 @@ public class NewContestJDialog extends javax.swing.JDialog {
             
         };
         contestUrlField.getDocument().addDocumentListener(clearErrorLabel);
+        
+        // sets hour combobox to current hour+1
+        scheduleHourComboBox.setSelectedIndex((Calendar.getInstance().get(Calendar.HOUR_OF_DAY)+1) % 24);
     }
     
     /**
@@ -79,8 +80,8 @@ public class NewContestJDialog extends javax.swing.JDialog {
         cancelButton = new javax.swing.JButton();
         errorMessageLabel = new javax.swing.JLabel();
         scheduleCheckBox = new javax.swing.JCheckBox();
-        scheduleTextField = new javax.swing.JTextField();
-        scheduleInfoLabel = new javax.swing.JLabel();
+        scheduleHourComboBox = new javax.swing.JComboBox();
+        scheduleMinuteComboBox = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -115,10 +116,11 @@ public class NewContestJDialog extends javax.swing.JDialog {
             }
         });
 
-        scheduleTextField.setEnabled(false);
+        scheduleHourComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23" }));
+        scheduleHourComboBox.setEnabled(false);
 
-        scheduleInfoLabel.setText("HH:mm");
-        scheduleInfoLabel.setEnabled(false);
+        scheduleMinuteComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59" }));
+        scheduleMinuteComboBox.setEnabled(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -134,20 +136,22 @@ public class NewContestJDialog extends javax.swing.JDialog {
                             .addComponent(contestUrlLabel)
                             .addComponent(scheduleCheckBox))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(scheduleTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(scheduleInfoLabel))
-                            .addComponent(contestUrlField)))
+                        .addComponent(contestUrlField))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(cancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(errorMessageLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
-                        .addGap(15, 15, 15)
-                        .addComponent(abortParsingButton, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(15, 15, 15)
-                        .addComponent(parseContestButton, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(scheduleHourComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(scheduleMinuteComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(errorMessageLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
+                                .addGap(15, 15, 15)
+                                .addComponent(abortParsingButton, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(15, 15, 15)
+                                .addComponent(parseContestButton, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -162,9 +166,9 @@ public class NewContestJDialog extends javax.swing.JDialog {
                     .addComponent(contestParseStatusLabel)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(scheduleCheckBox)
-                        .addComponent(scheduleTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(scheduleInfoLabel)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(scheduleHourComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(scheduleMinuteComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(7, 7, 7)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cancelButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(abortParsingButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -199,8 +203,15 @@ public class NewContestJDialog extends javax.swing.JDialog {
             }
         });
         // hitting enter will perform the same action as clicking parse contest button
-        scheduleTextField.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), "enter");
-        scheduleTextField.getActionMap().put("enter", new AbstractAction() {
+        scheduleHourComboBox.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), "enter");
+        scheduleHourComboBox.getActionMap().put("enter", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                parseContest();
+            }
+        });
+        scheduleMinuteComboBox.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), "enter");
+        scheduleMinuteComboBox.getActionMap().put("enter", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 parseContest();
@@ -216,21 +227,15 @@ public class NewContestJDialog extends javax.swing.JDialog {
         }
         problemList.clear();
         if (scheduleCheckBox.isSelected()) {
-            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
-            Date date = null;
-            try {
-                date = sdf.parse(scheduleTextField.getText());
-                Calendar calendar = Calendar.getInstance();
-                calendar.setTime(date);
-                int hour = calendar.get(Calendar.HOUR_OF_DAY);
-                int minute = calendar.get(Calendar.MINUTE);
-                calendar.setTime(new Date());
-                calendar.set(Calendar.HOUR_OF_DAY, hour);
-                calendar.set(Calendar.MINUTE, minute);
-                calendar.set(Calendar.SECOND, 0);
-                date = calendar.getTime();
-            } catch (ParseException ex) {
-                JOptionPane.showMessageDialog(this, "Invalid time format.", "Wrong time", JOptionPane.ERROR_MESSAGE);
+            Calendar calendar = Calendar.getInstance();
+            int hour = Integer.parseInt((String) scheduleHourComboBox.getSelectedItem());
+            int minute = Integer.parseInt((String) scheduleMinuteComboBox.getSelectedItem());
+            calendar.set(Calendar.HOUR_OF_DAY, hour);
+            calendar.set(Calendar.MINUTE, minute);
+            calendar.set(Calendar.SECOND, 0);
+            Date date = calendar.getTime();
+            if (date.before(Calendar.getInstance().getTime())) {
+                JOptionPane.showMessageDialog(this, "Chosen time is to early.", "Wrong time", JOptionPane.ERROR_MESSAGE);
                 return;
             }
             try {
@@ -271,8 +276,8 @@ public class NewContestJDialog extends javax.swing.JDialog {
 
     private void scheduleCheckBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_scheduleCheckBoxItemStateChanged
         boolean selected = (evt.getStateChange() == ItemEvent.SELECTED);
-        scheduleInfoLabel.setEnabled(selected);
-        scheduleTextField.setEnabled(selected);
+        scheduleHourComboBox.setEnabled(selected);
+        scheduleMinuteComboBox.setEnabled(selected);
         clearErrorMessageLabel();
     }//GEN-LAST:event_scheduleCheckBoxItemStateChanged
     
@@ -285,8 +290,8 @@ public class NewContestJDialog extends javax.swing.JDialog {
     private javax.swing.JLabel errorMessageLabel;
     private javax.swing.JButton parseContestButton;
     private javax.swing.JCheckBox scheduleCheckBox;
-    private javax.swing.JLabel scheduleInfoLabel;
-    private javax.swing.JTextField scheduleTextField;
+    private javax.swing.JComboBox scheduleHourComboBox;
+    private javax.swing.JComboBox scheduleMinuteComboBox;
     // End of variables declaration//GEN-END:variables
     
     ArrayList<Problem> getProblemList() {

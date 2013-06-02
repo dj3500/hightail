@@ -34,23 +34,26 @@
                           <Component id="scheduleCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Component id="scheduleTextField" min="-2" pref="58" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="scheduleInfoLabel" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Component id="contestUrlField" max="32767" attributes="0"/>
-                      </Group>
+                      <Component id="contestUrlField" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="cancelButton" min="-2" pref="97" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="errorMessageLabel" pref="130" max="32767" attributes="0"/>
-                      <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
-                      <Component id="abortParsingButton" min="-2" pref="73" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
-                      <Component id="parseContestButton" min="-2" pref="99" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Component id="scheduleHourComboBox" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="scheduleMinuteComboBox" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <Component id="errorMessageLabel" pref="130" max="32767" attributes="0"/>
+                              <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
+                              <Component id="abortParsingButton" min="-2" pref="73" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
+                              <Component id="parseContestButton" min="-2" pref="99" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -68,13 +71,13 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="contestParseStatusLabel" min="-2" max="-2" attributes="0"/>
-                  <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                  <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="scheduleCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="scheduleTextField" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="scheduleInfoLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="scheduleHourComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="scheduleMinuteComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="cancelButton" alignment="3" max="32767" attributes="0"/>
                   <Component id="abortParsingButton" alignment="3" max="32767" attributes="0"/>
@@ -131,14 +134,105 @@
         <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="scheduleCheckBoxItemStateChanged"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JTextField" name="scheduleTextField">
+    <Component class="javax.swing.JComboBox" name="scheduleHourComboBox">
       <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="24">
+            <StringItem index="0" value="00"/>
+            <StringItem index="1" value="01"/>
+            <StringItem index="2" value="02"/>
+            <StringItem index="3" value="03"/>
+            <StringItem index="4" value="04"/>
+            <StringItem index="5" value="05"/>
+            <StringItem index="6" value="06"/>
+            <StringItem index="7" value="07"/>
+            <StringItem index="8" value="08"/>
+            <StringItem index="9" value="09"/>
+            <StringItem index="10" value="10"/>
+            <StringItem index="11" value="11"/>
+            <StringItem index="12" value="12"/>
+            <StringItem index="13" value="13"/>
+            <StringItem index="14" value="14"/>
+            <StringItem index="15" value="15"/>
+            <StringItem index="16" value="16"/>
+            <StringItem index="17" value="17"/>
+            <StringItem index="18" value="18"/>
+            <StringItem index="19" value="19"/>
+            <StringItem index="20" value="20"/>
+            <StringItem index="21" value="21"/>
+            <StringItem index="22" value="22"/>
+            <StringItem index="23" value="23"/>
+          </StringArray>
+        </Property>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="scheduleInfoLabel">
+    <Component class="javax.swing.JComboBox" name="scheduleMinuteComboBox">
       <Properties>
-        <Property name="text" type="java.lang.String" value="HH:mm"/>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="60">
+            <StringItem index="0" value="00"/>
+            <StringItem index="1" value="01"/>
+            <StringItem index="2" value="02"/>
+            <StringItem index="3" value="03"/>
+            <StringItem index="4" value="04"/>
+            <StringItem index="5" value="05"/>
+            <StringItem index="6" value="06"/>
+            <StringItem index="7" value="07"/>
+            <StringItem index="8" value="08"/>
+            <StringItem index="9" value="09"/>
+            <StringItem index="10" value="10"/>
+            <StringItem index="11" value="11"/>
+            <StringItem index="12" value="12"/>
+            <StringItem index="13" value="13"/>
+            <StringItem index="14" value="14"/>
+            <StringItem index="15" value="15"/>
+            <StringItem index="16" value="16"/>
+            <StringItem index="17" value="17"/>
+            <StringItem index="18" value="18"/>
+            <StringItem index="19" value="19"/>
+            <StringItem index="20" value="20"/>
+            <StringItem index="21" value="21"/>
+            <StringItem index="22" value="22"/>
+            <StringItem index="23" value="23"/>
+            <StringItem index="24" value="24"/>
+            <StringItem index="25" value="25"/>
+            <StringItem index="26" value="26"/>
+            <StringItem index="27" value="27"/>
+            <StringItem index="28" value="28"/>
+            <StringItem index="29" value="29"/>
+            <StringItem index="30" value="30"/>
+            <StringItem index="31" value="31"/>
+            <StringItem index="32" value="32"/>
+            <StringItem index="33" value="33"/>
+            <StringItem index="34" value="34"/>
+            <StringItem index="35" value="35"/>
+            <StringItem index="36" value="36"/>
+            <StringItem index="37" value="37"/>
+            <StringItem index="38" value="38"/>
+            <StringItem index="39" value="39"/>
+            <StringItem index="40" value="40"/>
+            <StringItem index="41" value="41"/>
+            <StringItem index="42" value="42"/>
+            <StringItem index="43" value="43"/>
+            <StringItem index="44" value="44"/>
+            <StringItem index="45" value="45"/>
+            <StringItem index="46" value="46"/>
+            <StringItem index="47" value="47"/>
+            <StringItem index="48" value="48"/>
+            <StringItem index="49" value="49"/>
+            <StringItem index="50" value="50"/>
+            <StringItem index="51" value="51"/>
+            <StringItem index="52" value="52"/>
+            <StringItem index="53" value="53"/>
+            <StringItem index="54" value="54"/>
+            <StringItem index="55" value="55"/>
+            <StringItem index="56" value="56"/>
+            <StringItem index="57" value="57"/>
+            <StringItem index="58" value="58"/>
+            <StringItem index="59" value="59"/>
+          </StringArray>
+        </Property>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
     </Component>
