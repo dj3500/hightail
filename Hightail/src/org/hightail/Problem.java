@@ -7,6 +7,7 @@ public class Problem {
     protected String name;
     public static final int PROBLEM_NAME_MAX_LENGTH = 50;
     protected TestcaseSet testcaseSet = new TestcaseSet();
+    private SupportedSites originSite = null;
 
     public Problem(String name) {
         this.name = name;
@@ -15,6 +16,12 @@ public class Problem {
     public Problem(String name, TestcaseSet testcaseSet) {
         this.name = name;
         this.testcaseSet = testcaseSet;
+    }
+    
+    public Problem(String name, TestcaseSet testcaseSet, SupportedSites originSite) {
+        this.name = name;
+        this.testcaseSet = testcaseSet;
+        this.originSite = originSite;
     }
     
     public void setName(String name) {

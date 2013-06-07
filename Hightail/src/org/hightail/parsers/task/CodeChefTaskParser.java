@@ -5,6 +5,7 @@
 package org.hightail.parsers.task;
 
 import org.hightail.Problem;
+import org.hightail.SupportedSites;
 import org.hightail.Testcase;
 import org.hightail.TestcaseSet;
 import org.htmlparser.Node;
@@ -64,7 +65,7 @@ public class CodeChefTaskParser implements TaskParser {
         });
         node = fb.getNodes().elementAt(0);
         node = node.getNextSibling().getNextSibling();
-        String tmpInput = null, tmpOutput = null;
+        String tmpInput = null, tmpOutput;
         TestcaseSet testcaseSet = new TestcaseSet();
         for(Node child : node.getChildren().toNodeArray()) {
             if(child.getText().contains("Input")) {
@@ -76,7 +77,7 @@ public class CodeChefTaskParser implements TaskParser {
                     throw new ParserException("Error while parsing inputs/outputs.");
                 }
                 testcaseSet.add(new Testcase(tmpInput.trim(), tmpOutput.trim(), timeLimit));
-                tmpInput = tmpOutput = null;
+                tmpInput = null;
             }
         }
         
@@ -84,7 +85,7 @@ public class CodeChefTaskParser implements TaskParser {
             throw new ParserException("No inputs/outputs extracted.");
         }
         
-        return new Problem(problemName, testcaseSet);
+        return new Problem(problemName, testcaseSet, SupportedSites.CodeChef);
     }
 
     @Override

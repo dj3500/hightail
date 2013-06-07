@@ -15,8 +15,8 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import org.hightail.ContestScheduler;
 import org.hightail.Problem;
+import org.hightail.SupportedSites;
 import org.hightail.parsers.contest.ContestParser;
-import org.hightail.parsers.contest.ContestParserGetter;
 import org.htmlparser.util.ParserException;
 
 
@@ -82,6 +82,7 @@ public class NewContestJDialog extends javax.swing.JDialog {
         scheduleCheckBox = new javax.swing.JCheckBox();
         scheduleHourComboBox = new javax.swing.JComboBox();
         scheduleMinuteComboBox = new javax.swing.JComboBox();
+        delayLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -122,6 +123,9 @@ public class NewContestJDialog extends javax.swing.JDialog {
         scheduleMinuteComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59" }));
         scheduleMinuteComboBox.setEnabled(false);
 
+        delayLabel.setText("(10 seconds delay)");
+        delayLabel.setEnabled(false);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -145,6 +149,8 @@ public class NewContestJDialog extends javax.swing.JDialog {
                                 .addComponent(scheduleHourComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(scheduleMinuteComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(delayLabel)
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(errorMessageLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
@@ -167,7 +173,8 @@ public class NewContestJDialog extends javax.swing.JDialog {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(scheduleCheckBox)
                         .addComponent(scheduleHourComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(scheduleMinuteComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(scheduleMinuteComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(delayLabel)))
                 .addGap(7, 7, 7)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cancelButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -232,14 +239,14 @@ public class NewContestJDialog extends javax.swing.JDialog {
             int minute = Integer.parseInt((String) scheduleMinuteComboBox.getSelectedItem());
             calendar.set(Calendar.HOUR_OF_DAY, hour);
             calendar.set(Calendar.MINUTE, minute);
-            calendar.set(Calendar.SECOND, 0);
+            calendar.set(Calendar.SECOND, 10);
             Date date = calendar.getTime();
             if (date.before(Calendar.getInstance().getTime())) {
                 JOptionPane.showMessageDialog(this, "Chosen time is to early.", "Wrong time", JOptionPane.ERROR_MESSAGE);
                 return;
             }
             try {
-                ContestParserGetter.getContestParser(contestUrlField.getText());
+                SupportedSites.getContestParser(contestUrlField.getText());
             } catch (ParserException ex) {
                 JOptionPane.showMessageDialog(this, ex.getMessage(), "Wrong url", JOptionPane.ERROR_MESSAGE);
                 return;
@@ -278,6 +285,7 @@ public class NewContestJDialog extends javax.swing.JDialog {
         boolean selected = (evt.getStateChange() == ItemEvent.SELECTED);
         scheduleHourComboBox.setEnabled(selected);
         scheduleMinuteComboBox.setEnabled(selected);
+        delayLabel.setEnabled(selected);
         clearErrorMessageLabel();
     }//GEN-LAST:event_scheduleCheckBoxItemStateChanged
     
@@ -287,6 +295,7 @@ public class NewContestJDialog extends javax.swing.JDialog {
     private javax.swing.JLabel contestParseStatusLabel;
     private javax.swing.JTextField contestUrlField;
     private javax.swing.JLabel contestUrlLabel;
+    private javax.swing.JLabel delayLabel;
     private javax.swing.JLabel errorMessageLabel;
     private javax.swing.JButton parseContestButton;
     private javax.swing.JCheckBox scheduleCheckBox;
@@ -305,7 +314,7 @@ public class NewContestJDialog extends javax.swing.JDialog {
                 try {
                     errorMessageLabel.setText("Parsing...");
                     errorMessageLabel.setToolTipText(null);
-                    ContestParser contestParser = ContestParserGetter.getContestParser(URL);
+                    ContestParser contestParser = SupportedSites.getContestParser(URL);
                     ArrayList<Problem> tasks = contestParser.parse(URL);
                     if (tasks.isEmpty()) {
                         throw new ParserException();

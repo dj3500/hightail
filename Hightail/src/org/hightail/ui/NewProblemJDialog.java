@@ -7,8 +7,8 @@ import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 import org.hightail.Problem;
+import org.hightail.SupportedSites;
 import org.hightail.parsers.task.TaskParser;
-import org.hightail.parsers.task.TaskParserGetter;
 import org.htmlparser.util.ParserException;
 
 public class NewProblemJDialog extends javax.swing.JDialog {
@@ -277,7 +277,7 @@ public class NewProblemJDialog extends javax.swing.JDialog {
                 try {
                     parsingStatusLabel.setText("Parsing...");
                     parsingStatusLabel.setToolTipText("");
-                    TaskParser parser = TaskParserGetter.getTaskParser(URL);
+                    TaskParser parser = SupportedSites.getTaskParser(URL);
                     problem = parser.parse(URL);
                     parsingStatusLabel.setText("Parsing ok");
                     if (nameField.getText().isEmpty()) {

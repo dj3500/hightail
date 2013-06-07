@@ -3,6 +3,7 @@ package org.hightail.parsers.task;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.hightail.Problem;
+import org.hightail.SupportedSites;
 import org.hightail.Testcase;
 import org.hightail.TestcaseSet;
 import org.htmlparser.NodeFilter;
@@ -68,7 +69,7 @@ public class CodeForcesTaskParser implements TaskParser {
             testcaseSet.add(new Testcase(inputs[i].trim(), outputs[i].trim(), timeLimit));
         }
         
-        Problem problem = new Problem(problemName, testcaseSet);
+        Problem problem = new Problem(problemName, testcaseSet, SupportedSites.CodeForces);
         
         return problem;
     }

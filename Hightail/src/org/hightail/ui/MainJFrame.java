@@ -77,6 +77,7 @@ public class MainJFrame extends javax.swing.JFrame {
         exit = new javax.swing.JMenuItem();
         helpMenu = new javax.swing.JMenu();
         about = new javax.swing.JMenuItem();
+        shortcuts = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Hightail");
@@ -135,6 +136,14 @@ public class MainJFrame extends javax.swing.JFrame {
         about.setText("About...");
         helpMenu.add(about);
 
+        shortcuts.setText("Shortcuts");
+        shortcuts.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                shortcutsActionPerformed(evt);
+            }
+        });
+        helpMenu.add(shortcuts);
+
         menuBar.add(helpMenu);
 
         setJMenuBar(menuBar);
@@ -147,7 +156,7 @@ public class MainJFrame extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 586, Short.MAX_VALUE)
+            .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 598, Short.MAX_VALUE)
         );
 
         pack();
@@ -260,6 +269,11 @@ public class MainJFrame extends javax.swing.JFrame {
             addTabForProblem(dialog.getProblem());
         }
     }//GEN-LAST:event_newFromURLActionPerformed
+
+    private void shortcutsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_shortcutsActionPerformed
+        new ShortcutsJDialog(this).setVisible(true);
+        // TODO add your handling code here:
+    }//GEN-LAST:event_shortcutsActionPerformed
     
     
     /**
@@ -293,6 +307,7 @@ public class MainJFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem newContest;
     private javax.swing.JMenuItem newFromURL;
     private javax.swing.JMenuItem openConfig;
+    private javax.swing.JMenuItem shortcuts;
     private javax.swing.JTabbedPane tabbedPane;
     // End of variables declaration//GEN-END:variables
 

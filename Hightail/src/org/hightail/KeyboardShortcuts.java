@@ -1,14 +1,16 @@
 package org.hightail;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Map.Entry;
 import javax.swing.KeyStroke;
 
 /**
  *
  * @author krig
  */
-public abstract class KeyboardShortcuts {
+public class KeyboardShortcuts implements Iterable<Entry<String,String>> {
     private static final Map<String,String> shortcuts = new HashMap<>();
     static {
         shortcuts.put("run tests", "ctrl R");
@@ -25,4 +27,27 @@ public abstract class KeyboardShortcuts {
         }
         return KeyStroke.getKeyStroke(shortcuts.get(action));
     }
+
+    @Override
+    public Iterator<Entry<String, String>> iterator() {
+        final Iterator<Entry<String,String>> iterator = shortcuts.entrySet().iterator();
+        return new Iterator<Entry<String, String>>() {
+
+            @Override
+            public boolean hasNext() {
+                return iterator.hasNext();
+            }
+
+            @Override
+            public Entry<String, String> next() {
+                return iterator.next();
+            }
+
+            @Override
+            public void remove() {
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+        };
+    }
+    
 }
