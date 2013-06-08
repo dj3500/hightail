@@ -4,12 +4,14 @@
  */
 package org.hightail.ui;
 
+import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
-import java.util.Map.Entry;
 import javax.swing.AbstractAction;
+import javax.swing.JComponent;
 import javax.swing.KeyStroke;
 import javax.swing.table.DefaultTableModel;
+import org.hightail.Config;
 import org.hightail.KeyboardShortcuts;
 
 /**
@@ -43,6 +45,9 @@ public class ShortcutsJDialog extends javax.swing.JDialog {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         shortcutsTable = new javax.swing.JTable();
+        closeButton = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Shortcuts");
@@ -56,7 +61,7 @@ public class ShortcutsJDialog extends javax.swing.JDialog {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class
+                java.lang.Object.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false
@@ -71,9 +76,25 @@ public class ShortcutsJDialog extends javax.swing.JDialog {
             }
         });
         shortcutsTable.getTableHeader().setReorderingAllowed(false);
+        shortcutsTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                shortcutsTableMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(shortcutsTable);
         shortcutsTable.getColumnModel().getColumn(0).setResizable(false);
         shortcutsTable.getColumnModel().getColumn(1).setResizable(false);
+
+        closeButton.setText("Close");
+        closeButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                closeButtonActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("doubleclick to change");
+
+        jLabel2.setText("changes take effect after restart");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -81,23 +102,61 @@ public class ShortcutsJDialog extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(closeButton)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 1, Short.MAX_VALUE)
+                        .addComponent(closeButton)
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel2))))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void closeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeButtonActionPerformed
+        dispose();
+    }//GEN-LAST:event_closeButtonActionPerformed
+
+    private void editShortcut() {
+        int selectedRow = shortcutsTable.getSelectedRow();
+        if (selectedRow == -1) {
+            return;
+        }
+        KeyboardShortcuts shortcut = (KeyboardShortcuts) shortcutsTable.getValueAt(selectedRow, 0);
+        new EditShortcutJDialog((Frame) getParent(), shortcut).setVisible(true);
+        shortcutsTable.setValueAt(shortcut.getText().replace(' ', '+'), selectedRow, 1);
+    }
+    
+    private void shortcutsTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_shortcutsTableMouseClicked
+        if (evt.getClickCount() == 2) {
+            editShortcut();
+        }
+    }//GEN-LAST:event_shortcutsTableMouseClicked
+
     private void makeShortcuts() {
         // escape key will close the dialog
-        getRootPane().getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "close");
+        getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "close");
         getRootPane().getActionMap().put("close", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -108,12 +167,18 @@ public class ShortcutsJDialog extends javax.swing.JDialog {
     
     private void fillTable() {
         DefaultTableModel model = (DefaultTableModel) shortcutsTable.getModel();
-        for (Entry<String,String> shortcut : new KeyboardShortcuts()) {
-            model.addRow(new String[]{shortcut.getKey(), shortcut.getValue()});
+        for (KeyboardShortcuts shortcut : KeyboardShortcuts.values()) {
+            model.addRow(new Object[]{
+                shortcut,
+                Config.get("shortcut " + shortcut.getName(), shortcut.getText()).replace(' ', '+'),
+            });
         }
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton closeButton;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable shortcutsTable;
     // End of variables declaration//GEN-END:variables

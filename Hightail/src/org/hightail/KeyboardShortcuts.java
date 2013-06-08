@@ -1,53 +1,58 @@
 package org.hightail;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Map.Entry;
 import javax.swing.KeyStroke;
 
-/**
- *
- * @author krig
- */
-public class KeyboardShortcuts implements Iterable<Entry<String,String>> {
-    private static final Map<String,String> shortcuts = new HashMap<>();
-    static {
-        shortcuts.put("run tests", "ctrl R");
-        shortcuts.put("new testcase", "ctrl T");
-        shortcuts.put("copy input", "ctrl C");
-        shortcuts.put("abort tests", "ctrl A");
-        shortcuts.put("abort current test", "ctrl shift A");
-        shortcuts.put("save testcase", "ctrl ENTER");
+public enum KeyboardShortcuts {
+    RUN_TESTS       ("run tests", "ctrl R"),
+    NEW_TESTCASE    ("new testcase", "ctrl T"),
+    COPY_INPUT      ("copy input", "ctrl C"),
+    ABORT_ALL       ("abort tests", "ctrl A"),
+    ABORT_CURRENT   ("abort current test", "ctrl shift A"),
+    SAVE_TESTCASE   ("save testcase", "ctrl ENTER"),
+    ;
+    
+    private String name;
+    private String code;
+
+    private KeyboardShortcuts(String name, String code) {
+        this.name = name;
+        this.code = Config.get("shortcut " + name, code);
     }
+    
+    public String getName() {
+        return name;
+    }
+    
+    public String getText() {
+        return Config.get("shortcut " + getName(), code);
+    }
+    
+    public KeyStroke getKeyStroke() {
+        return KeyStroke.getKeyStroke(getText());
+    }
+    
+    @Override
+    public String toString() {
+        return name;
+    }
+    
+//    private static final Map<String,String> shortcuts = new HashMap<>();
+//    static {
+//        shortcuts.put("run tests", "ctrl R");
+//        shortcuts.put("new testcase", "ctrl T");
+//        shortcuts.put("copy input", "ctrl C");
+//        shortcuts.put("abort tests", "ctrl A");
+//        shortcuts.put("abort current test", "ctrl shift A");
+//        shortcuts.put("save testcase", "ctrl ENTER");
+//    }
     
     public static KeyStroke getShortcut(String action) {
-        if (!shortcuts.containsKey(action)) {
-            throw new RuntimeException("No shortcut found for " + action);
+        for (KeyboardShortcuts shortcut : values()) {
+            if (shortcut.getName().equals(action)) {
+                return shortcut.getKeyStroke();
+            }
         }
-        return KeyStroke.getKeyStroke(shortcuts.get(action));
+        throw new RuntimeException("No shortcut found for " + action);
     }
 
-    @Override
-    public Iterator<Entry<String, String>> iterator() {
-        final Iterator<Entry<String,String>> iterator = shortcuts.entrySet().iterator();
-        return new Iterator<Entry<String, String>>() {
-
-            @Override
-            public boolean hasNext() {
-                return iterator.hasNext();
-            }
-
-            @Override
-            public Entry<String, String> next() {
-                return iterator.next();
-            }
-
-            @Override
-            public void remove() {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-            }
-        };
-    }
-    
 }

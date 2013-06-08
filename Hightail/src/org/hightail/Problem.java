@@ -1,5 +1,7 @@
 package org.hightail;
 
+import org.hightail.util.FileChangeListener;
+import org.hightail.util.FileMonitor;
 import org.hightail.util.TestingListener;
 
 public class Problem {
