@@ -55,7 +55,7 @@ public class ProblemJPanel extends javax.swing.JPanel implements TestingListener
         };
         testTable.getSelectionModel().addListSelectionListener(listSelectionListener);
         
-        sourceFile.setText(problem.getDefaultExecutableFilename());
+        sourceFile.setText(problem.getPathToExec());
     }
     
     /** This method is called from within the constructor to

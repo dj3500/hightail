@@ -1,37 +1,36 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.hightail;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Timer;
 import java.util.TimerTask;
 import javax.swing.JOptionPane;
 import org.hightail.parsers.contest.ContestParser;
 import org.hightail.ui.MainJFrame;
 import org.htmlparser.util.ParserException;
 
-/**
- *
- * @author krig
- */
-public class ContestScheduler extends TimerTask {
-    private String URL; 
-    private MainJFrame mainFrame;
+public abstract class ContestScheduler {
+    private static final Timer timer = new Timer();
     
-    public ContestScheduler(String URL, MainJFrame mainFrame) {
-        this.URL = URL;
-        this.mainFrame = mainFrame;
+    public static void schedule(final String URL, final String workingDirectory, final MainJFrame mainFrame, Date date) {
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                try {
+                    ContestParser parser = SupportedSites.getContestParser(URL);
+                    ArrayList<Problem> problems = parser.parse(URL);
+                    for (Problem p : problems) {
+                        p.setWorkingDirectory(workingDirectory);
+                    }
+                    mainFrame.addProblems(problems);
+                } catch (ParserException ex) {
+                    new JOptionPane("Scheduled contest error " + ex.getMessage(), JOptionPane.ERROR_MESSAGE).createDialog("Hightail").setVisible(true);
+                    return;
+                }
+                new JOptionPane("Scheduled contest added.", JOptionPane.INFORMATION_MESSAGE).createDialog("Hightail").setVisible(true);
+                
+            }
+        }, date);
     }
 
-    @Override
-    public void run() {
-        try {
-            ContestParser parser = SupportedSites.getContestParser(URL);
-            mainFrame.addProblems(parser.parse(URL));
-        } catch (ParserException ex) {
-            new JOptionPane("Scheduled contest error " + ex.getMessage(), JOptionPane.ERROR_MESSAGE).createDialog("Hightail").setVisible(true);
-            return;
-        }
-        new JOptionPane("Scheduled contest added.", JOptionPane.INFORMATION_MESSAGE).createDialog("Hightail").setVisible(true);
-    }
 }

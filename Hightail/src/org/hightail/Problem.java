@@ -1,7 +1,5 @@
 package org.hightail;
 
-import org.hightail.util.FileChangeListener;
-import org.hightail.util.FileMonitor;
 import org.hightail.util.TestingListener;
 
 public class Problem {
@@ -10,20 +8,20 @@ public class Problem {
     public static final int PROBLEM_NAME_MAX_LENGTH = 50;
     protected TestcaseSet testcaseSet = new TestcaseSet();
     private SupportedSites originSite = null;
+    private String pathToExec;
 
     public Problem(String name) {
         this.name = name;
-    }
-    
-    public Problem(String name, TestcaseSet testcaseSet) {
-        this.name = name;
-        this.testcaseSet = testcaseSet;
+        pathToExec = Config.get("workingDirectory") + java.io.File.separator +
+               Config.get("pathFromWorkingDirToExec").replace("%P", name).replace("%L", name.toLowerCase());
     }
     
     public Problem(String name, TestcaseSet testcaseSet, SupportedSites originSite) {
         this.name = name;
         this.testcaseSet = testcaseSet;
         this.originSite = originSite;
+        pathToExec = Config.get("workingDirectory") + java.io.File.separator +
+               Config.get("pathFromWorkingDirToExec").replace("%P", name).replace("%L", name.toLowerCase());
     }
     
     public void setName(String name) {
@@ -68,8 +66,16 @@ public class Problem {
         testcaseSet.run(callback, pathToExecFile);
     }
 
-    public String getDefaultExecutableFilename() {
-        return Config.get("workingDirectory") + java.io.File.separator + 
-               Config.get("pathFromWorkingDirToExec").replace("%P", name).replace("%L", name.toLowerCase());
+    public String getPathToExec() {
+        return pathToExec;
+    }
+    
+    public void setWorkingDirectory(String workingDirectory) {
+        pathToExec = workingDirectory + java.io.File.separator +
+                Config.get("pathFromWorkingDirToExec").replace("%P", name).replace("%L", name.toLowerCase());
+    }
+    
+    public void setPathToExec(String pathToExec) {
+        this.pathToExec = pathToExec;
     }
 }

@@ -145,7 +145,7 @@ public class ShortcutsJDialog extends javax.swing.JDialog {
         }
         KeyboardShortcuts shortcut = (KeyboardShortcuts) shortcutsTable.getValueAt(selectedRow, 0);
         new EditShortcutJDialog((Frame) getParent(), shortcut).setVisible(true);
-        shortcutsTable.setValueAt(shortcut.getText().replace(' ', '+'), selectedRow, 1);
+        shortcutsTable.setValueAt(shortcut.getCode().replace(' ', '+'), selectedRow, 1);
     }
     
     private void shortcutsTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_shortcutsTableMouseClicked
@@ -170,7 +170,7 @@ public class ShortcutsJDialog extends javax.swing.JDialog {
         for (KeyboardShortcuts shortcut : KeyboardShortcuts.values()) {
             model.addRow(new Object[]{
                 shortcut,
-                Config.get("shortcut " + shortcut.getName(), shortcut.getText()).replace(' ', '+'),
+                Config.get("shortcut " + shortcut.getAction(), shortcut.getCode()).replace(' ', '+'),
             });
         }
     }

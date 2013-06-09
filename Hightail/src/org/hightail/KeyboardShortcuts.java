@@ -11,44 +11,38 @@ public enum KeyboardShortcuts {
     SAVE_TESTCASE   ("save testcase", "ctrl ENTER"),
     ;
     
-    private String name;
-    private String code;
+    private String action;
+    private String defaultCode;
 
-    private KeyboardShortcuts(String name, String code) {
-        this.name = name;
-        this.code = Config.get("shortcut " + name, code);
+    private KeyboardShortcuts(String action, String defaultCode) {
+        this.action = action;
+        this.defaultCode = defaultCode;
     }
     
-    public String getName() {
-        return name;
+    public String getAction() {
+        return action;
     }
     
-    public String getText() {
-        return Config.get("shortcut " + getName(), code);
+    public String getDefaultCode() {
+        return defaultCode;
+    }
+    
+    public String getCode() {
+        return Config.get("shortcut " + getAction(), defaultCode);
     }
     
     public KeyStroke getKeyStroke() {
-        return KeyStroke.getKeyStroke(getText());
+        return KeyStroke.getKeyStroke(getCode());
     }
     
     @Override
     public String toString() {
-        return name;
+        return action;
     }
-    
-//    private static final Map<String,String> shortcuts = new HashMap<>();
-//    static {
-//        shortcuts.put("run tests", "ctrl R");
-//        shortcuts.put("new testcase", "ctrl T");
-//        shortcuts.put("copy input", "ctrl C");
-//        shortcuts.put("abort tests", "ctrl A");
-//        shortcuts.put("abort current test", "ctrl shift A");
-//        shortcuts.put("save testcase", "ctrl ENTER");
-//    }
     
     public static KeyStroke getShortcut(String action) {
         for (KeyboardShortcuts shortcut : values()) {
-            if (shortcut.getName().equals(action)) {
+            if (shortcut.getAction().equals(action)) {
                 return shortcut.getKeyStroke();
             }
         }

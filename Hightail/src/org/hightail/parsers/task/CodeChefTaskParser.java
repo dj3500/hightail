@@ -81,9 +81,9 @@ public class CodeChefTaskParser implements TaskParser {
             }
         }
         
-        if(testcaseSet.isEmpty()) {
-            throw new ParserException("No inputs/outputs extracted.");
-        }
+//        if(testcaseSet.isEmpty()) {
+//            throw new ParserException("No inputs/outputs extracted.");
+//        }
         
         return new Problem(problemName, testcaseSet, SupportedSites.CodeChef);
     }
