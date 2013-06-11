@@ -25,6 +25,7 @@ public class NewContestJDialog extends javax.swing.JDialog {
     
     protected ArrayList<Problem> problemList = new ArrayList<>();
     protected Thread thread;
+    private boolean isAborting;
     
     /**
      * Creates new form NewContestJDialog
@@ -64,8 +65,15 @@ public class NewContestJDialog extends javax.swing.JDialog {
         };
         contestUrlField.getDocument().addDocumentListener(clearErrorLabel);
         
-        // sets hour combobox to current hour+1
-        scheduleHourComboBox.setSelectedIndex((Calendar.getInstance().get(Calendar.HOUR_OF_DAY)+1) % 24);
+        int hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
+        int minute = Calendar.getInstance().get(Calendar.MINUTE);
+        minute = (minute + 14) / 15 * 15;
+        if (minute == 60) {
+            hour = (hour + 1) % 24;
+            minute = 0;
+        }
+        scheduleHourComboBox.setSelectedIndex(hour);
+        scheduleMinuteComboBox.setSelectedIndex(minute);
     }
     
     /**
@@ -254,6 +262,9 @@ public class NewContestJDialog extends javax.swing.JDialog {
     }
     
     private void parseContest() {
+        if (isAborting) {
+            return;
+        }
         String URL = contestUrlField.getText();
         if (URL.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Enter the URL.", "No URL", JOptionPane.ERROR_MESSAGE);
@@ -352,6 +363,9 @@ public class NewContestJDialog extends javax.swing.JDialog {
                     errorMessageLabel.setToolTipText(null);
                     ContestParser contestParser = SupportedSites.getContestParser(URL);
                     ArrayList<Problem> tasks = contestParser.parse(URL);
+                    if (Thread.interrupted()) {
+                        throw new InterruptedException();
+                    }
                     if (tasks.isEmpty()) {
                         throw new ParserException();
                     }
@@ -367,6 +381,11 @@ public class NewContestJDialog extends javax.swing.JDialog {
                     errorMessageLabel.setText("Parsing failed.");
                     errorMessageLabel.setToolTipText(ex.getMessage());
                     problemList.clear();
+                } catch (InterruptedException ex) {
+                    errorMessageLabel.setText("Parsing aborted.");
+                    isAborting = false;
+                    abortParsingButton.setEnabled(false);
+                    parseContestButton.setEnabled(true);
                 }
             }
         });
@@ -374,9 +393,10 @@ public class NewContestJDialog extends javax.swing.JDialog {
     }
     
     private void abortParsing() {
+        isAborting = true;
+        errorMessageLabel.setText("Aborting...");
+        errorMessageLabel.setToolTipText(null);
         thread.interrupt();
         problemList.clear();
-        abortParsingButton.setEnabled(false);
-        parseContestButton.setEnabled(true);
     }
 }

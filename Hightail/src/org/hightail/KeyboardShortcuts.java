@@ -9,6 +9,7 @@ public enum KeyboardShortcuts {
     ABORT_ALL       ("abort tests", "ctrl A"),
     ABORT_CURRENT   ("abort current test", "ctrl shift A"),
     SAVE_TESTCASE   ("save testcase", "ctrl ENTER"),
+    SAVE_TESTS      ("save tests", "ctrl S"),
     ;
     
     private String action;
