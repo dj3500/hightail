@@ -74,6 +74,7 @@ public class MainJFrame extends javax.swing.JFrame {
         newContest = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         openConfig = new javax.swing.JMenuItem();
+        supportedSites = new javax.swing.JMenuItem();
         exit = new javax.swing.JMenuItem();
         helpMenu = new javax.swing.JMenu();
         about = new javax.swing.JMenuItem();
@@ -121,6 +122,14 @@ public class MainJFrame extends javax.swing.JFrame {
         });
         fileMenu.add(openConfig);
 
+        supportedSites.setText("Supported sites");
+        supportedSites.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                supportedSitesActionPerformed(evt);
+            }
+        });
+        fileMenu.add(supportedSites);
+
         exit.setText("Exit");
         exit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -156,7 +165,7 @@ public class MainJFrame extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 598, Short.MAX_VALUE)
+            .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 602, Short.MAX_VALUE)
         );
 
         pack();
@@ -272,8 +281,11 @@ public class MainJFrame extends javax.swing.JFrame {
 
     private void shortcutsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_shortcutsActionPerformed
         new ShortcutsJDialog(this).setVisible(true);
-        // TODO add your handling code here:
     }//GEN-LAST:event_shortcutsActionPerformed
+
+    private void supportedSitesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_supportedSitesActionPerformed
+        new SupportedSitesJDialog(this).setVisible(true);
+    }//GEN-LAST:event_supportedSitesActionPerformed
     
     
     /**
@@ -308,6 +320,7 @@ public class MainJFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem newFromURL;
     private javax.swing.JMenuItem openConfig;
     private javax.swing.JMenuItem shortcuts;
+    private javax.swing.JMenuItem supportedSites;
     private javax.swing.JTabbedPane tabbedPane;
     // End of variables declaration//GEN-END:variables
 
