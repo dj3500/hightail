@@ -12,6 +12,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.swing.JComponent;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
@@ -76,6 +77,7 @@ public class MainJFrame extends javax.swing.JFrame {
         exit = new javax.swing.JMenuItem();
         helpMenu = new javax.swing.JMenu();
         about = new javax.swing.JMenuItem();
+        shortcuts = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Hightail");
@@ -134,6 +136,14 @@ public class MainJFrame extends javax.swing.JFrame {
         about.setText("About...");
         helpMenu.add(about);
 
+        shortcuts.setText("Shortcuts");
+        shortcuts.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                shortcutsActionPerformed(evt);
+            }
+        });
+        helpMenu.add(shortcuts);
+
         menuBar.add(helpMenu);
 
         setJMenuBar(menuBar);
@@ -146,7 +156,7 @@ public class MainJFrame extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 586, Short.MAX_VALUE)
+            .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 606, Short.MAX_VALUE)
         );
 
         pack();
@@ -231,19 +241,24 @@ public class MainJFrame extends javax.swing.JFrame {
         new ConfigJDialog(this).setVisible(true);
     }//GEN-LAST:event_openConfigActionPerformed
     
-    private void newContestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newContestActionPerformed
-        NewContestJDialog dialog = new NewContestJDialog(this);
-        dialog.setVisible(true); // this is modal; it will block until window is closed
+    public void addProblems(ArrayList<Problem> problems) {
+        if (problems == null || problems.isEmpty()) {
+            return;
+        }
         Component firstProblem = null;
-        for (Problem problem : dialog.getProblemList()) { // possibly none, if parsing failed or user clicked Cancel
+        for (Problem problem : problems) {
             addTabForProblem(problem);
             if (firstProblem == null) {
                 firstProblem = tabbedPane.getComponentAt(tabbedPane.getTabCount() - 1);
             }
         }
-        if (firstProblem != null) {
-            tabbedPane.setSelectedComponent(firstProblem);
-        }
+        tabbedPane.setSelectedComponent(firstProblem);
+    }
+    
+    private void newContestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newContestActionPerformed
+        NewContestJDialog dialog = new NewContestJDialog(this);
+        dialog.setVisible(true); // this is modal; it will block until window is closed
+        addProblems(dialog.getProblemList());
     }//GEN-LAST:event_newContestActionPerformed
     
     private void newFromURLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newFromURLActionPerformed
@@ -254,6 +269,10 @@ public class MainJFrame extends javax.swing.JFrame {
             addTabForProblem(dialog.getProblem());
         }
     }//GEN-LAST:event_newFromURLActionPerformed
+
+    private void shortcutsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_shortcutsActionPerformed
+        new ShortcutsJDialog(this).setVisible(true);
+    }//GEN-LAST:event_shortcutsActionPerformed
     
     
     /**
@@ -287,6 +306,7 @@ public class MainJFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem newContest;
     private javax.swing.JMenuItem newFromURL;
     private javax.swing.JMenuItem openConfig;
+    private javax.swing.JMenuItem shortcuts;
     private javax.swing.JTabbedPane tabbedPane;
     // End of variables declaration//GEN-END:variables
 

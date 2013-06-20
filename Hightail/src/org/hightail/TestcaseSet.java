@@ -22,7 +22,7 @@ public class TestcaseSet extends ArrayList<Testcase> {
             try {
                 executor.submit(test);
                 executor.shutdown();
-                if (!executor.awaitTermination(test.getTimeLimit(), TimeUnit.SECONDS)) {
+                if (!executor.awaitTermination(test.getTimeLimit(), TimeUnit.MILLISECONDS)) {
                     test.killTest();
                     test.setExecutionResultCode(ExecutionResultCode.TLE);
                 }
