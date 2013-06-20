@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import org.hightail.parsers.contest.ContestParser;
 import org.hightail.ui.MainJFrame;
@@ -23,7 +25,7 @@ public abstract class ContestScheduler {
                         p.setWorkingDirectory(workingDirectory);
                     }
                     mainFrame.addProblems(problems);
-                } catch (ParserException ex) {
+                } catch (InterruptedException | ParserException ex) {
                     new JOptionPane("Scheduled contest error " + ex.getMessage(), JOptionPane.ERROR_MESSAGE).createDialog("Hightail").setVisible(true);
                     return;
                 }
