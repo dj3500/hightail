@@ -2,6 +2,8 @@ package org.hightail.ui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.AbstractAction;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
@@ -287,6 +289,9 @@ public class NewProblemJDialog extends javax.swing.JDialog {
                     parsingStatusLabel.setText("Parsing failed");
                     parsingStatusLabel.setToolTipText(ex.getMessage());
                     problem = null;
+                } catch (InterruptedException ex) {
+                    parsingStatusLabel.setText("Parsing aborted.");
+                    parsingStatusLabel.setToolTipText(null);
                 }
                 setButtonStateForAfterParsing();
             }
@@ -295,9 +300,9 @@ public class NewProblemJDialog extends javax.swing.JDialog {
     }
     
     private void abortParsing() {
+        parsingStatusLabel.setText("Aborting...");
         thread.interrupt();
         problem = null;
-        parsingStatusLabel.setText("Parsing aborted");
         setButtonStateForAfterParsing();
     }
     

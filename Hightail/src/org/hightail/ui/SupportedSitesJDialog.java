@@ -16,6 +16,8 @@ public class SupportedSitesJDialog extends javax.swing.JDialog {
     public SupportedSitesJDialog(java.awt.Frame parent) {
         super(parent, true); // makes it modal
         initComponents();
+        
+        setLocationRelativeTo(parent);
     }
 
     /**
@@ -28,6 +30,7 @@ public class SupportedSitesJDialog extends javax.swing.JDialog {
     private void initComponents() {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Supported sites settings");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

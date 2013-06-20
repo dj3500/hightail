@@ -32,7 +32,7 @@ public enum SupportedSites {
         return Config.get(toString() + "Directory", defaultDirectory);
     }
     
-    private static void isCorrectURL(String url) throws ParserException {
+    private static void verifyURL(String url) throws ParserException {
         try {
             URL u = new URL(url);
             HttpURLConnection conn = (HttpURLConnection) u.openConnection();
@@ -47,25 +47,30 @@ public enum SupportedSites {
         }
     }
     
-    public static TaskParser getTaskParser(String URL) throws ParserException {
-        isCorrectURL(URL);
+    public static SupportedSites getSite(String URL) {
         for (SupportedSites site : values()) {
-            if (site.taskParser.isCorrectURL(URL)) {
-                return site.taskParser;
+            if (site.taskParser.isCorrectURL(URL) || site.contestParser.isCorrectURL(URL)) {
+                return site;
             }
         }
-        
-        throw new ParserException("Incorrect url or this site is currently unsupported.");
+        return null;
+    }
+    
+    public static TaskParser getTaskParser(String URL) throws ParserException {
+        verifyURL(URL);
+        SupportedSites site = getSite(URL);
+        if (site == null) {
+            throw new ParserException("Incorrect url or this site is currently unsupported.");
+        }
+        return site.taskParser;
     }
     
     public static ContestParser getContestParser(String URL) throws ParserException {
-        isCorrectURL(URL);
-        for (SupportedSites site : values()) {
-            if (site.contestParser.isCorrectURL(URL)) {
-                return site.contestParser;
-            }
+        verifyURL(URL);
+        SupportedSites site = getSite(URL);
+        if (site == null) {
+            throw new ParserException("Incorrect url or this site is currently unsupported.");
         }
-        
-        throw new ParserException("Incorrect url or this site is currently unsupported.");
+        return site.contestParser;
     }
 }

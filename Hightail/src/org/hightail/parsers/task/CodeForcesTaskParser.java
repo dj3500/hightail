@@ -20,7 +20,7 @@ import org.htmlparser.util.Translate;
 public class CodeForcesTaskParser implements TaskParser {
 
     @Override
-    public Problem parse(String URL) throws ParserException {
+    public Problem parse(String URL) throws ParserException, InterruptedException {
         
         URL = URL.trim();
         
@@ -36,6 +36,10 @@ public class CodeForcesTaskParser implements TaskParser {
             throw new ParserException("Problem name not extracted (probably incorrect url).");
         }
         problemName = String.valueOf(problemName.charAt(0));
+        
+        if (Thread.interrupted()) {
+            throw new InterruptedException();
+        }
         
         // extract inputs
         CssSelectorNodeFilter inputFilter = new CssSelectorNodeFilter("div.input");
@@ -53,6 +57,10 @@ public class CodeForcesTaskParser implements TaskParser {
             throw new ParserException("Number of inputs is not equal to number of outputs.");
         }
         
+        if (Thread.interrupted()) {
+            throw new InterruptedException();
+        }
+        
         // extract time limit
         fb.setFilters(new NodeFilter[] {new CssSelectorNodeFilter("div.time-limit")});
         String timeLimitText = fb.getText(); // should be "time limit per testXXX second"
@@ -67,6 +75,10 @@ public class CodeForcesTaskParser implements TaskParser {
         TestcaseSet testcaseSet = new TestcaseSet();
         for (int i = 1; i < inputs.length; ++i) {
             testcaseSet.add(new Testcase(inputs[i].trim(), outputs[i].trim(), timeLimit));
+        }
+        
+        if (Thread.interrupted()) {
+            throw new InterruptedException();
         }
         
         Problem problem = new Problem(problemName, testcaseSet, SupportedSites.CodeForces);

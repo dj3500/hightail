@@ -28,7 +28,7 @@ public class CodeChefContestParser implements ContestParser {
     final static private TaskParser taskParser = new CodeChefTaskParser();
 
     @Override
-    public ArrayList<Problem> parse(String URL) throws ParserException {
+    public ArrayList<Problem> parse(String URL) throws ParserException, InterruptedException {
         URL = URL.trim();
         
         Parser parser = new Parser(URL);

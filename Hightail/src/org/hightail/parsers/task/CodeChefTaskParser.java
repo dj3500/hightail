@@ -22,7 +22,7 @@ import org.htmlparser.util.ParserException;
 public class CodeChefTaskParser implements TaskParser {
 
     @Override
-    public Problem parse(String URL) throws ParserException {
+    public Problem parse(String URL) throws ParserException, InterruptedException {
         URL = URL.trim();
         
         FilterBean fb = new FilterBean();
@@ -40,6 +40,9 @@ public class CodeChefTaskParser implements TaskParser {
         }
         problemName = problemName.split(" ")[2];
         
+        if (Thread.interrupted()) {
+            throw new InterruptedException();
+        }
         
         // extract time limit
         // TODO: this part should be better implemented
@@ -56,6 +59,10 @@ public class CodeChefTaskParser implements TaskParser {
                 timeLimit = (int) (Double.valueOf(stringTimeLimit.split(" ")[0]) * 1000);
                 break;
             }
+        }
+        
+        if (Thread.interrupted()) {
+            throw new InterruptedException();
         }
         
         // extract inputs and outputs
@@ -81,6 +88,9 @@ public class CodeChefTaskParser implements TaskParser {
             }
         }
         
+        if (Thread.interrupted()) {
+            throw new InterruptedException();
+        }
 //        if(testcaseSet.isEmpty()) {
 //            throw new ParserException("No inputs/outputs extracted.");
 //        }

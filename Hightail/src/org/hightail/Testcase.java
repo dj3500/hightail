@@ -7,7 +7,7 @@ import org.hightail.diff.OutputDiff;
 
 public class Testcase implements Callable<ExecutionResult> {
     public static final int DEFAULT_TIME_LIMIT = 3000; // in milliseconds
-    private static final int OUTPUT_MAX_LEN = 4*1024*1024; // 4 mb
+    private static final int OUTPUT_MAX_LEN = 300*1024; // 300 kb
     
     protected int index = 0;
     protected String input;
@@ -139,6 +139,7 @@ public class Testcase implements Callable<ExecutionResult> {
             if (sb.length() >= OUTPUT_MAX_LEN) {
                 executionResult.setResult(ExecutionResultCode.RUNTIME);
                 executionResult.setMsg("Output limit exceeded");
+                killTest();
                 throw new IOException("Output limit exceeded");
             }
             programOutput = sb.toString();
@@ -153,6 +154,7 @@ public class Testcase implements Callable<ExecutionResult> {
             if (sb.length() >= OUTPUT_MAX_LEN) {
                 executionResult.setResult(ExecutionResultCode.RUNTIME);
                 executionResult.setMsg("Output limit exceeded");
+                killTest();
                 throw new IOException("Output limit exceeded");
             }
             programError = sb.toString();
