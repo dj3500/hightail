@@ -6,7 +6,8 @@ import java.util.concurrent.Callable;
 import org.hightail.diff.OutputDiff;
 
 public class Testcase implements Callable<ExecutionResult> {
-    public static final int DEFAULT_TIME_LIMIT = 3;
+    public static final int DEFAULT_TIME_LIMIT = 3000; // in milliseconds
+    private static final int OUTPUT_MAX_LEN = 300*1024; // 300 kb
     
     protected int index = 0;
     protected String input;
@@ -72,6 +73,10 @@ public class Testcase implements Callable<ExecutionResult> {
         return timeLimit;
     }
     
+    public double getTimeLimitInSeconds() {
+        return getTimeLimit()/1000.;
+    }
+    
     public Testcase(String input, String expectedOutput) {
         this(input, expectedOutput, DEFAULT_TIME_LIMIT);
     }
@@ -107,6 +112,8 @@ public class Testcase implements Callable<ExecutionResult> {
             String line;
             BufferedReader br;
             StringBuilder sb;
+            int len;
+            char[] buf = new char[1024];
             executionResult.setResult(ExecutionResultCode.RUNNING);
             
             double startTime = Calendar.getInstance().getTimeInMillis();
@@ -126,8 +133,14 @@ public class Testcase implements Callable<ExecutionResult> {
             // reading stdout
             br = new BufferedReader(new InputStreamReader(stdout));
             sb = new StringBuilder();
-            while ((line = br.readLine()) != null) {
-                sb.append(line).append("\n");
+            while ((len = br.read(buf)) != -1 && sb.length() < OUTPUT_MAX_LEN) {
+                sb.append(buf, 0, len);
+            }
+            if (sb.length() >= OUTPUT_MAX_LEN) {
+                executionResult.setResult(ExecutionResultCode.RUNTIME);
+                executionResult.setMsg("Output limit exceeded");
+                killTest();
+                throw new IOException("Output limit exceeded");
             }
             programOutput = sb.toString();
             br.close();
@@ -135,8 +148,14 @@ public class Testcase implements Callable<ExecutionResult> {
             // reading stderr
             br = new BufferedReader(new InputStreamReader(stderr));
             sb = new StringBuilder();
-            while ((line = br.readLine()) != null) {
-                sb.append(line).append("\n");
+            while ((len = br.read(buf)) != -1 && sb.length() < OUTPUT_MAX_LEN) {
+                sb.append(buf, 0, len);
+            }
+            if (sb.length() >= OUTPUT_MAX_LEN) {
+                executionResult.setResult(ExecutionResultCode.RUNTIME);
+                executionResult.setMsg("Output limit exceeded");
+                killTest();
+                throw new IOException("Output limit exceeded");
             }
             programError = sb.toString();
             br.close();

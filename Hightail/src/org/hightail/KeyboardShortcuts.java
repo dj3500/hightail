@@ -1,28 +1,53 @@
 package org.hightail;
 
-import java.util.HashMap;
-import java.util.Map;
 import javax.swing.KeyStroke;
 
-/**
- *
- * @author krig
- */
-public abstract class KeyboardShortcuts {
-    private static final Map<String,String> shortcuts = new HashMap<>();
-    static {
-        shortcuts.put("run tests", "ctrl R");
-        shortcuts.put("new testcase", "ctrl T");
-        shortcuts.put("copy input", "ctrl C");
-        shortcuts.put("abort tests", "ctrl A");
-        shortcuts.put("abort current test", "ctrl shift A");
-        shortcuts.put("save testcase", "ctrl ENTER");
+public enum KeyboardShortcuts {
+    RUN_TESTS       ("run tests", "ctrl R"),
+    NEW_TESTCASE    ("new testcase", "ctrl T"),
+    COPY_INPUT      ("copy input", "ctrl C"),
+    ABORT_ALL       ("abort tests", "ctrl A"),
+    ABORT_CURRENT   ("abort current test", "ctrl shift A"),
+    SAVE_TESTCASE   ("save testcase", "ctrl ENTER"),
+    SAVE_TESTS      ("save tests", "ctrl S"),
+    ;
+    
+    private String action;
+    private String defaultCode;
+
+    private KeyboardShortcuts(String action, String defaultCode) {
+        this.action = action;
+        this.defaultCode = defaultCode;
+    }
+    
+    public String getAction() {
+        return action;
+    }
+    
+    public String getDefaultCode() {
+        return defaultCode;
+    }
+    
+    public String getCode() {
+        return Config.get("shortcut " + getAction(), defaultCode);
+    }
+    
+    public KeyStroke getKeyStroke() {
+        return KeyStroke.getKeyStroke(getCode());
+    }
+    
+    @Override
+    public String toString() {
+        return action;
     }
     
     public static KeyStroke getShortcut(String action) {
-        if (!shortcuts.containsKey(action)) {
-            throw new RuntimeException("No shortcut found for " + action);
+        for (KeyboardShortcuts shortcut : values()) {
+            if (shortcut.getAction().equals(action)) {
+                return shortcut.getKeyStroke();
+            }
         }
-        return KeyStroke.getKeyStroke(shortcuts.get(action));
+        throw new RuntimeException("No shortcut found for " + action);
     }
+
 }

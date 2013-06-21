@@ -20,7 +20,7 @@ public class CodeForcesContestParser implements ContestParser {
     final static private TaskParser taskParser = new CodeForcesTaskParser();
     
     @Override
-    public ArrayList<Problem> parse(String URL) throws ParserException {
+    public ArrayList<Problem> parse(String URL) throws ParserException, InterruptedException {
         
         URL = URL.trim();
         

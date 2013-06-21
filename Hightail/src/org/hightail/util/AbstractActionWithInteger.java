@@ -2,10 +2,6 @@ package org.hightail.util;
 
 import javax.swing.AbstractAction;
 
-/**
- *
- * @author krig
- */
 public abstract class AbstractActionWithInteger extends AbstractAction {
     private int i;
     

@@ -59,8 +59,13 @@
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
+<<<<<<< HEAD
+                      <Component id="timeLimitTextField" max="32767" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+=======
                       <Component id="timeLimitTextField" min="-2" pref="38" max="-2" attributes="0"/>
                       <EmptySpace pref="36" max="32767" attributes="0"/>
+>>>>>>> a865b4309985a615ee45e30ec288424582406259
                       <Component id="cancelButton" min="-2" pref="100" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="saveButton" min="-2" pref="100" max="-2" attributes="0"/>
