@@ -96,7 +96,6 @@ public class NewContestJDialog extends javax.swing.JDialog {
         contestDirectoryField = new javax.swing.JTextField();
         selectButton = new javax.swing.JButton();
         addContestButton = new javax.swing.JButton();
-        setDirectoryButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -125,6 +124,8 @@ public class NewContestJDialog extends javax.swing.JDialog {
             }
         });
 
+        errorMessageLabel.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+
         scheduleCheckBox.setText("Schedule");
         scheduleCheckBox.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -138,7 +139,7 @@ public class NewContestJDialog extends javax.swing.JDialog {
         scheduleMinuteComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59" }));
         scheduleMinuteComboBox.setEnabled(false);
 
-        delayLabel.setText("(few seconds delay)");
+        delayLabel.setText("(+ 10-20 seconds of delay)");
         delayLabel.setEnabled(false);
 
         contestDirectoryLabel.setText("Directory:");
@@ -155,13 +156,6 @@ public class NewContestJDialog extends javax.swing.JDialog {
         addContestButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addContestButtonActionPerformed(evt);
-            }
-        });
-
-        setDirectoryButton.setText("Set directory");
-        setDirectoryButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                setDirectoryButtonActionPerformed(evt);
             }
         });
 
@@ -186,7 +180,7 @@ public class NewContestJDialog extends javax.swing.JDialog {
                                 .addComponent(scheduleMinuteComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(delayLabel)
-                                .addGap(0, 95, Short.MAX_VALUE))
+                                .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(contestDirectoryField)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -196,18 +190,15 @@ public class NewContestJDialog extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(addContestButton))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(contestUrlLabel)
-                            .addComponent(setDirectoryButton))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(errorMessageLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(abortParsingButton, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(parseContestButton, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(contestUrlField))))
+                        .addComponent(contestUrlLabel)
+                        .addGap(41, 41, 41)
+                        .addComponent(contestUrlField))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(errorMessageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(abortParsingButton, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(parseContestButton, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -222,10 +213,7 @@ public class NewContestJDialog extends javax.swing.JDialog {
                     .addComponent(errorMessageLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(parseContestButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(abortParsingButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(setDirectoryButton)))
+                        .addComponent(abortParsingButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(contestDirectoryField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -250,7 +238,7 @@ public class NewContestJDialog extends javax.swing.JDialog {
     
     private void contestURLChanged() {
         parseContestButton.setEnabled(!contestUrlField.getText().isEmpty() && !scheduleCheckBox.isSelected());
-        setDirectoryButton.setEnabled(!contestUrlField.getText().isEmpty());
+        //setDirectoryButton.setEnabled(!contestUrlField.getText().isEmpty());
         errorMessageLabel.setText(null);
         errorMessageLabel.setToolTipText(null);
         parsingSuccedded = false;
@@ -375,7 +363,7 @@ public class NewContestJDialog extends javax.swing.JDialog {
         dispose();
     }//GEN-LAST:event_addContestButtonActionPerformed
 
-    private void setDirectoryButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_setDirectoryButtonActionPerformed
+    private void setWorkingDirectoryDependingOnSite() {
         SupportedSites site = SupportedSites.getSite(contestUrlField.getText());
         if (site == null) {
             return;
@@ -384,7 +372,7 @@ public class NewContestJDialog extends javax.swing.JDialog {
                 Config.get("workingDirectory")
                 + java.io.File.separator
                 + site.getDirectory());
-    }//GEN-LAST:event_setDirectoryButtonActionPerformed
+    }    
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton abortParsingButton;
@@ -402,7 +390,6 @@ public class NewContestJDialog extends javax.swing.JDialog {
     private javax.swing.JComboBox scheduleHourComboBox;
     private javax.swing.JComboBox scheduleMinuteComboBox;
     private javax.swing.JButton selectButton;
-    private javax.swing.JButton setDirectoryButton;
     // End of variables declaration//GEN-END:variables
     
     ArrayList<Problem> getProblemList() {

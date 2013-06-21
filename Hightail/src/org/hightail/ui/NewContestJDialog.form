@@ -6,7 +6,6 @@
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
-    <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
   </SyntheticProperties>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
@@ -41,7 +40,7 @@
                               <Component id="scheduleMinuteComboBox" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="delayLabel" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="0" pref="95" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
                               <Component id="contestDirectoryField" max="32767" attributes="0"/>
@@ -56,21 +55,16 @@
                       <Component id="addContestButton" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="contestUrlLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="setDirectoryButton" alignment="0" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Component id="errorMessageLabel" max="32767" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="abortParsingButton" min="-2" pref="73" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="parseContestButton" min="-2" pref="87" max="-2" attributes="0"/>
-                          </Group>
-                          <Component id="contestUrlField" max="32767" attributes="0"/>
-                      </Group>
+                      <Component id="contestUrlLabel" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
+                      <Component id="contestUrlField" max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="errorMessageLabel" min="-2" pref="187" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="abortParsingButton" min="-2" pref="73" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="parseContestButton" min="-2" pref="87" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -91,10 +85,6 @@
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="parseContestButton" alignment="3" max="32767" attributes="0"/>
                       <Component id="abortParsingButton" alignment="3" max="32767" attributes="0"/>
-                  </Group>
-                  <Group type="102" attributes="0">
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                      <Component id="setDirectoryButton" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -158,6 +148,9 @@
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="errorMessageLabel">
+      <Properties>
+        <Property name="horizontalAlignment" type="int" value="11"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JCheckBox" name="scheduleCheckBox">
       <Properties>
@@ -271,7 +264,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="delayLabel">
       <Properties>
-        <Property name="text" type="java.lang.String" value="(few seconds delay)"/>
+        <Property name="text" type="java.lang.String" value="(+ 10-20 seconds of delay)"/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
     </Component>
@@ -297,14 +290,6 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="addContestButtonActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="setDirectoryButton">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Set directory"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="setDirectoryButtonActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>
