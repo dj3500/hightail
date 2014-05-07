@@ -178,8 +178,8 @@ public class TestcaseJDialog extends javax.swing.JDialog {
         expectedOutputTextarea.setRows(5);
         jScrollPane1.setViewportView(expectedOutputTextarea);
 
-        programOutputTextarea.setColumns(20);
         programOutputTextarea.setEditable(false);
+        programOutputTextarea.setColumns(20);
         programOutputTextarea.setFont(new java.awt.Font("Courier New", 0, 12)); // NOI18N
         programOutputTextarea.setRows(5);
         jScrollPane3.setViewportView(programOutputTextarea);
@@ -239,8 +239,8 @@ public class TestcaseJDialog extends javax.swing.JDialog {
                             .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(timeLimitTextField)
-                        .addGap(18, 18, 18)
+                        .addComponent(timeLimitTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
                         .addComponent(cancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(saveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))

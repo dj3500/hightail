@@ -217,7 +217,7 @@ public class ProblemJPanel extends javax.swing.JPanel implements TestingListener
                 .addGap(29, 29, 29))
         );
 
-        openContainingDirectoryButton.setText("Open containing directory");
+        openContainingDirectoryButton.setText("Browse...");
         openContainingDirectoryButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 openContainingDirectoryButtonActionPerformed(evt);
@@ -240,7 +240,7 @@ public class ProblemJPanel extends javax.swing.JPanel implements TestingListener
                         .addComponent(executableFileLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(sourceFile)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(openContainingDirectoryButton)))
                 .addContainerGap())
         );

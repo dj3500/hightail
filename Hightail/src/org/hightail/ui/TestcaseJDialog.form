@@ -7,6 +7,7 @@
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
+    <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
   </SyntheticProperties>
   <Events>
     <EventHandler event="windowClosing" listener="java.awt.event.WindowListener" parameters="java.awt.event.WindowEvent" handler="formWindowClosing"/>
@@ -59,13 +60,8 @@
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-<<<<<<< HEAD
-                      <Component id="timeLimitTextField" max="32767" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-=======
                       <Component id="timeLimitTextField" min="-2" pref="38" max="-2" attributes="0"/>
                       <EmptySpace pref="36" max="32767" attributes="0"/>
->>>>>>> a865b4309985a615ee45e30ec288424582406259
                       <Component id="cancelButton" min="-2" pref="100" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="saveButton" min="-2" pref="100" max="-2" attributes="0"/>
@@ -190,8 +186,8 @@
       <SubComponents>
         <Component class="javax.swing.JTextArea" name="programOutputTextarea">
           <Properties>
-            <Property name="columns" type="int" value="20"/>
             <Property name="editable" type="boolean" value="false"/>
+            <Property name="columns" type="int" value="20"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Courier New" size="12" style="0"/>
             </Property>

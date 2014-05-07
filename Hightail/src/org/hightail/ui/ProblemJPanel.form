@@ -26,7 +26,7 @@
                       <Component id="executableFileLabel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="sourceFile" max="32767" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="openContainingDirectoryButton" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -232,7 +232,7 @@
     </Container>
     <Component class="javax.swing.JButton" name="openContainingDirectoryButton">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Open containing directory"/>
+        <Property name="text" type="java.lang.String" value="Browse..."/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="openContainingDirectoryButtonActionPerformed"/>
