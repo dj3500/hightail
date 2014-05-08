@@ -134,6 +134,11 @@ public class MainJFrame extends javax.swing.JFrame {
         helpMenu.setText("Help");
 
         about.setText("About...");
+        about.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                aboutActionPerformed(evt);
+            }
+        });
         helpMenu.add(about);
 
         shortcuts.setText("Shortcuts");
@@ -173,7 +178,7 @@ public class MainJFrame extends javax.swing.JFrame {
             }
         });
         singleTabJPopupMenu.add(deleteJMenuItem);
-        tabbedPane.addMouseListener(new MouseAdapter() {            
+        tabbedPane.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
                 if (e.isPopupTrigger()) {
@@ -273,6 +278,10 @@ public class MainJFrame extends javax.swing.JFrame {
     private void shortcutsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_shortcutsActionPerformed
         new ShortcutsJDialog(this).setVisible(true);
     }//GEN-LAST:event_shortcutsActionPerformed
+
+    private void aboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aboutActionPerformed
+        new AboutJDialog(this).setVisible(true);
+    }//GEN-LAST:event_aboutActionPerformed
     
     
     /**
