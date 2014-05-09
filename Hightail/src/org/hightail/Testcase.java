@@ -109,7 +109,6 @@ public class Testcase implements Callable<ExecutionResult> {
     public ExecutionResult call() {
         emptyResultsOfTestCase();
         try {
-            String line;
             BufferedReader br;
             StringBuilder sb;
             int len;
@@ -166,12 +165,12 @@ public class Testcase implements Callable<ExecutionResult> {
             
             if (execRes == 0) {
                 String res = OutputDiff.diff(expectedOutput, programOutput);
-                if (res.equals("OK")) {
+                if (res.startsWith("OK")) {
                     executionResult.setResult(ExecutionResultCode.OK);
                 } else {
                     executionResult.setResult(ExecutionResultCode.WA);
-                    executionResult.setMsg(res);
                 }
+                executionResult.setMsg(res);
             } else if (executionResult.getResult() == ExecutionResultCode.RUNNING) {
                 executionResult.setResult(ExecutionResultCode.RUNTIME);
             }

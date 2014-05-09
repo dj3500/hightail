@@ -51,7 +51,7 @@ public class ExecutionResult {
         String str = result.getFormattedResult();
         switch (result) {
             case OK:
-                str = str + " " + time;
+                str = msg + "\n" + time;
             break;
             case WA:
             case RUNTIME:
