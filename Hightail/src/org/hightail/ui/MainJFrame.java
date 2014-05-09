@@ -1,9 +1,3 @@
-/*
- * MainJFrame.java
- *
- * Created on 2011-02-17, 20:55:27
- */
-
 package org.hightail.ui;
 
 import java.awt.Component;
@@ -25,7 +19,6 @@ import org.hightail.util.AbstractActionWithInteger;
 
 public class MainJFrame extends javax.swing.JFrame {
     
-    /** Creates new form MainJFrame */
     @SuppressWarnings("LeakingThisInConstructor")
     public MainJFrame() {
         initComponents();
@@ -36,10 +29,10 @@ public class MainJFrame extends javax.swing.JFrame {
         boolean ok = Config.load();
         if (!ok) { // couldn't load
             JOptionPane.showMessageDialog(this,
-                    "If you're a new user, welcome!\n"
-                    +"The settings file could not be loaded.\n"
-                    +"A new one will be created now, in the same directory as the program.\n"
-                    +"Make sure to configure the program before usage.",
+                      "If you're a new user, welcome!\n"
+                    + "Hightail uses a config file which resides in the same directory as the .jar file.\n"
+                    + "This config file could not be loaded. A new one will be created now and you will be taken to settings.\n"
+                    + "Wish you high rating!",
                     "Hightail",
                     JOptionPane.INFORMATION_MESSAGE);
             try {
@@ -51,6 +44,8 @@ public class MainJFrame extends javax.swing.JFrame {
                         JOptionPane.ERROR_MESSAGE);
                 System.exit(0);
             }
+            // show them the config dialog
+            new ConfigJDialog(this).setVisible(true);
         }
         
         addPopupMenu();

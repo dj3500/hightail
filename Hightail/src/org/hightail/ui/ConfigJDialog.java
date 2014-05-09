@@ -56,6 +56,7 @@ public class ConfigJDialog extends javax.swing.JDialog {
         pathFromWorkingDirToExecLabel = new javax.swing.JLabel();
         pathFromWorkingDirToExecLabel2 = new javax.swing.JLabel();
         pathFromWorkingDirToExec = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
         saveButton = new javax.swing.JButton();
         cancelButton = new javax.swing.JButton();
 
@@ -81,7 +82,9 @@ public class ConfigJDialog extends javax.swing.JDialog {
 
         pathFromWorkingDirToExecLabel.setText("Path from working directory to executable:");
 
-        pathFromWorkingDirToExecLabel2.setText("Substitute %P for problem name, %L for lowercase problem name. Examples: \"%P.exe\", \"%L/%L\"");
+        pathFromWorkingDirToExecLabel2.setText("Substitute %P for problem name (like B), %L for lowercase problem name (like b). Examples: \"%P.exe\", \"%L/%L\"");
+
+        jLabel1.setText("These settings will let Hightail guess the names of your executable files.");
 
         javax.swing.GroupLayout pathsAndDirectoriesPanelLayout = new javax.swing.GroupLayout(pathsAndDirectoriesPanel);
         pathsAndDirectoriesPanel.setLayout(pathsAndDirectoriesPanelLayout);
@@ -97,18 +100,22 @@ public class ConfigJDialog extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(workingDirectoryBrowseButton))
                     .addGroup(pathsAndDirectoriesPanelLayout.createSequentialGroup()
-                        .addComponent(pathFromWorkingDirToExecLabel2)
-                        .addGap(0, 113, Short.MAX_VALUE))
-                    .addGroup(pathsAndDirectoriesPanelLayout.createSequentialGroup()
                         .addComponent(pathFromWorkingDirToExecLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(pathFromWorkingDirToExec)))
+                        .addComponent(pathFromWorkingDirToExec))
+                    .addGroup(pathsAndDirectoriesPanelLayout.createSequentialGroup()
+                        .addGroup(pathsAndDirectoriesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(pathFromWorkingDirToExecLabel2)
+                            .addComponent(jLabel1))
+                        .addGap(0, 43, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         pathsAndDirectoriesPanelLayout.setVerticalGroup(
             pathsAndDirectoriesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pathsAndDirectoriesPanelLayout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pathsAndDirectoriesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(workingDirectoryTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(workingDirectoryBrowseButton)
@@ -155,7 +162,7 @@ public class ConfigJDialog extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(pathsAndDirectoriesPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(117, 117, 117)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(saveButton)
                     .addComponent(cancelButton))
@@ -250,6 +257,7 @@ public class ConfigJDialog extends javax.swing.JDialog {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelButton;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JTextField pathFromWorkingDirToExec;
     private javax.swing.JLabel pathFromWorkingDirToExecLabel;
     private javax.swing.JLabel pathFromWorkingDirToExecLabel2;

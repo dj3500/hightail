@@ -46,7 +46,7 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Component id="pathsAndDirectoriesPanel" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="117" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="saveButton" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="cancelButton" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -79,14 +79,17 @@
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="workingDirectoryBrowseButton" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <Group type="102" attributes="0">
-                          <Component id="pathFromWorkingDirToExecLabel2" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="0" pref="113" max="32767" attributes="0"/>
-                      </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="pathFromWorkingDirToExecLabel" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="pathFromWorkingDirToExec" max="32767" attributes="0"/>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="pathFromWorkingDirToExecLabel2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="0" pref="43" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -97,6 +100,8 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jLabel1" min="-2" pref="14" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="workingDirectoryTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="workingDirectoryBrowseButton" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -140,10 +145,15 @@
         </Component>
         <Component class="javax.swing.JLabel" name="pathFromWorkingDirToExecLabel2">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Substitute %P for problem name, %L for lowercase problem name. Examples: &quot;%P.exe&quot;, &quot;%L/%L&quot;"/>
+            <Property name="text" type="java.lang.String" value="Substitute %P for problem name (like B), %L for lowercase problem name (like b). Examples: &quot;%P.exe&quot;, &quot;%L/%L&quot;"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="pathFromWorkingDirToExec">
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel1">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="These settings will let Hightail guess the names of your executable files."/>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>
