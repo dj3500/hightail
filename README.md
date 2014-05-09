@@ -7,11 +7,12 @@ Hightail is an automatic tester for programming contests such as [CodeForces](ht
 A list of Hightail's features:
 * parsing problem statements
 * parsing entire contests (autoloading all problems)
-* scheduling contests ahead of time (so that you don't have to do anything after the beginning of the contest)
-* ability to comfortably view, edit and create new test cases
+* scheduling contest parsing ahead of time
+* ability to comfortably view, edit and add test cases
 * handling of all verdicts: WA, TLE, RE, even AC
 * customizable time limits
 * ability to create in/out files in your working directory
+* detection of floating point values
 * easy-to-use UI, keyboard shortcuts
 * resilient: it is multi-threaded so it will not let your program hang it; it will withstand large amounts of output from your program
 * written in Java and should run on any OS
