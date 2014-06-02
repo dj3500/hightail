@@ -1,6 +1,7 @@
 package org.hightail.ui;
 
 import java.awt.Component;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -16,6 +17,8 @@ import javax.swing.UIManager;
 import org.hightail.Config;
 import org.hightail.Problem;
 import org.hightail.util.AbstractActionWithInteger;
+
+// button-green.png icon comes from http://openiconlibrary.sourceforge.net/gallery2/?./Icons/others/button-green.png
 
 public class MainJFrame extends javax.swing.JFrame {
     
@@ -76,6 +79,7 @@ public class MainJFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Hightail");
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("resources/button-green.png")));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
