@@ -38,6 +38,8 @@ public class ConfigJDialog extends javax.swing.JDialog {
         workingDirectoryChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         
         pathFromWorkingDirToExec.setText(Config.get("pathFromWorkingDirToExec"));
+        
+        prependingCommandTextField.setText(Config.get("workingDirectory"));
     }
     
     /** This method is called from within the constructor to
@@ -57,6 +59,11 @@ public class ConfigJDialog extends javax.swing.JDialog {
         pathFromWorkingDirToExecLabel2 = new javax.swing.JLabel();
         pathFromWorkingDirToExec = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        prependingCommandTextField = new javax.swing.JTextField();
+        jSeparator2 = new javax.swing.JSeparator();
+        jSeparator1 = new javax.swing.JSeparator();
         saveButton = new javax.swing.JButton();
         cancelButton = new javax.swing.JButton();
 
@@ -84,7 +91,11 @@ public class ConfigJDialog extends javax.swing.JDialog {
 
         pathFromWorkingDirToExecLabel2.setText("Substitute %P for problem name (like B), %L for lowercase problem name (like b). Examples: \"%P.exe\", \"%L/%L\"");
 
-        jLabel1.setText("These settings will let Hightail guess the names of your executable files.");
+        jLabel1.setText("These settings will let Hightail guess the names of your executable files, and tell it how to run them.");
+
+        jLabel2.setText("Command to prepend the executable with:");
+
+        jLabel3.setText("Leave it empty for C++ (i.e. if the executable is standalone). Nonempty examples: \"java\", \"python\"");
 
         javax.swing.GroupLayout pathsAndDirectoriesPanelLayout = new javax.swing.GroupLayout(pathsAndDirectoriesPanel);
         pathsAndDirectoriesPanel.setLayout(pathsAndDirectoriesPanelLayout);
@@ -99,15 +110,22 @@ public class ConfigJDialog extends javax.swing.JDialog {
                         .addComponent(workingDirectoryTextField)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(workingDirectoryBrowseButton))
+                    .addComponent(pathFromWorkingDirToExecLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(pathsAndDirectoriesPanelLayout.createSequentialGroup()
                         .addComponent(pathFromWorkingDirToExecLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(10, 10, 10)
                         .addComponent(pathFromWorkingDirToExec))
+                    .addComponent(jSeparator2)
+                    .addComponent(jSeparator1)
+                    .addGroup(pathsAndDirectoriesPanelLayout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(prependingCommandTextField))
                     .addGroup(pathsAndDirectoriesPanelLayout.createSequentialGroup()
                         .addGroup(pathsAndDirectoriesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(pathFromWorkingDirToExecLabel2)
-                            .addComponent(jLabel1))
-                        .addGap(0, 43, Short.MAX_VALUE)))
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel3))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         pathsAndDirectoriesPanelLayout.setVerticalGroup(
@@ -120,12 +138,22 @@ public class ConfigJDialog extends javax.swing.JDialog {
                     .addComponent(workingDirectoryTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(workingDirectoryBrowseButton)
                     .addComponent(workingDirectoryLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(1, 1, 1)
                 .addGroup(pathsAndDirectoriesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(pathFromWorkingDirToExecLabel)
                     .addComponent(pathFromWorkingDirToExec, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pathFromWorkingDirToExecLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pathsAndDirectoriesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(prependingCommandTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel3)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -161,12 +189,12 @@ public class ConfigJDialog extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(pathsAndDirectoriesPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pathsAndDirectoriesPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(saveButton)
                     .addComponent(cancelButton))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
@@ -190,19 +218,15 @@ public class ConfigJDialog extends javax.swing.JDialog {
             }
         });
         
-    }
-    private void workingDirectoryBrowseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_workingDirectoryBrowseButtonActionPerformed
-        int returnVal = workingDirectoryChooser.showOpenDialog(this);
-        if (returnVal == JFileChooser.APPROVE_OPTION) {
-            workingDirectoryTextField.setText(workingDirectoryChooser.getSelectedFile().getAbsolutePath());
-        }
-    }//GEN-LAST:event_workingDirectoryBrowseButtonActionPerformed
-    
+    }    
     private boolean unsavedChanges() {
         if (!Config.get("workingDirectory").equals(workingDirectoryTextField.getText())) {
             return true;
         }
         if (!Config.get("pathFromWorkingDirToExec").equals(pathFromWorkingDirToExec.getText())) {
+            return true;
+        }
+        if (!Config.get("prependingCommand").equals(prependingCommandTextField.getText())) {
             return true;
         }
         return false;
@@ -213,7 +237,7 @@ public class ConfigJDialog extends javax.swing.JDialog {
         if (unsavedChanges()) {
             // Display confirm dialog
             int confirmed = JOptionPane.showConfirmDialog(this,
-                    "Are you sure? There's unsaved changes.",
+                    "Are you sure? There are unsaved changes.",
                     "Confirm close",
                     JOptionPane.YES_NO_OPTION);
             
@@ -238,6 +262,7 @@ public class ConfigJDialog extends javax.swing.JDialog {
     private void save() {
         Config.set("workingDirectory", workingDirectoryTextField.getText());
         Config.set("pathFromWorkingDirToExec", pathFromWorkingDirToExec.getText());
+        Config.set("prependingCommand", prependingCommandTextField.getText());
         try {
             Config.save();
             JOptionPane.showMessageDialog(this, "The configuration file has been saved.");
@@ -254,14 +279,26 @@ public class ConfigJDialog extends javax.swing.JDialog {
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
         save();
     }//GEN-LAST:event_saveButtonActionPerformed
+
+    private void workingDirectoryBrowseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_workingDirectoryBrowseButtonActionPerformed
+        int returnVal = workingDirectoryChooser.showOpenDialog(this);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            workingDirectoryTextField.setText(workingDirectoryChooser.getSelectedFile().getAbsolutePath());
+        }
+    }//GEN-LAST:event_workingDirectoryBrowseButtonActionPerformed
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelButton;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTextField pathFromWorkingDirToExec;
     private javax.swing.JLabel pathFromWorkingDirToExecLabel;
     private javax.swing.JLabel pathFromWorkingDirToExecLabel2;
     private javax.swing.JPanel pathsAndDirectoriesPanel;
+    private javax.swing.JTextField prependingCommandTextField;
     private javax.swing.JButton saveButton;
     private javax.swing.JButton workingDirectoryBrowseButton;
     private javax.swing.JLabel workingDirectoryLabel;

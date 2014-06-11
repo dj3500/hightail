@@ -105,6 +105,16 @@ public class Testcase implements Callable<ExecutionResult> {
         }
     }
     
+    protected String getCommandToExecute () {
+        if (!Config.isPrependingCommandNonempty()) {
+            // there is no prepending command; we just run the executable file
+            return pathToExecFile;
+        } else {
+            // we run the executable as in "java ..." or "python ..."
+            return Config.get("prependingCommand") + " " + pathToExecFile;
+        }
+    }
+    
     @Override
     public ExecutionResult call() {
         emptyResultsOfTestCase();
@@ -118,7 +128,7 @@ public class Testcase implements Callable<ExecutionResult> {
             double startTime = Calendar.getInstance().getTimeInMillis();
             // TODO: measure CPU time of executionProcess instead
             
-            executionProcess = Runtime.getRuntime().exec(pathToExecFile);
+            executionProcess = Runtime.getRuntime().exec(getCommandToExecute());
             
             OutputStream stdin = executionProcess.getOutputStream();
             InputStream stderr = executionProcess.getErrorStream();

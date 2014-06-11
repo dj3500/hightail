@@ -32,6 +32,7 @@ public class Config {
         setIfUnset("workingDirectory", new File("").getAbsolutePath());
         setIfUnset("pathFromWorkingDirToExec", "%P.exe");
         // TODO: if under Unix, this better be "%L"
+        setIfUnset("prependingCommand", "");
     }
 
     static public boolean load() {
@@ -51,5 +52,9 @@ public class Config {
     static public void save() throws IOException {
         FileOutputStream fos = new FileOutputStream(CONFIG_FILE_NAME);
         properties.storeToXML(fos, "This is the configuration file for Hightail.", "utf-8");
+    }
+
+    static public boolean isPrependingCommandNonempty() {
+        return !Config.get("prependingCommand").trim().isEmpty();
     }
 }

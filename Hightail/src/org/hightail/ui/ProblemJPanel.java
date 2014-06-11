@@ -15,8 +15,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.AbstractAction;
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;
@@ -26,6 +24,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.KeyStroke;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import org.hightail.Config;
 import org.hightail.KeyboardShortcuts;
 import org.hightail.Problem;
 import org.hightail.Testcase;
@@ -74,7 +73,6 @@ public class ProblemJPanel extends javax.swing.JPanel implements TestingListener
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        progressPanel = new javax.swing.JPanel();
         testcasePanel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         testTable = new javax.swing.JTable();
@@ -90,19 +88,6 @@ public class ProblemJPanel extends javax.swing.JPanel implements TestingListener
         openContainingDirectoryButton = new javax.swing.JButton();
         executableFileLabel = new javax.swing.JLabel();
         sourceFile = new javax.swing.JTextField();
-
-        progressPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Progress and results"));
-
-        javax.swing.GroupLayout progressPanelLayout = new javax.swing.GroupLayout(progressPanel);
-        progressPanel.setLayout(progressPanelLayout);
-        progressPanelLayout.setHorizontalGroup(
-            progressPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        progressPanelLayout.setVerticalGroup(
-            progressPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 60, Short.MAX_VALUE)
-        );
 
         testcasePanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Test cases"));
 
@@ -203,8 +188,8 @@ public class ProblemJPanel extends javax.swing.JPanel implements TestingListener
             testcasePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, testcasePanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 374, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(testcasePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(saveTestsButton)
                     .addComponent(copyInputButton)
@@ -213,8 +198,7 @@ public class ProblemJPanel extends javax.swing.JPanel implements TestingListener
                     .addComponent(newTestcaseButton)
                     .addComponent(abortCurrentTestButton)
                     .addComponent(runTestsButton)
-                    .addComponent(abortAllTestsButton))
-                .addGap(29, 29, 29))
+                    .addComponent(abortAllTestsButton)))
         );
 
         openContainingDirectoryButton.setText("Browse...");
@@ -233,7 +217,6 @@ public class ProblemJPanel extends javax.swing.JPanel implements TestingListener
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(progressPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(testcasePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(10, 10, 10)
@@ -254,8 +237,6 @@ public class ProblemJPanel extends javax.swing.JPanel implements TestingListener
                     .addComponent(openContainingDirectoryButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(testcasePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(progressPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -427,19 +408,19 @@ public class ProblemJPanel extends javax.swing.JPanel implements TestingListener
         File execFile = new File(pathToExecFile);
         if (!execFile.exists()) {
             // executable file does not exist
-            JOptionPane.showMessageDialog(this, "Selected file does not exist.", "Wrong file", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Executable file does not exist.", "Wrong file", JOptionPane.ERROR_MESSAGE);
             return;
         }
         if (execFile.isDirectory()) {
             // file path points to a directory, not a file
-            JOptionPane.showMessageDialog(this, "Selected path is a directory.", "Wrong file", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Selected path to executable is a directory.", "Wrong file", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        if (!execFile.canExecute()) {
+        if (!Config.isPrependingCommandNonempty() && !execFile.canExecute()) {
             // application cannot execute this file
-            JOptionPane.showMessageDialog(this, "Selected file cannot be executed.", "Wrong file", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Executable file cannot be executed.", "Wrong file", JOptionPane.ERROR_MESSAGE);
             return;
-        }
+        } // TODO: if Config.isPrependingCommandNonempty(), then do this check for the prepending command itself
         if (problem.getTestcaseSet().isEmpty()) {
             // no tests
             JOptionPane.showMessageDialog(this, "No tests to run.", "No tests", JOptionPane.ERROR_MESSAGE);
@@ -578,7 +559,6 @@ public class ProblemJPanel extends javax.swing.JPanel implements TestingListener
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton newTestcaseButton;
     private javax.swing.JButton openContainingDirectoryButton;
-    private javax.swing.JPanel progressPanel;
     private javax.swing.JButton runTestsButton;
     private javax.swing.JButton saveTestsButton;
     private javax.swing.JTextField sourceFile;
