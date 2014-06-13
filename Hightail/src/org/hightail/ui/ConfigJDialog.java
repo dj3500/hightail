@@ -21,7 +21,6 @@ import org.hightail.Config;
 public class ConfigJDialog extends javax.swing.JDialog {
     protected final JFileChooser workingDirectoryChooser;
     
-    /** Creates new form ConfigJDialog */
     public ConfigJDialog(JFrame parent) {
         super(parent, true); // makes it modal
         initComponents();
@@ -37,9 +36,9 @@ public class ConfigJDialog extends javax.swing.JDialog {
         workingDirectoryChooser = new JFileChooser(new File(workingDirectory));
         workingDirectoryChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         
-        pathFromWorkingDirToExec.setText(Config.get("pathFromWorkingDirToExec"));
+        pathFromWorkingDirToExecTextField.setText(Config.get("pathFromWorkingDirToExec"));
         
-        prependingCommandTextField.setText(Config.get("workingDirectory"));
+        prependingCommandTextField.setText(Config.get("prependingCommand"));
     }
     
     /** This method is called from within the constructor to
@@ -57,7 +56,7 @@ public class ConfigJDialog extends javax.swing.JDialog {
         workingDirectoryBrowseButton = new javax.swing.JButton();
         pathFromWorkingDirToExecLabel = new javax.swing.JLabel();
         pathFromWorkingDirToExecLabel2 = new javax.swing.JLabel();
-        pathFromWorkingDirToExec = new javax.swing.JTextField();
+        pathFromWorkingDirToExecTextField = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -114,7 +113,7 @@ public class ConfigJDialog extends javax.swing.JDialog {
                     .addGroup(pathsAndDirectoriesPanelLayout.createSequentialGroup()
                         .addComponent(pathFromWorkingDirToExecLabel)
                         .addGap(10, 10, 10)
-                        .addComponent(pathFromWorkingDirToExec))
+                        .addComponent(pathFromWorkingDirToExecTextField))
                     .addComponent(jSeparator2)
                     .addComponent(jSeparator1)
                     .addGroup(pathsAndDirectoriesPanelLayout.createSequentialGroup()
@@ -143,7 +142,7 @@ public class ConfigJDialog extends javax.swing.JDialog {
                 .addGap(1, 1, 1)
                 .addGroup(pathsAndDirectoriesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(pathFromWorkingDirToExecLabel)
-                    .addComponent(pathFromWorkingDirToExec, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(pathFromWorkingDirToExecTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pathFromWorkingDirToExecLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -223,7 +222,7 @@ public class ConfigJDialog extends javax.swing.JDialog {
         if (!Config.get("workingDirectory").equals(workingDirectoryTextField.getText())) {
             return true;
         }
-        if (!Config.get("pathFromWorkingDirToExec").equals(pathFromWorkingDirToExec.getText())) {
+        if (!Config.get("pathFromWorkingDirToExec").equals(pathFromWorkingDirToExecTextField.getText())) {
             return true;
         }
         if (!Config.get("prependingCommand").equals(prependingCommandTextField.getText())) {
@@ -261,7 +260,7 @@ public class ConfigJDialog extends javax.swing.JDialog {
     
     private void save() {
         Config.set("workingDirectory", workingDirectoryTextField.getText());
-        Config.set("pathFromWorkingDirToExec", pathFromWorkingDirToExec.getText());
+        Config.set("pathFromWorkingDirToExec", pathFromWorkingDirToExecTextField.getText());
         Config.set("prependingCommand", prependingCommandTextField.getText());
         try {
             Config.save();
@@ -294,9 +293,9 @@ public class ConfigJDialog extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JTextField pathFromWorkingDirToExec;
     private javax.swing.JLabel pathFromWorkingDirToExecLabel;
     private javax.swing.JLabel pathFromWorkingDirToExecLabel2;
+    private javax.swing.JTextField pathFromWorkingDirToExecTextField;
     private javax.swing.JPanel pathsAndDirectoriesPanel;
     private javax.swing.JTextField prependingCommandTextField;
     private javax.swing.JButton saveButton;
