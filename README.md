@@ -12,16 +12,17 @@ A list of Hightail's features:
 * handling of all verdicts: WA, TLE, RE, even AC
 * customizable time limits
 * ability to create in/out files in your working directory
-* detection of floating point values
+* detection of floating point values (comparing 0.1 vs. 0.10 does not give WA)
 * easy-to-use UI, keyboard shortcuts
 * resilient: it is multi-threaded so it will not let your program hang it; it will withstand large amounts of output from your program
+* support for all contest languages (C++, Java, Python, ...)
 * written in Java and should run on any OS
 
 It supports the following online judges:
 * CodeForces
 * CodeChef (experimental)
 * SPOJ (planned)
-* other (do you want to help?)
+* other (what other judges should we support? do you want to help?)
 
 We do not plan on supporting the TopCoder Arena: it is a different architecture, and there are a lot of good plugins available for it. Also, if you use Java for contests, we recommend to take a look at Egor Kulikov's [CHelper](http://codeforces.com/blog/entry/3273) for IntelliJ IDEA.
 
