@@ -32,7 +32,7 @@ We do not have screenshots of Hightail in action, but it appears in dj3500's scr
 
 ### How do I get Hightail?
 
-To get a fairly up-to-date version in the form of a .jar file which is ready to run if you have Java installed, visit [Downloads](https://github.com/dj3500/hightail/releases). Just save it somewhere on your computer and run it from there. It will create a config file in its directory. It requires the Java runtime (JRE) to be installed.
+To get a fairly up-to-date version - in the form of a .jar file which is ready to run if you have Java (JRE) installed - visit [Downloads](https://github.com/dj3500/hightail/releases). Just save it somewhere on your computer and run it from there. It will create a config file in its directory.
 
 You may also compile Hightail from source code using the instructions below (and then you will also be able to work on the code, e.g. to help in development), or by following http://codeforces.com/blog/entry/6941#comment-125761 (which might be a little easier - or not).
 
