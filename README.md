@@ -26,9 +26,12 @@ It supports the following online judges:
 
 We do not plan on supporting the TopCoder Arena: it is a different architecture, and there are a lot of good plugins available for it. Also, if you use Java for contests, we recommend to take a look at Egor Kulikov's [CHelper](http://codeforces.com/blog/entry/3273) for IntelliJ IDEA.
 
-### Screencasts
+### Screenshots and screencasts
 
-We do not have screenshots of Hightail in action, but it appears in dj3500's screencasts. See [this one](https://www.youtube.com/watch?v=3yG7ivRRQW4&hd=1#t=265s) for an example.
+![Screenshot of Hightail](http://dj3500.webfactional.com/hightail1.png)
+![Screenshot of Hightail](http://dj3500.webfactional.com/hightail2.png)
+
+Hightail also appears in dj3500's screencasts. See [this one](https://www.youtube.com/watch?v=3yG7ivRRQW4&hd=1#t=265s) for an example.
 
 ### How do I get Hightail?
 
