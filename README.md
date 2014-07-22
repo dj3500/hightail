@@ -63,6 +63,8 @@ Hightail is a community project, developed by volunteers. We'd love for you to j
 * You can also report new issues or give new ideas.
 * The project does not currently need any donations.
 
+There is also a discussion topic on CodeForces ([here](http://codeforces.com/blog/entry/13141)).
+
 ### Contributors
 
 The project was started and is maintained by Jakub Tarnawski ([dj3500](http://codeforces.com/profile/dj3500)). A large amount of work was done by contributors, who are, in no particular order:
