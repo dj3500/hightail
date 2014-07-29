@@ -33,6 +33,7 @@ public class Config {
         setIfUnset("pathFromWorkingDirToExec", "%P.exe");
         // TODO: if under Unix, this better be "%L"
         setIfUnset("prependingCommand", "");
+        setIfUnset("checkExistence", "1");
     }
 
     static public boolean load() {
@@ -56,5 +57,13 @@ public class Config {
 
     static public boolean isPrependingCommandNonempty() {
         return !Config.get("prependingCommand").trim().isEmpty();
+    }
+
+    public static boolean getBoolean(String key) {
+        return !get(key).equals("0");
+    }
+
+    public static void setBoolean(String key, boolean value) {
+        set(key, value ? "1" : "0");
     }
 }

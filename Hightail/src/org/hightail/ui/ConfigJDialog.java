@@ -39,6 +39,8 @@ public class ConfigJDialog extends javax.swing.JDialog {
         pathFromWorkingDirToExecTextField.setText(Config.get("pathFromWorkingDirToExec"));
         
         prependingCommandTextField.setText(Config.get("prependingCommand"));
+        
+        checkExistenceCheckBox.setSelected(Config.getBoolean("checkExistence"));
     }
     
     /** This method is called from within the constructor to
@@ -61,8 +63,8 @@ public class ConfigJDialog extends javax.swing.JDialog {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         prependingCommandTextField = new javax.swing.JTextField();
-        jSeparator2 = new javax.swing.JSeparator();
-        jSeparator1 = new javax.swing.JSeparator();
+        checkExistenceCheckBox = new javax.swing.JCheckBox();
+        jLabel4 = new javax.swing.JLabel();
         saveButton = new javax.swing.JButton();
         cancelButton = new javax.swing.JButton();
 
@@ -94,7 +96,12 @@ public class ConfigJDialog extends javax.swing.JDialog {
 
         jLabel2.setText("Command to prepend the executable with:");
 
-        jLabel3.setText("Leave it empty for C++ (i.e. if the executable is standalone). Nonempty examples: \"java\", \"python\"");
+        jLabel3.setText("Leave it empty for C++ (i.e. if the executable is standalone). Nonempty example: \"python\"");
+
+        checkExistenceCheckBox.setSelected(true);
+        checkExistenceCheckBox.setText("Check whether executable file exists before execution");
+
+        jLabel4.setText("<html>Setup tips for Java: let's say you keep the main class of your compiled solution to problem B at \"d:\\algo\\taskB\\Main.class\". In this case you want to execute \"java -classpath d:\\algo\\taskB Main\", so you should set the working directory to \"d:\\algo\", path from working directory to executable to \"task%P Main\" and the prepending command to \"java -classpath\". If you had just \"d:\\algo\\Main.class\", you would need to set the path from working directory to executable to \" Main\" (note the space at the beginning).<br>You must also uncheck \"check whether executable file exists\".");
 
         javax.swing.GroupLayout pathsAndDirectoriesPanelLayout = new javax.swing.GroupLayout(pathsAndDirectoriesPanel);
         pathsAndDirectoriesPanel.setLayout(pathsAndDirectoriesPanelLayout);
@@ -114,17 +121,17 @@ public class ConfigJDialog extends javax.swing.JDialog {
                         .addComponent(pathFromWorkingDirToExecLabel)
                         .addGap(10, 10, 10)
                         .addComponent(pathFromWorkingDirToExecTextField))
-                    .addComponent(jSeparator2)
-                    .addComponent(jSeparator1)
-                    .addGroup(pathsAndDirectoriesPanelLayout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(prependingCommandTextField))
+                    .addComponent(checkExistenceCheckBox, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(pathsAndDirectoriesPanelLayout.createSequentialGroup()
                         .addGroup(pathsAndDirectoriesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
-                            .addComponent(jLabel3))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                            .addComponent(jLabel3)
+                            .addGroup(pathsAndDirectoriesPanelLayout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(prependingCommandTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap())
         );
         pathsAndDirectoriesPanelLayout.setVerticalGroup(
@@ -137,22 +144,22 @@ public class ConfigJDialog extends javax.swing.JDialog {
                     .addComponent(workingDirectoryTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(workingDirectoryBrowseButton)
                     .addComponent(workingDirectoryLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(1, 1, 1)
+                .addGap(18, 18, 18)
                 .addGroup(pathsAndDirectoriesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(pathFromWorkingDirToExecLabel)
                     .addComponent(pathFromWorkingDirToExecTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pathFromWorkingDirToExecLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addGroup(pathsAndDirectoriesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(prependingCommandTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
+                .addGap(18, 18, 18)
+                .addComponent(checkExistenceCheckBox)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -188,8 +195,8 @@ public class ConfigJDialog extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(pathsAndDirectoriesPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(pathsAndDirectoriesPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(saveButton)
                     .addComponent(cancelButton))
@@ -228,6 +235,9 @@ public class ConfigJDialog extends javax.swing.JDialog {
         if (!Config.get("prependingCommand").equals(prependingCommandTextField.getText())) {
             return true;
         }
+        if (Config.getBoolean("checkExistence") != checkExistenceCheckBox.isSelected()) {
+            return true;
+        }
         return false;
     }
     
@@ -262,6 +272,7 @@ public class ConfigJDialog extends javax.swing.JDialog {
         Config.set("workingDirectory", workingDirectoryTextField.getText());
         Config.set("pathFromWorkingDirToExec", pathFromWorkingDirToExecTextField.getText());
         Config.set("prependingCommand", prependingCommandTextField.getText());
+        Config.setBoolean("checkExistence", checkExistenceCheckBox.isSelected());
         try {
             Config.save();
             JOptionPane.showMessageDialog(this, "The configuration file has been saved.");
@@ -288,11 +299,11 @@ public class ConfigJDialog extends javax.swing.JDialog {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelButton;
+    private javax.swing.JCheckBox checkExistenceCheckBox;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel pathFromWorkingDirToExecLabel;
     private javax.swing.JLabel pathFromWorkingDirToExecLabel2;
     private javax.swing.JTextField pathFromWorkingDirToExecTextField;

@@ -114,7 +114,7 @@ public class ProblemJPanel extends javax.swing.JPanel implements TestingListener
             }
         });
 
-        deleteTestcaseButton.setText("<html><center>Delete<br />test case</center></html>");
+        deleteTestcaseButton.setText("<html><center>Delete</center></html>");
         deleteTestcaseButton.setEnabled(false);
         deleteTestcaseButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -170,12 +170,12 @@ public class ProblemJPanel extends javax.swing.JPanel implements TestingListener
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(editTestcaseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(deleteTestcaseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(deleteTestcaseButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(copyInputButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(saveTestsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 159, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 196, Short.MAX_VALUE)
                 .addComponent(runTestsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(abortCurrentTestButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -191,8 +191,9 @@ public class ProblemJPanel extends javax.swing.JPanel implements TestingListener
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 374, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(testcasePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(saveTestsButton)
-                    .addComponent(copyInputButton)
+                    .addGroup(testcasePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(saveTestsButton)
+                        .addComponent(copyInputButton))
                     .addComponent(deleteTestcaseButton)
                     .addComponent(editTestcaseButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(newTestcaseButton)
@@ -406,21 +407,25 @@ public class ProblemJPanel extends javax.swing.JPanel implements TestingListener
         }
         final String pathToExecFile = sourceFile.getText();
         File execFile = new File(pathToExecFile);
-        if (!execFile.exists()) {
-            // executable file does not exist
-            JOptionPane.showMessageDialog(this, "Executable file does not exist.", "Wrong file", JOptionPane.ERROR_MESSAGE);
-            return;
+        
+        if (Config.getBoolean("checkExistence")) {
+            if (!execFile.exists()) {
+                // executable file does not exist
+                JOptionPane.showMessageDialog(this, "Executable file does not exist.", "Wrong file", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (execFile.isDirectory()) {
+                // file path points to a directory, not a file
+                JOptionPane.showMessageDialog(this, "Selected path to executable is a directory.", "Wrong file", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (!Config.isPrependingCommandNonempty() && !execFile.canExecute()) {
+                // application cannot execute this file
+                JOptionPane.showMessageDialog(this, "Executable file cannot be executed.", "Wrong file", JOptionPane.ERROR_MESSAGE);
+                return;
+            } // TODO: if Config.isPrependingCommandNonempty(), then do this check for the prepending command itself
         }
-        if (execFile.isDirectory()) {
-            // file path points to a directory, not a file
-            JOptionPane.showMessageDialog(this, "Selected path to executable is a directory.", "Wrong file", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        if (!Config.isPrependingCommandNonempty() && !execFile.canExecute()) {
-            // application cannot execute this file
-            JOptionPane.showMessageDialog(this, "Executable file cannot be executed.", "Wrong file", JOptionPane.ERROR_MESSAGE);
-            return;
-        } // TODO: if Config.isPrependingCommandNonempty(), then do this check for the prepending command itself
+        
         if (problem.getTestcaseSet().isEmpty()) {
             // no tests
             JOptionPane.showMessageDialog(this, "No tests to run.", "No tests", JOptionPane.ERROR_MESSAGE);

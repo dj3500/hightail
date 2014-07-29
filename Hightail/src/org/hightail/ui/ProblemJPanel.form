@@ -68,12 +68,12 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="editTestcaseButton" min="-2" pref="67" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="deleteTestcaseButton" min="-2" pref="100" max="-2" attributes="0"/>
+                  <Component id="deleteTestcaseButton" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="copyInputButton" min="-2" pref="80" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="saveTestsButton" min="-2" pref="69" max="-2" attributes="0"/>
-                  <EmptySpace pref="159" max="32767" attributes="0"/>
+                  <EmptySpace pref="196" max="32767" attributes="0"/>
                   <Component id="runTestsButton" min="-2" pref="75" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="abortCurrentTestButton" min="-2" max="-2" attributes="0"/>
@@ -91,8 +91,10 @@
                   <Component id="jScrollPane1" pref="374" max="32767" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="saveTestsButton" alignment="0" max="32767" attributes="0"/>
-                      <Component id="copyInputButton" alignment="0" max="32767" attributes="0"/>
+                      <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                          <Component id="saveTestsButton" alignment="3" max="32767" attributes="0"/>
+                          <Component id="copyInputButton" alignment="3" max="32767" attributes="0"/>
+                      </Group>
                       <Component id="deleteTestcaseButton" alignment="0" max="32767" attributes="0"/>
                       <Component id="editTestcaseButton" alignment="0" max="32767" attributes="0"/>
                       <Component id="newTestcaseButton" alignment="0" max="32767" attributes="0"/>
@@ -152,7 +154,7 @@
         </Component>
         <Component class="javax.swing.JButton" name="deleteTestcaseButton">
           <Properties>
-            <Property name="text" type="java.lang.String" value="&lt;html&gt;&lt;center&gt;Delete&lt;br /&gt;test case&lt;/center&gt;&lt;/html&gt;"/>
+            <Property name="text" type="java.lang.String" value="&lt;html&gt;&lt;center&gt;Delete&lt;/center&gt;&lt;/html&gt;"/>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <Events>
