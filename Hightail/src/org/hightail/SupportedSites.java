@@ -3,9 +3,12 @@ package org.hightail;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import javax.net.ssl.HttpsURLConnection;
+import static org.hightail.SupportedSites.values;
 import org.hightail.parsers.contest.*;
 import org.hightail.parsers.task.*;
 import org.htmlparser.util.ParserException;
+import xtrustprovider.XTrustProvider;
 
 public enum SupportedSites {
     CodeForces  (
@@ -16,6 +19,11 @@ public enum SupportedSites {
             "codechef",
             new CodeChefTaskParser(),
             new CodeChefContestParser()),
+    Jutge       (
+            "jutge",
+            new JutgeTaskParser(),
+            new JutgeContestParser()
+            )
     ;
     
     private TaskParser taskParser;
@@ -34,8 +42,14 @@ public enum SupportedSites {
     
     private static void verifyURL(String url) throws ParserException {
         try {
+            XTrustProvider.install();
             URL u = new URL(url);
-            HttpURLConnection conn = (HttpURLConnection) u.openConnection();
+            HttpURLConnection conn;
+            if(url.contains("https")){
+                conn = (HttpsURLConnection) u.openConnection();
+            }else{
+                conn = (HttpURLConnection) u.openConnection();
+            }
             conn.setRequestMethod("GET");
             conn.connect();
             int code = conn.getResponseCode();
