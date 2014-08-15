@@ -7,8 +7,8 @@ import javax.net.ssl.HttpsURLConnection;
 import static org.hightail.SupportedSites.values;
 import org.hightail.parsers.contest.*;
 import org.hightail.parsers.task.*;
+import org.hightail.util.XTrustProvider;
 import org.htmlparser.util.ParserException;
-import xtrustprovider.XTrustProvider;
 
 public enum SupportedSites {
     CodeForces  (
