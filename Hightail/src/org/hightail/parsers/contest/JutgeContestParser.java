@@ -18,7 +18,7 @@ import org.htmlparser.visitors.TagFindingVisitor;
  * Jutge (UPC local online judge) contest parser.
  * @author Sergio Rodriguez Guasch
  */
-public class JutgeContestParser implements ContestParser{
+public class JutgeContestParser implements ContestParser {
     
     @Override
     public ArrayList<Problem> parse(String URL) throws ParserException, InterruptedException {

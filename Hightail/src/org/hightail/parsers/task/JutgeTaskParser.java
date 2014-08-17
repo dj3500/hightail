@@ -16,7 +16,7 @@ import org.htmlparser.util.Translate;
  * Task parser for www.jutge.org (UPC Online Judge).
  * @author Sergio Rodriguez Guasch
  */
-public class JutgeTaskParser implements TaskParser{
+public class JutgeTaskParser implements TaskParser {
     /*
         Boolean "isInput" is used to determine what we want to read.
         This is mainly due to the fact that inputs and outputs are contained in the very same structure, so there is
@@ -37,38 +37,38 @@ public class JutgeTaskParser implements TaskParser{
             Node[] children = childrenNodeList.toNodeArray();
             StringBuilder contents = new StringBuilder();
             /*
-                The inputs and outputs have a structure that looks like:
-                <div class="align">
+                The inputs and outputs are in a structure that looks like:
+                <div class="indent">
                     <table>
                         <tr>
                             <td>
                                 <pre class="mypre" ... > TEST STUFF </pre> ...
                 I/O is identified by reading inmediate content of div.
-                I/O are matched between them by the order they appear.
+                Inputs and outputs are matched by the order they appear.
                 Also, sorry for poor implementation.
             */
             //Discriminate between I/O boxes and other stuff using the same div class
             if(children.length==0 ||
                (isInput&& !children[0].getText().equals("&nbsp;Input")) ||
-               (!isInput && !children[0].getText().equals("&nbsp;Output"))){
+               (!isInput && !children[0].getText().equals("&nbsp;Output"))) {
                 continue;
             }
-            if(children.length<4){
+            if(children.length<4) {
                 throw new ParserException("Parsing failed.");
             }
             NodeList table = children[3].getChildren();
             Node[] tableChildren = table.toNodeArray();
-            if(tableChildren.length<2){
+            if(tableChildren.length<2) {
                 throw new ParserException("Parsing failed.");
             }
             NodeList tr = tableChildren[1].getChildren();
             Node[] trChildren = tr.toNodeArray();
-            if(trChildren.length<2){
+            if(trChildren.length<2) {
                 throw new ParserException("Parsing failed.");
             }
             NodeList td = trChildren[1].getChildren();
             Node[] tdChildren = td.toNodeArray();
-            if(tdChildren.length<3){
+            if(tdChildren.length<3) {
                 throw new ParserException("Parsing failed.");
             }
             contents.append(Translate.decode(tdChildren[2].getText()));
@@ -79,14 +79,14 @@ public class JutgeTaskParser implements TaskParser{
             inputs.add(contentsString);
         }
         // Unfortunately, I found no way to detect that there are no testcases before processing all nodes...
-        if(inputs.isEmpty()){
+        if(inputs.isEmpty()) {
             throw new ParserException("Parsing failed - no testcases were extracted.");
         }
         /*
             Dirty hack. Some problems have null string as expected output. In this case, the algorithm above will return "/pre"
             as output. I hope that there is no problem which has "/pre" as output.
         */
-        for(int i=0; i<inputs.size(); ++i){
+        for(int i=0; i<inputs.size(); ++i) {
             if(inputs.get(i).equals("/pre"))
                 inputs.set(i,"");
         }

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import javax.net.ssl.HttpsURLConnection;
+import javax.xml.ws.ProtocolException;
 import static org.hightail.SupportedSites.values;
 import org.hightail.parsers.contest.*;
 import org.hightail.parsers.task.*;
@@ -42,21 +43,17 @@ public enum SupportedSites {
     
     private static void verifyURL(String url) throws ParserException {
         try {
-            XTrustProvider.install();
+            if(url.contains("jutge."))
+                XTrustProvider.install();
             URL u = new URL(url);
-            HttpURLConnection conn;
-            if(url.contains("https")){
-                conn = (HttpsURLConnection) u.openConnection();
-            }else{
-                conn = (HttpURLConnection) u.openConnection();
-            }
+            HttpURLConnection conn = (HttpURLConnection) u.openConnection();
             conn.setRequestMethod("GET");
             conn.connect();
             int code = conn.getResponseCode();
             if (code != 200) {
                 throw new ParserException("Incorrect URL.");
             }
-        } catch (IOException ex) {
+        }catch (IOException ex) {
             throw new ParserException("Malformed URL.");
         }
     }
