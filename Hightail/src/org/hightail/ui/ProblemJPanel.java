@@ -194,12 +194,12 @@ public class ProblemJPanel extends javax.swing.JPanel implements TestingListener
                     .addGroup(testcasePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(saveTestsButton)
                         .addComponent(copyInputButton))
-                    .addComponent(deleteTestcaseButton)
                     .addComponent(editTestcaseButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(newTestcaseButton)
                     .addComponent(abortCurrentTestButton)
                     .addComponent(runTestsButton)
-                    .addComponent(abortAllTestsButton)))
+                    .addComponent(abortAllTestsButton)
+                    .addComponent(deleteTestcaseButton, javax.swing.GroupLayout.Alignment.TRAILING)))
         );
 
         openContainingDirectoryButton.setText("Browse...");

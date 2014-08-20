@@ -87,8 +87,9 @@ public class JutgeTaskParser implements TaskParser {
             as output. I hope that there is no problem which has "/pre" as output.
         */
         for(int i=0; i<inputs.size(); ++i) {
-            if(inputs.get(i).equals("/pre"))
+            if(inputs.get(i).equals("/pre")) {
                 inputs.set(i,"");
+            }
         }
         return inputs;
     }
