@@ -21,6 +21,7 @@ A list of Hightail's features:
 It supports the following online judges:
 * CodeForces
 * CodeChef (experimental)
+* Jutge.org
 * SPOJ (planned)
 * other (what other judges should we support? do you want to help?)
 
