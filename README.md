@@ -72,3 +72,4 @@ The project was started and is maintained by Jakub Tarnawski ([dj3500](http://co
 * Igor Adamski ([Krig](http://codeforces.com/profile/Krig))
 * Robert Rosołek ([robert_rosolek](http://codeforces.com/profile/robert_rosolek))
 * Piotr Szcześniak
+* Sergio Rodriguez Guasch ([mrGRR](http://codeforces.com/profile/mrGRR))
