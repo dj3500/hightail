@@ -75,10 +75,10 @@ public class OutputDiff {
     }
 
     private static boolean looksLikeFloatingPoint(String token) {
-        return token.matches("[0-9]+\\.[0-9]+");
+        return token.matches("(-)?[0-9]+\\.[0-9]+");
     }
 
     private static boolean looksLikeIntegerOrFloatingPoint(String token) {
-        return token.matches("[0-9]+(\\.[0-9]+)?");
+        return token.matches("(-)?[0-9]+(\\.[0-9]+)?");
     }
 }
