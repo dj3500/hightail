@@ -144,12 +144,6 @@ public class NewContestJDialog extends javax.swing.JDialog {
 
         contestDirectoryLabel.setText("Directory:");
 
-        contestDirectoryField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                contestDirectoryFieldActionPerformed(evt);
-            }
-        });
-
         selectButton.setText("Select");
         selectButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -295,11 +289,9 @@ public class NewContestJDialog extends javax.swing.JDialog {
         calendar.set(Calendar.SECOND, new Random().nextInt(11) + 10);
         Date date = calendar.getTime();
         if (date.before(Calendar.getInstance().getTime())) {
-            //JOptionPane.showMessageDialog(this, "Chosen time is to early.", "Wrong time", JOptionPane.ERROR_MESSAGE);
-            //return;
-            date=new Date(calendar.getTimeInMillis()+24*3600*1000);
+            JOptionPane.showMessageDialog(this, "Chosen time is to early.", "Wrong time", JOptionPane.ERROR_MESSAGE);
+            return;
         }
-        //JOptionPane.showMessageDialog(this, String.valueOf(date.getDate())+" "+String.valueOf(date.getHours())+" "+String.valueOf(date.getMinutes()), "Wrong time", JOptionPane.ERROR_MESSAGE);
 //        try {
 //            SupportedSites.getContestParser(contestUrlField.getText());
 //        } catch (ParserException ex) {
@@ -370,10 +362,6 @@ public class NewContestJDialog extends javax.swing.JDialog {
         }
         dispose();
     }//GEN-LAST:event_addContestButtonActionPerformed
-
-    private void contestDirectoryFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_contestDirectoryFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_contestDirectoryFieldActionPerformed
 
     private void setWorkingDirectoryDependingOnSite() {
         SupportedSites site = SupportedSites.getSite(contestUrlField.getText());
