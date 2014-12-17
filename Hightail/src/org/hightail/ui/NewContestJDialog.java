@@ -289,9 +289,7 @@ public class NewContestJDialog extends javax.swing.JDialog {
         calendar.set(Calendar.SECOND, new Random().nextInt(11) + 10);
         Date date = calendar.getTime();
         if (date.before(Calendar.getInstance().getTime())) {
-            //JOptionPane.showMessageDialog(this, "Chosen time is to early.", "Wrong time", JOptionPane.ERROR_MESSAGE);
-            //return;
-            date= new Date(calendar.getTimeInMillis()+24*3600*1000);
+            date = new Date(calendar.getTimeInMillis() + 24*3600*1000);
         }
 //        try {
 //            SupportedSites.getContestParser(contestUrlField.getText());
