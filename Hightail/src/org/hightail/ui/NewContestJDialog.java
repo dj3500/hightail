@@ -6,6 +6,7 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Properties;
 import java.util.Random;
 import javax.swing.AbstractAction;
 import javax.swing.JComponent;
@@ -400,6 +401,11 @@ public class NewContestJDialog extends javax.swing.JDialog {
             @Override
             public void run() {
                 String errorMessage;
+                try{
+                    System.setProperty("java.net.useSystemProxies", "true");
+                }
+                finally{
+                }
                 String errorMessageTooltip = null;
                 parsingSuccedded = false;
                 try {
