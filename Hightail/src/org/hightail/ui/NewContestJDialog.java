@@ -6,7 +6,6 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Properties;
 import java.util.Random;
 import javax.swing.AbstractAction;
 import javax.swing.JComponent;
