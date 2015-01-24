@@ -401,11 +401,6 @@ public class NewContestJDialog extends javax.swing.JDialog {
             @Override
             public void run() {
                 String errorMessage;
-                try{
-                    System.setProperty("java.net.useSystemProxies", "true");
-                }
-                finally{
-                }
                 String errorMessageTooltip = null;
                 parsingSuccedded = false;
                 try {
