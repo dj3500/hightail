@@ -28,6 +28,13 @@ public class MainJFrame extends javax.swing.JFrame {
         
         makeShortcuts();
         
+        //Set the system proxy if there is one
+        try {
+            System.setProperty("java.net.useSystemProxies", "true");
+        }
+        finally {
+        }
+        
         // We load the configuration
         boolean ok = Config.load();
         if (!ok) { // couldn't load
