@@ -73,3 +73,4 @@ The project was started and is maintained by Jakub Tarnawski ([dj3500](http://co
 * Robert Rosołek ([robert_rosolek](http://codeforces.com/profile/robert_rosolek))
 * Piotr Szcześniak
 * Sergio Rodriguez Guasch ([mrGRR](http://codeforces.com/profile/mrGRR))
+* Sri Aurobindo Munagala ([Dr.Hulk](http://codeforces.com/profile/Dr.Hulk))
