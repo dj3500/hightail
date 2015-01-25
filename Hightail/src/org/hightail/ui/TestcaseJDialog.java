@@ -169,18 +169,18 @@ public class TestcaseJDialog extends javax.swing.JDialog {
         jLabel5.setText("Input:");
 
         inputTextarea.setColumns(20);
-        inputTextarea.setFont(new java.awt.Font("Courier New", 0, 12)); // NOI18N
+        inputTextarea.setFont(new java.awt.Font("Courier New", 0, 13)); // NOI18N
         inputTextarea.setRows(5);
         jScrollPane2.setViewportView(inputTextarea);
 
         expectedOutputTextarea.setColumns(20);
-        expectedOutputTextarea.setFont(new java.awt.Font("Courier New", 0, 12)); // NOI18N
+        expectedOutputTextarea.setFont(new java.awt.Font("Courier New", 0, 13)); // NOI18N
         expectedOutputTextarea.setRows(5);
         jScrollPane1.setViewportView(expectedOutputTextarea);
 
         programOutputTextarea.setEditable(false);
         programOutputTextarea.setColumns(20);
-        programOutputTextarea.setFont(new java.awt.Font("Courier New", 0, 12)); // NOI18N
+        programOutputTextarea.setFont(new java.awt.Font("Courier New", 0, 13)); // NOI18N
         programOutputTextarea.setRows(5);
         jScrollPane3.setViewportView(programOutputTextarea);
 
@@ -227,7 +227,7 @@ public class TestcaseJDialog extends javax.swing.JDialog {
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(executionTimeLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 83, Short.MAX_VALUE)
                         .addComponent(jLabel2))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6))
@@ -244,7 +244,7 @@ public class TestcaseJDialog extends javax.swing.JDialog {
                         .addComponent(cancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(saveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
