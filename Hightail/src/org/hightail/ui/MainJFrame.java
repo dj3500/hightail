@@ -81,6 +81,7 @@ public class MainJFrame extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         openConfig = new javax.swing.JMenuItem();
         exit = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
         helpMenu = new javax.swing.JMenu();
         about = new javax.swing.JMenuItem();
         shortcuts = new javax.swing.JMenuItem();
@@ -139,6 +140,14 @@ public class MainJFrame extends javax.swing.JFrame {
             }
         });
         fileMenu.add(exit);
+
+        jMenuItem1.setText("Terminal");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        fileMenu.add(jMenuItem1);
 
         menuBar.add(fileMenu);
 
@@ -293,6 +302,15 @@ public class MainJFrame extends javax.swing.JFrame {
     private void aboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aboutActionPerformed
         new AboutJDialog(this).setVisible(true);
     }//GEN-LAST:event_aboutActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        Process process = null;  
+try {  
+    process = new ProcessBuilder("xterm").start();  
+} catch (IOException ex) {  
+    System.err.println(ex);  
+}  
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
     
     
     /**
@@ -322,6 +340,7 @@ public class MainJFrame extends javax.swing.JFrame {
     private javax.swing.JMenu fileMenu;
     private javax.swing.JMenu helpMenu;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenuItem newContest;
