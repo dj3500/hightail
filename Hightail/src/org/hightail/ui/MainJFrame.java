@@ -73,6 +73,7 @@ public class MainJFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         tabbedPane = new javax.swing.JTabbedPane();
+        jLabel1 = new javax.swing.JLabel();
         menuBar = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
         newFromURL = new javax.swing.JMenuItem();
@@ -94,9 +95,13 @@ public class MainJFrame extends javax.swing.JFrame {
         });
 
         tabbedPane.setTabLayoutPolicy(javax.swing.JTabbedPane.SCROLL_TAB_LAYOUT);
-        tabbedPane.setTabPlacement(javax.swing.JTabbedPane.LEFT);
         tabbedPane.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         tabbedPane.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+
+        jLabel1.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("To add a problem use the file menu ");
+        tabbedPane.addTab("Getting Started", jLabel1);
 
         fileMenu.setText("File");
 
@@ -316,6 +321,7 @@ public class MainJFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem exit;
     private javax.swing.JMenu fileMenu;
     private javax.swing.JMenu helpMenu;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenuItem newContest;
