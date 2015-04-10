@@ -109,7 +109,7 @@ public class CodeForcesTaskParser implements TaskParser {
         // extract time limit
         fb.setFilters(new NodeFilter[] {new CssSelectorNodeFilter("div.time-limit")});
         String timeLimitText = fb.getText(); // should be "time limit per testXXX second"
-        Pattern pattern = Pattern.compile("\\d+");
+        Pattern pattern = Pattern.compile("\\d+(\\.\\d+)?");
         Matcher matcher = pattern.matcher(timeLimitText);
         int timeLimit = Testcase.DEFAULT_TIME_LIMIT;
         if (matcher.find()) {
