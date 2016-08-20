@@ -406,7 +406,7 @@ public class NewContestJDialog extends javax.swing.JDialog {
                     errorMessageLabel.setText("Parsing...");
                     errorMessageLabel.setToolTipText(null);
                     ContestParser contestParser = SupportedSites.getContestParser(URL);
-                    ArrayList<Problem> tasks = contestParser.parse(URL);
+                    ArrayList<Problem> tasks = contestParser.getProblemListFromContestURL(URL);
                     if (tasks.isEmpty()) {
                         throw new ParserException();
                     }

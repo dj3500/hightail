@@ -28,7 +28,7 @@ public class CodeChefContestParser implements ContestParser {
     final static private TaskParser taskParser = new CodeChefTaskParser();
 
     @Override
-    public ArrayList<Problem> parse(String URL) throws ParserException, InterruptedException {
+    public ArrayList<String> getProblemURLListFromURL(String URL) throws ParserException, InterruptedException {
         URL = URL.trim();
         
         Parser parser = new Parser(URL);
@@ -55,21 +55,16 @@ public class CodeChefContestParser implements ContestParser {
         links = new ArrayList<>(s);
         Collections.sort(links);
         
-        if(links.isEmpty()) {
-            throw new ParserException("No links to tasks found.");
-        }
-        
-        ArrayList<Problem> problems = new ArrayList<>();
-        for (String link : links) {
-            problems.add(taskParser.parse(link));
-        }
-        
-        return problems;
+        return links;
     }
 
     @Override
     public boolean isCorrectURL(String URL) {
         return URL.contains("codechef.com");
     }
-    
+
+    @Override
+    public TaskParser getTaskParser() {
+        return taskParser;
+    }
 }
