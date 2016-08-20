@@ -24,8 +24,8 @@ public enum ExecutionResultCode {
     INT(    "internal error",
             Color.magenta);
     
-    private String formattedResult;
-    private Color color;
+    private final String formattedResult;
+    private final Color color;
     
     ExecutionResultCode(String formattedResult, Color color) {
         this.formattedResult = formattedResult;

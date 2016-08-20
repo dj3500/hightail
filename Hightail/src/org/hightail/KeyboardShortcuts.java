@@ -12,8 +12,8 @@ public enum KeyboardShortcuts {
     SAVE_TESTS      ("save tests", "ctrl S"),
     ;
     
-    private String action;
-    private String defaultCode;
+    private final String action;
+    private final String defaultCode;
 
     private KeyboardShortcuts(String action, String defaultCode) {
         this.action = action;

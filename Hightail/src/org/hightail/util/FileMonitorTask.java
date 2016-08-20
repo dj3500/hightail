@@ -4,8 +4,8 @@ import java.io.File;
 import java.util.TimerTask;
 
 public class FileMonitorTask extends TimerTask {
-    private FileChangeListener listener;
-    private File file;
+    private final FileChangeListener listener;
+    private final File file;
     private boolean exists;
     private long lastModified;
     

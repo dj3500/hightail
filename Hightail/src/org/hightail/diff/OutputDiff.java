@@ -67,7 +67,6 @@ public class OutputDiff {
         }
         
         if (maxFloatingPointErrorObtained != 0) {
-            //return "OK\n" + "with error of " + new DecimalFormat("0E0").format(maxFloatingPointErrorObtained);
             return "OK\n" + "with " + -round(log10(maxFloatingPointErrorObtained)) + " digits of precision";
         } else {
             return "OK";

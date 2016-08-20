@@ -26,7 +26,7 @@ public class NewContestJDialog extends javax.swing.JDialog {
     
     protected ArrayList<Problem> problemList = new ArrayList<>();
     protected Thread thread;
-    private boolean parsingSuccedded = false;
+    private boolean parsingSucceeded = false;
     
     /**
      * Creates new form NewContestJDialog
@@ -238,10 +238,9 @@ public class NewContestJDialog extends javax.swing.JDialog {
     
     private void contestURLChanged() {
         parseContestButton.setEnabled(!contestUrlField.getText().isEmpty() && !scheduleCheckBox.isSelected());
-        //setDirectoryButton.setEnabled(!contestUrlField.getText().isEmpty());
         errorMessageLabel.setText(null);
         errorMessageLabel.setToolTipText(null);
-        parsingSuccedded = false;
+        parsingSucceeded = false;
         addContestButton.setEnabled(scheduleCheckBox.isSelected());
     }
     
@@ -285,18 +284,12 @@ public class NewContestJDialog extends javax.swing.JDialog {
         int minute = Integer.parseInt((String) scheduleMinuteComboBox.getSelectedItem());
         calendar.set(Calendar.HOUR_OF_DAY, hour);
         calendar.set(Calendar.MINUTE, minute);
-        // sets few(10-20) seconds delay
+        // sets a few (10-20) seconds delay
         calendar.set(Calendar.SECOND, new Random().nextInt(11) + 10);
         Date date = calendar.getTime();
         if (date.before(Calendar.getInstance().getTime())) {
             date = new Date(calendar.getTimeInMillis() + 24*3600*1000);
         }
-//        try {
-//            SupportedSites.getContestParser(contestUrlField.getText());
-//        } catch (ParserException ex) {
-//            JOptionPane.showMessageDialog(this, ex.getMessage(), "Wrong url", JOptionPane.ERROR_MESSAGE);
-//            return;
-//        }
         ContestScheduler.schedule(contestUrlField.getText(), contestDirectoryField.getText(), (MainJFrame) getParent(), date);
         JOptionPane.showMessageDialog(this, "Contest scheduled.", "Success", JOptionPane.INFORMATION_MESSAGE);
         this.dispose();
@@ -338,7 +331,7 @@ public class NewContestJDialog extends javax.swing.JDialog {
         parseContestButton.setEnabled(!selected && !contestUrlField.getText().isEmpty());
         errorMessageLabel.setText(null);
         errorMessageLabel.setToolTipText(null);
-        addContestButton.setEnabled(selected | parsingSuccedded);
+        addContestButton.setEnabled(selected | parsingSucceeded);
     }//GEN-LAST:event_scheduleCheckBoxItemStateChanged
 
     private void selectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectButtonActionPerformed
@@ -355,7 +348,7 @@ public class NewContestJDialog extends javax.swing.JDialog {
             dispose();
             return;
         }
-        if (!parsingSuccedded) {
+        if (!parsingSucceeded) {
             JOptionPane.showMessageDialog(this, "Parse contest first.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
@@ -401,7 +394,7 @@ public class NewContestJDialog extends javax.swing.JDialog {
             public void run() {
                 String errorMessage;
                 String errorMessageTooltip = null;
-                parsingSuccedded = false;
+                parsingSucceeded = false;
                 try {
                     errorMessageLabel.setText("Parsing...");
                     errorMessageLabel.setToolTipText(null);
@@ -414,7 +407,7 @@ public class NewContestJDialog extends javax.swing.JDialog {
                         problem.setWorkingDirectory(contestDirectoryField.getText());
                         problemList.add(problem);
                     }
-                    parsingSuccedded = true;
+                    parsingSucceeded = true;
                     errorMessage = "Parsing ok.";
                 } catch (ParserException ex) {
                     errorMessage = "Parsing failed.";
@@ -424,10 +417,10 @@ public class NewContestJDialog extends javax.swing.JDialog {
                 }
                 errorMessageLabel.setText(errorMessage);
                 errorMessageLabel.setToolTipText(errorMessageTooltip);
-                addContestButton.setEnabled(parsingSuccedded);
+                addContestButton.setEnabled(parsingSucceeded);
                 parseContestButton.setEnabled(true);
                 abortParsingButton.setEnabled(false);
-                if (!parsingSuccedded) {
+                if (!parsingSucceeded) {
                     problemList.clear();
                 }
             }

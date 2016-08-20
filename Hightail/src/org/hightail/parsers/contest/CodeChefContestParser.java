@@ -1,14 +1,9 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.hightail.parsers.contest;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
-import org.hightail.Problem;
 import org.hightail.parsers.task.CodeChefTaskParser;
 import org.hightail.parsers.task.TaskParser;
 import org.htmlparser.Node;

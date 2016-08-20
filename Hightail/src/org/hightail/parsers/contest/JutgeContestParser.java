@@ -1,7 +1,6 @@
 package org.hightail.parsers.contest;
 
 import java.util.ArrayList;
-import org.hightail.Problem;
 import org.hightail.parsers.task.JutgeTaskParser;
 import org.hightail.parsers.task.TaskParser;
 import org.htmlparser.util.ParserException;

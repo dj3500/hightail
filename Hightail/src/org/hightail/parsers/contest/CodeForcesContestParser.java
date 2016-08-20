@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
-import org.hightail.Problem;
 import org.hightail.parsers.task.CodeForcesTaskParser;
 import org.hightail.parsers.task.TaskParser;
 import org.htmlparser.Node;

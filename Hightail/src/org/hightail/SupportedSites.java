@@ -23,9 +23,9 @@ public enum SupportedSites {
             new JutgeContestParser())
     ;
     
-    private TaskParser taskParser;
-    private ContestParser contestParser;
-    private String defaultDirectory;
+    private final TaskParser taskParser;
+    private final ContestParser contestParser;
+    private final String defaultDirectory;
     
     private SupportedSites(String defaultDirectory, TaskParser taskParser, ContestParser contestParser) {
         this.defaultDirectory = defaultDirectory;
