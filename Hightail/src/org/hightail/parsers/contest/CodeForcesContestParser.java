@@ -27,6 +27,10 @@ public class CodeForcesContestParser implements ContestParser {
             // swap that to "contest"
             URL = URL.replaceFirst("contestRegistrants", "contest");
         }
+        if (URL.contains("contests")) {
+            // swap that to "contest"
+            URL = URL.replaceFirst("contests", "contest");
+        }
         
         Parser parser = new Parser(URL);
         
