@@ -20,7 +20,11 @@ public enum SupportedSites {
     Jutge       (
             "jutge",
             new JutgeTaskParser(),
-            new JutgeContestParser())
+            new JutgeContestParser()),
+    AtCoder     (
+            "atcoder",
+            new AtCoderTaskParser(),
+            new AtCoderContestParser()),
     ;
     
     private final TaskParser taskParser;
