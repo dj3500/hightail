@@ -23,6 +23,11 @@ public class CodeForcesContestParser implements ContestParser {
         
         URL = URL.trim();
         
+        if (URL.contains("contestRegistrants")) {
+            // swap that to "contest"
+            URL = URL.replaceFirst("contestRegistrants", "contest");
+        }
+        
         Parser parser = new Parser(URL);
         
         // get all <a> tags
