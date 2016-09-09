@@ -15,7 +15,7 @@ import org.htmlparser.visitors.TagFindingVisitor;
 
 public class CodeForcesContestParser implements ContestParser {
 
-    final static private String taskUrlRegExp = "/contest/(.*)/problem/(.*)";
+    final static private String taskUrlRegExp = "/(contest|gym)/(.*)/problem/(.*)";
     final static private TaskParser taskParser = new CodeForcesTaskParser();
         
     @Override
