@@ -26,15 +26,13 @@ public class CodeChefTaskParser implements TaskParser {
         
         // extract problem name
         fb.setFilters(new NodeFilter[] {
-            new CssSelectorNodeFilter("table.pagetitle-prob"),
-            new CssSelectorNodeFilter("p")
+            new CssSelectorNodeFilter("span#problem-code")
         });
         fb.setURL(URL);
         String problemName = fb.getText(); // should be "Problem code: XXX"
         if(problemName.isEmpty()) {
             throw new ParserException("Problem name not extracted (probably incorrect url).");
         }
-        problemName = problemName.split(" ")[2];
         
         if (Thread.interrupted()) {
             throw new InterruptedException();
