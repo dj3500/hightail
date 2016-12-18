@@ -6,6 +6,7 @@ import javax.swing.AbstractAction;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
+import org.hightail.Config;
 import org.hightail.Problem;
 import org.hightail.SupportedSites;
 import org.hightail.parsers.task.TaskParser;
@@ -278,7 +279,7 @@ public class NewProblemJDialog extends javax.swing.JDialog {
                     parsingStatusLabel.setText("Parsing...");
                     parsingStatusLabel.setToolTipText("");
                     TaskParser parser = SupportedSites.getTaskParser(URL);
-                    problem = parser.parse(URL);
+                    problem = parser.parse(URL, Config.getBoolean("putWholeName"));
                     parsingStatusLabel.setText("Parsing ok");
                     if (nameField.getText().isEmpty()) {
                         nameField.setText(problem.getName());

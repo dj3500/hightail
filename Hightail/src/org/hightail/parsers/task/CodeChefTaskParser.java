@@ -18,7 +18,7 @@ import org.htmlparser.util.ParserException;
 public class CodeChefTaskParser implements TaskParser {
 
     @Override
-    public Problem parse(String URL) throws ParserException, InterruptedException {
+    public Problem parse(String URL, boolean wholeName) throws ParserException, InterruptedException {
         URL = URL.trim();
         
         FilterBean fb = new FilterBean();

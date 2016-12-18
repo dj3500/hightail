@@ -67,7 +67,7 @@ public class CodeForcesTaskParser implements TaskParser {
     }
 
     @Override
-    public Problem parse(String URL) throws ParserException, InterruptedException {
+    public Problem parse(String URL, boolean wholeName) throws ParserException, InterruptedException {
 
         URL = URL.trim();
         
@@ -82,7 +82,10 @@ public class CodeForcesTaskParser implements TaskParser {
         if (problemName.isEmpty()) {
             throw new ParserException("Problem name not extracted (probably incorrect url).");
         }
-        problemName = String.valueOf(problemName.charAt(0));
+        
+        if(!wholeName) {
+            problemName = String.valueOf(problemName.charAt(0));
+        }
         
         if (Thread.interrupted()) {
             throw new InterruptedException();

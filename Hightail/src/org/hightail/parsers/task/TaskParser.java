@@ -8,6 +8,6 @@ import org.htmlparser.util.ParserException;
  * @author krig
  */
 public interface TaskParser {
-    Problem parse(String URL) throws ParserException, InterruptedException;
+    Problem parse(String URL, boolean wholeName) throws ParserException, InterruptedException;
     boolean isCorrectURL(String URL);
 }

@@ -28,12 +28,14 @@ public class Config {
         }
     }
 
-    static protected void fillInUnsetValuesWithDefaults() {
+    //It has changed to public for making easier the unit testing.
+    static public void fillInUnsetValuesWithDefaults() {
         setIfUnset("workingDirectory", new File("").getAbsolutePath());
         setIfUnset("pathFromWorkingDirToExec", "%P.exe");
         // TODO: if under Unix, this better be "%L"
         setIfUnset("prependingCommand", "");
         setIfUnset("checkExistence", "1");
+        setIfUnset("putWholeName", "0");
     }
 
     static public boolean load() {

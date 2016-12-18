@@ -41,6 +41,8 @@ public class ConfigJDialog extends javax.swing.JDialog {
         prependingCommandTextField.setText(Config.get("prependingCommand"));
         
         checkExistenceCheckBox.setSelected(Config.getBoolean("checkExistence"));
+        
+        wholeNameRadioButton.setSelected(Config.getBoolean("putWholeName"));
     }
     
     /** This method is called from within the constructor to
@@ -52,6 +54,7 @@ public class ConfigJDialog extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        optionNameGroup = new javax.swing.ButtonGroup();
         pathsAndDirectoriesPanel = new javax.swing.JPanel();
         workingDirectoryLabel = new javax.swing.JLabel();
         workingDirectoryTextField = new javax.swing.JTextField();
@@ -65,6 +68,9 @@ public class ConfigJDialog extends javax.swing.JDialog {
         prependingCommandTextField = new javax.swing.JTextField();
         checkExistenceCheckBox = new javax.swing.JCheckBox();
         jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        firstLetterRadioButton = new javax.swing.JRadioButton();
+        wholeNameRadioButton = new javax.swing.JRadioButton();
         saveButton = new javax.swing.JButton();
         cancelButton = new javax.swing.JButton();
 
@@ -103,6 +109,25 @@ public class ConfigJDialog extends javax.swing.JDialog {
 
         jLabel4.setText("<html>Setup tips for Java: let's say you keep the main class of your compiled solution to problem B at \"d:\\algo\\taskB\\Main.class\". In this case you want to execute \"java -classpath d:\\algo\\taskB Main\", so you should set the working directory to \"d:\\algo\", path from working directory to executable to \"task%P Main\" and the prepending command to \"java -classpath\". If you had just \"d:\\algo\\Main.class\", you would need to set the path from working directory to executable to \" Main\" (note the space at the beginning).<br>You must also uncheck \"check whether executable file exists\".");
 
+        jLabel5.setText("Select a option for putting a name as a default name for searching the executable (only for codeforces)");
+
+        optionNameGroup.add(firstLetterRadioButton);
+        firstLetterRadioButton.setSelected(true);
+        firstLetterRadioButton.setText("The first letter of a problem's name");
+        firstLetterRadioButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                firstLetterRadioButtonActionPerformed(evt);
+            }
+        });
+
+        optionNameGroup.add(wholeNameRadioButton);
+        wholeNameRadioButton.setText("the whole problem's name");
+        wholeNameRadioButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                wholeNameRadioButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pathsAndDirectoriesPanelLayout = new javax.swing.GroupLayout(pathsAndDirectoriesPanel);
         pathsAndDirectoriesPanel.setLayout(pathsAndDirectoriesPanelLayout);
         pathsAndDirectoriesPanelLayout.setHorizontalGroup(
@@ -122,16 +147,21 @@ public class ConfigJDialog extends javax.swing.JDialog {
                         .addGap(10, 10, 10)
                         .addComponent(pathFromWorkingDirToExecTextField))
                     .addComponent(checkExistenceCheckBox, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(pathsAndDirectoriesPanelLayout.createSequentialGroup()
                         .addGroup(pathsAndDirectoriesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pathsAndDirectoriesPanelLayout.createSequentialGroup()
+                                .addComponent(firstLetterRadioButton)
+                                .addGap(18, 18, 18)
+                                .addComponent(wholeNameRadioButton))
                             .addComponent(jLabel1)
                             .addComponent(jLabel3)
                             .addGroup(pathsAndDirectoriesPanelLayout.createSequentialGroup()
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(prependingCommandTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                                .addComponent(prependingCommandTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel5))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         pathsAndDirectoriesPanelLayout.setVerticalGroup(
@@ -159,8 +189,14 @@ public class ConfigJDialog extends javax.swing.JDialog {
                 .addGap(18, 18, 18)
                 .addComponent(checkExistenceCheckBox)
                 .addGap(18, 18, 18)
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                .addGroup(pathsAndDirectoriesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(firstLetterRadioButton)
+                    .addComponent(wholeNameRadioButton))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         saveButton.setText("Save settings");
@@ -195,8 +231,8 @@ public class ConfigJDialog extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(pathsAndDirectoriesPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(pathsAndDirectoriesPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(saveButton)
                     .addComponent(cancelButton))
@@ -238,6 +274,9 @@ public class ConfigJDialog extends javax.swing.JDialog {
         if (Config.getBoolean("checkExistence") != checkExistenceCheckBox.isSelected()) {
             return true;
         }
+        if (Config.getBoolean("putWholeName") != wholeNameRadioButton.isSelected()) {
+            return true;
+        }
         return false;
     }
     
@@ -273,6 +312,7 @@ public class ConfigJDialog extends javax.swing.JDialog {
         Config.set("pathFromWorkingDirToExec", pathFromWorkingDirToExecTextField.getText());
         Config.set("prependingCommand", prependingCommandTextField.getText());
         Config.setBoolean("checkExistence", checkExistenceCheckBox.isSelected());
+        Config.setBoolean("putWholeName", wholeNameRadioButton.isSelected());
         try {
             Config.save();
             JOptionPane.showMessageDialog(this, "The configuration file has been saved.");
@@ -296,20 +336,32 @@ public class ConfigJDialog extends javax.swing.JDialog {
             workingDirectoryTextField.setText(workingDirectoryChooser.getSelectedFile().getAbsolutePath());
         }
     }//GEN-LAST:event_workingDirectoryBrowseButtonActionPerformed
+
+    private void firstLetterRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_firstLetterRadioButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_firstLetterRadioButtonActionPerformed
+
+    private void wholeNameRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_wholeNameRadioButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_wholeNameRadioButtonActionPerformed
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelButton;
     private javax.swing.JCheckBox checkExistenceCheckBox;
+    private javax.swing.JRadioButton firstLetterRadioButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.ButtonGroup optionNameGroup;
     private javax.swing.JLabel pathFromWorkingDirToExecLabel;
     private javax.swing.JLabel pathFromWorkingDirToExecLabel2;
     private javax.swing.JTextField pathFromWorkingDirToExecTextField;
     private javax.swing.JPanel pathsAndDirectoriesPanel;
     private javax.swing.JTextField prependingCommandTextField;
     private javax.swing.JButton saveButton;
+    private javax.swing.JRadioButton wholeNameRadioButton;
     private javax.swing.JButton workingDirectoryBrowseButton;
     private javax.swing.JLabel workingDirectoryLabel;
     private javax.swing.JTextField workingDirectoryTextField;
