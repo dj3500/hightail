@@ -25,6 +25,10 @@ public enum SupportedSites {
             "atcoder",
             new AtCoderTaskParser(),
             new AtCoderContestParser()),
+    OpenKattis  (
+            "openkattis",
+            new OpenKattisTaskParser(),
+            new OpenKattisContestParser()),
     ;
     
     private final TaskParser taskParser;
@@ -51,6 +55,10 @@ public enum SupportedSites {
             URL u = new URL(url);
             HttpURLConnection conn = (HttpURLConnection) u.openConnection();
             conn.setRequestMethod("GET");
+            if (url.contains(".kattis.com")) {
+                // unfortunately Kattis denies access for Java
+                conn.setRequestProperty("User-Agent", "curl/7.43.0");
+            }
             conn.connect();
             int code = conn.getResponseCode();
             if (code != 200) {

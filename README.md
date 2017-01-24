@@ -23,6 +23,7 @@ It supports the following online judges:
 * CodeChef (experimental)
 * AtCoder (only past contests)
 * Jutge.org
+* Open Kattis
 * what other judges should we support? do you want to help?
 
 We do not plan on supporting the TopCoder Arena: it is a different architecture, and there are a lot of good plugins available for it. Also, if you use Java for contests, we recommend to take a look at Egor Kulikov's [CHelper](http://codeforces.com/blog/entry/3273) for IntelliJ IDEA.
