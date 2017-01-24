@@ -10,6 +10,7 @@ import org.htmlparser.beans.FilterBean;
 import org.htmlparser.filters.CssSelectorNodeFilter;
 import org.htmlparser.util.NodeList;
 import org.htmlparser.util.ParserException;
+import org.htmlparser.util.Translate;
 
 import java.util.ArrayList;
 import java.util.regex.Matcher;
@@ -46,7 +47,7 @@ public class OpenKattisTaskParser implements TaskParser {
         Node[] nodes = nodeList.toNodeArray();
         ArrayList<String> samples = new ArrayList<>();
         for (Node node : nodes) {
-            samples.add(node.getNextSibling().getText().trim());
+            samples.add(Translate.decode(node.getNextSibling().getText().trim()));
         }
         return samples;
     }
