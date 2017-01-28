@@ -1,5 +1,6 @@
 package org.hightail.parsers.task;
 import java.util.ArrayList;
+import org.hightail.AuthenticationInfo;
 import org.hightail.Problem;
 import org.hightail.SupportedSites;
 import org.hightail.Testcase;
@@ -95,7 +96,7 @@ public class JutgeTaskParser implements TaskParser {
     }
 
     @Override
-    public Problem parse(String URL) throws ParserException, InterruptedException {
+    public Problem parse(String URL, AuthenticationInfo authenticationInfo) throws ParserException, InterruptedException {
 
         URL = URL.trim();
         

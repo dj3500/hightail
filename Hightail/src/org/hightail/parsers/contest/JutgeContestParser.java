@@ -1,6 +1,7 @@
 package org.hightail.parsers.contest;
 
 import java.util.ArrayList;
+import org.hightail.AuthenticationInfo;
 import org.hightail.parsers.task.JutgeTaskParser;
 import org.hightail.parsers.task.TaskParser;
 import org.htmlparser.util.ParserException;
@@ -12,7 +13,7 @@ import org.htmlparser.util.ParserException;
 public class JutgeContestParser implements ContestParser {
     
     @Override
-    public ArrayList<String> getProblemURLListFromURL(String URL) throws ParserException, InterruptedException {
+    public ArrayList<String> getProblemURLListFromURL(String URL, AuthenticationInfo authenticationInfo) throws ParserException, InterruptedException {
         /*
             Problem lists (which can be interpreted as contests) are only available if you are logged in.
             Also, it doesn't make much sense here since most problems are public and they are usually solved

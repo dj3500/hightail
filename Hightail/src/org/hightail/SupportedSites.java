@@ -48,6 +48,9 @@ public enum SupportedSites {
                 // this is needed also for the task parser itself to work (this method gets called before the task parser)
                 XTrustProvider.install();
             }
+            if (url.contains("https")) {
+                url = url.replace("https://", "http://");
+            }
             URL u = new URL(url);
             HttpURLConnection conn = (HttpURLConnection) u.openConnection();
             conn.setRequestMethod("GET");
