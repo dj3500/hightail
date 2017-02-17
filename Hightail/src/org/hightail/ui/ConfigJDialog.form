@@ -83,21 +83,15 @@
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="workingDirectoryBrowseButton" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="pathFromWorkingDirToExecLabel2" max="32767" attributes="0"/>
+                      <Component id="pathFromWorkingDirToExecLabel2" pref="682" max="32767" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="pathFromWorkingDirToExecLabel" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                           <Component id="pathFromWorkingDirToExecTextField" max="32767" attributes="0"/>
                       </Group>
-                      <Component id="checkExistenceCheckBox" alignment="0" max="32767" attributes="0"/>
                       <Component id="jLabel4" alignment="0" pref="0" max="32767" attributes="0"/>
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <Component id="firstLetterRadioButton" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="wholeNameRadioButton" min="-2" max="-2" attributes="0"/>
-                              </Group>
                               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Group type="102" alignment="0" attributes="0">
@@ -105,10 +99,11 @@
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Component id="prependingCommandTextField" min="-2" pref="329" max="-2" attributes="0"/>
                               </Group>
-                              <Component id="jLabel5" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="wholeNameCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
+                      <Component id="checkExistenceCheckBox" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -141,14 +136,9 @@
                   <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="checkExistenceCheckBox" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="8" max="32767" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="firstLetterRadioButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="wholeNameRadioButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Component id="wholeNameCheckBox" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
                   <Component id="jLabel4" min="-2" pref="92" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -214,32 +204,13 @@
             <Property name="text" type="java.lang.String" value="&lt;html&gt;Setup tips for Java: let&apos;s say you keep the main class of your compiled solution to problem B at &quot;d:\u005calgo\u005ctaskB\u005cMain.class&quot;. In this case you want to execute &quot;java -classpath d:\u005calgo\u005ctaskB Main&quot;, so you should set the working directory to &quot;d:\u005calgo&quot;, path from working directory to executable to &quot;task%P Main&quot; and the prepending command to &quot;java -classpath&quot;. If you had just &quot;d:\u005calgo\u005cMain.class&quot;, you would need to set the path from working directory to executable to &quot; Main&quot; (note the space at the beginning).&lt;br&gt;You must also uncheck &quot;check whether executable file exists&quot;." containsInvalidXMLChars="true"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel5">
+        <Component class="javax.swing.JCheckBox" name="wholeNameCheckBox">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Select a option for putting a name as a default name for searching the executable (only for codeforces)"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JRadioButton" name="firstLetterRadioButton">
-          <Properties>
-            <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-              <ComponentRef name="optionNameGroup"/>
-            </Property>
-            <Property name="selected" type="boolean" value="true"/>
-            <Property name="text" type="java.lang.String" value="The first letter of a problem&apos;s name"/>
+            <Property name="text" type="java.lang.String" value="Putting the whole problem&apos;s name as a default name"/>
+            <Property name="actionCommand" type="java.lang.String" value="Putting the whole problem&apos;s name as a default name"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="firstLetterRadioButtonActionPerformed"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JRadioButton" name="wholeNameRadioButton">
-          <Properties>
-            <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-              <ComponentRef name="optionNameGroup"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="the whole problem&apos;s name"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="wholeNameRadioButtonActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="wholeNameCheckBoxActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

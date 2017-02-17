@@ -17,7 +17,7 @@ import org.htmlparser.util.ParserException;
 public class AtCoderTaskParser implements TaskParser {
 
     @Override
-    public Problem parse(String URL, boolean wholeName) throws ParserException, InterruptedException {
+    public Problem parse(String URL) throws ParserException, InterruptedException {
 
         URL = URL.trim();
         

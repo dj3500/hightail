@@ -279,7 +279,7 @@ public class NewProblemJDialog extends javax.swing.JDialog {
                     parsingStatusLabel.setText("Parsing...");
                     parsingStatusLabel.setToolTipText("");
                     TaskParser parser = SupportedSites.getTaskParser(URL);
-                    problem = parser.parse(URL, Config.getBoolean("putWholeName"));
+                    problem = parser.parse(URL);
                     parsingStatusLabel.setText("Parsing ok");
                     if (nameField.getText().isEmpty()) {
                         nameField.setText(problem.getName());

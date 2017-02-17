@@ -3,10 +3,12 @@ package org.hightail.parsers.task;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import org.hightail.Config;
 import org.hightail.Problem;
 import org.hightail.SupportedSites;
 import org.hightail.Testcase;
 import org.hightail.TestcaseSet;
+import org.hightail.util.ProblemNameFormatter;
 import org.htmlparser.Node;
 import org.htmlparser.NodeFilter;
 import org.htmlparser.beans.FilterBean;
@@ -67,7 +69,7 @@ public class CodeForcesTaskParser implements TaskParser {
     }
 
     @Override
-    public Problem parse(String URL, boolean wholeName) throws ParserException, InterruptedException {
+    public Problem parse(String URL) throws ParserException, InterruptedException {
 
         URL = URL.trim();
         
@@ -83,9 +85,12 @@ public class CodeForcesTaskParser implements TaskParser {
             throw new ParserException("Problem name not extracted (probably incorrect url).");
         }
         
-        if(!wholeName) {
+        if(!Config.getBoolean("putWholeName")) {
             problemName = String.valueOf(problemName.charAt(0));
         }
+        /*else{
+            problemName = ProblemNameFormatter.getFormatedName(problemName);
+        }*/
         
         if (Thread.interrupted()) {
             throw new InterruptedException();

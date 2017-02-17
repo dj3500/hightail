@@ -21,7 +21,7 @@ public interface ContestParser {
         ParserException anyException = null;
         for (String link : problemURLList) {
             try {
-                problems.add(getTaskParser().parse(link, Config.getBoolean("putWholeName")));
+                problems.add(getTaskParser().parse(link));
             } catch (ParserException e) {
                 anyException = e;
             }

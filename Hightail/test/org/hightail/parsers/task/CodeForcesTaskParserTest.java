@@ -21,24 +21,10 @@ public class CodeForcesTaskParserTest {
     private final String COMPLETE_PROBLEM_NAME = "E. Hongcow Masters the Cyclic Shift";
     private final String SHORT_PROBLEM_NAME = "E";
 
-    public CodeForcesTaskParserTest() {
-    }
-
+   
     @BeforeClass
     public static void setUpClass() {
         Config.fillInUnsetValuesWithDefaults();
-    }
-
-    @AfterClass
-    public static void tearDownClass() {
-    }
-
-    @Before
-    public void setUp() {
-    }
-
-    @After
-    public void tearDown() {
     }
 
     /**
@@ -48,7 +34,7 @@ public class CodeForcesTaskParserTest {
     public void testParseNamePropertieShortName() {
         try {
             TaskParser parser = SupportedSites.getTaskParser(URL);
-            Problem problem = parser.parse(URL, false);
+            Problem problem = parser.parse(URL);
             assertEquals(SHORT_PROBLEM_NAME, problem.getName());
         } catch (ParserException ex) {
             fail("thrown exception ParserException");
@@ -63,8 +49,9 @@ public class CodeForcesTaskParserTest {
     @Test
     public void testParseNamePropertieWholeName() {
         try {
+            Config.setBoolean("putWholeName", true);
             TaskParser parser = SupportedSites.getTaskParser(URL);
-            Problem problem = parser.parse(URL, true);
+            Problem problem = parser.parse(URL);
             assertEquals(COMPLETE_PROBLEM_NAME, problem.getName());
         } catch (ParserException ex) {
             fail("thrown exception ParserException");
