@@ -88,9 +88,9 @@ public class CodeForcesTaskParser implements TaskParser {
         if(!Config.getBoolean("putWholeName")) {
             problemName = String.valueOf(problemName.charAt(0));
         }
-        /*else{
+        else{
             problemName = ProblemNameFormatter.getFormatedName(problemName);
-        }*/
+        }
         
         if (Thread.interrupted()) {
             throw new InterruptedException();
