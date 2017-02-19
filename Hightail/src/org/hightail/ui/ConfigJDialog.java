@@ -107,13 +107,7 @@ public class ConfigJDialog extends javax.swing.JDialog {
 
         jLabel4.setText("<html>Setup tips for Java: let's say you keep the main class of your compiled solution to problem B at \"d:\\algo\\taskB\\Main.class\". In this case you want to execute \"java -classpath d:\\algo\\taskB Main\", so you should set the working directory to \"d:\\algo\", path from working directory to executable to \"task%P Main\" and the prepending command to \"java -classpath\". If you had just \"d:\\algo\\Main.class\", you would need to set the path from working directory to executable to \" Main\" (note the space at the beginning).<br>You must also uncheck \"check whether executable file exists\".");
 
-        wholeNameCheckBox.setText("Putting the whole problem's name as a default name");
-        wholeNameCheckBox.setActionCommand("Putting the whole problem's name as a default name");
-        wholeNameCheckBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                wholeNameCheckBoxActionPerformed(evt);
-            }
-        });
+        wholeNameCheckBox.setText("In CodeForces, use the problem's full name (instead of first letter), like B. Sereja and numbers");
 
         javax.swing.GroupLayout pathsAndDirectoriesPanelLayout = new javax.swing.GroupLayout(pathsAndDirectoriesPanel);
         pathsAndDirectoriesPanel.setLayout(pathsAndDirectoriesPanelLayout);
@@ -315,10 +309,6 @@ public class ConfigJDialog extends javax.swing.JDialog {
             workingDirectoryTextField.setText(workingDirectoryChooser.getSelectedFile().getAbsolutePath());
         }
     }//GEN-LAST:event_workingDirectoryBrowseButtonActionPerformed
-
-    private void wholeNameCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_wholeNameCheckBoxActionPerformed
-        //This comes by default in netbeans!
-    }//GEN-LAST:event_wholeNameCheckBoxActionPerformed
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelButton;

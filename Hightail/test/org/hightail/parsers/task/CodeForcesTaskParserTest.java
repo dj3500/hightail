@@ -4,9 +4,6 @@ import org.hightail.Config;
 import org.hightail.Problem;
 import org.hightail.SupportedSites;
 import org.htmlparser.util.ParserException;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -28,10 +25,10 @@ public class CodeForcesTaskParserTest {
     }
 
     /**
-     * Testing to put the first problem's name letter as a name of the problem
+     * Putting the first problem's name letter as the name of the problem
      */
     @Test
-    public void testParseNamePropertieShortName() {
+    public void testParseShortName() {
         try {
             TaskParser parser = SupportedSites.getTaskParser(URL);
             Problem problem = parser.parse(URL);
@@ -44,10 +41,10 @@ public class CodeForcesTaskParserTest {
     }
     
     /**
-     * Testing to put the whole problem's name as a name of the problem
+     * Putting the whole problem's name as the name of the problem
      */
     @Test
-    public void testParseNamePropertieWholeName() {
+    public void testParseWholeName() {
         try {
             Config.setBoolean("putWholeName", true);
             TaskParser parser = SupportedSites.getTaskParser(URL);

@@ -206,12 +206,8 @@
         </Component>
         <Component class="javax.swing.JCheckBox" name="wholeNameCheckBox">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Putting the whole problem&apos;s name as a default name"/>
-            <Property name="actionCommand" type="java.lang.String" value="Putting the whole problem&apos;s name as a default name"/>
+            <Property name="text" type="java.lang.String" value="In CodeForces, use the problem&apos;s full name (instead of first letter), like B. Sereja and numbers"/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="wholeNameCheckBoxActionPerformed"/>
-          </Events>
         </Component>
       </SubComponents>
     </Container>

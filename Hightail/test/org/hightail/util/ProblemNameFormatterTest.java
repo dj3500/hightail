@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.hightail.util;
 
 import org.junit.Test;
@@ -18,14 +13,14 @@ public class ProblemNameFormatterTest {
     private final String PROBLEM_NAME_EXPECTED_B = "TEST";
     
     @Test
-    public void testGetFormatedNameAllowedCharacters() {
-        String formatedName = ProblemNameFormatter.getFormatedName(PROBLEM_NAME_A);
-        assertEquals(PROBLEM_NAME_A, formatedName);
+    public void testGetFormattedNameAllowedCharacters() {
+        String formattedName = ProblemNameFormatter.getFormattedName(PROBLEM_NAME_A);
+        assertEquals(PROBLEM_NAME_A, formattedName);
     }
     
     @Test
-    public void testGetFormatedNameNotAllowedCharacters() {
-        String formatedName = ProblemNameFormatter.getFormatedName(PROBLEM_NAME_B);
-        assertEquals(PROBLEM_NAME_EXPECTED_B, formatedName);
+    public void testGetFormattedNameNotAllowedCharacters() {
+        String formattedName = ProblemNameFormatter.getFormattedName(PROBLEM_NAME_B);
+        assertEquals(PROBLEM_NAME_EXPECTED_B, formattedName);
     }
 }

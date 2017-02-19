@@ -85,11 +85,11 @@ public class CodeForcesTaskParser implements TaskParser {
             throw new ParserException("Problem name not extracted (probably incorrect url).");
         }
         
-        if(!Config.getBoolean("putWholeName")) {
+        if (!Config.getBoolean("putWholeName")) {
             problemName = String.valueOf(problemName.charAt(0));
-        }
-        else{
-            problemName = ProblemNameFormatter.getFormatedName(problemName);
+        } else {
+            // delete some annoying special characters that show up in the title
+            problemName = ProblemNameFormatter.getFormattedName(problemName);
         }
         
         if (Thread.interrupted()) {

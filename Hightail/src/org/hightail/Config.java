@@ -28,7 +28,6 @@ public class Config {
         }
     }
 
-    //It has changed to public for making easier the unit testing.
     static public void fillInUnsetValuesWithDefaults() {
         setIfUnset("workingDirectory", new File("").getAbsolutePath());
         setIfUnset("pathFromWorkingDirToExec", "%P.exe");
