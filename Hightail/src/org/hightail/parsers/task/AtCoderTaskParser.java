@@ -111,7 +111,7 @@ public class AtCoderTaskParser implements TaskParser {
         return new Problem(problemName, testcaseSet, SupportedSites.AtCoder);
     }
  
-    private Problem parseUrl(String url, AuthenticationInfo authenticationInfo) throws IOException, InterruptedException {
+    private Problem parseUrl(String url) throws IOException, InterruptedException {
         // The url should be like:
         //     https://agc002.contest.atcoder.jp/tasks/agc009_d
         // Step 1: We go to link/login and login
@@ -121,14 +121,14 @@ public class AtCoderTaskParser implements TaskParser {
         
         WebClient webClient = new WebClient();
         // Step 1
-        if (authenticationInfo !=null && authenticationInfo.GetUsername().compareTo("") != 0) {
+        if (AuthenticationInfo.GetUsername().compareTo("") != 0) {
             HtmlPage loginPage = webClient.getPage(createLoginUrl(url));
             List<HtmlForm> loginForms = loginPage.getForms();
             HtmlForm loginForm = loginForms.get(0);
             HtmlTextInput txtUsername = loginForm.getInputByName("name");
-            txtUsername.setText(authenticationInfo.GetUsername());
+            txtUsername.setText(AuthenticationInfo.GetUsername());
             HtmlPasswordInput txtPassword = loginForm.getInputByName("password");
-            txtPassword.setText(authenticationInfo.GetPassword());
+            txtPassword.setText(AuthenticationInfo.GetPassword());
             DomNodeList<HtmlElement> loginFormButtons = loginForm.getElementsByTagName("button");
             check(loginFormButtons.size() == 1, "Atcoder: There should be only one button in login page.");
             HtmlButton loginFormButton = (HtmlButton) loginFormButtons.get(0);
@@ -139,9 +139,9 @@ public class AtCoderTaskParser implements TaskParser {
     }
 
     @Override
-    public Problem parse(String url, AuthenticationInfo authenticationInfo) throws InterruptedException {
+    public Problem parse(String url) throws InterruptedException {
         try {
-            return parseUrl(url, authenticationInfo);
+            return parseUrl(url);
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         }

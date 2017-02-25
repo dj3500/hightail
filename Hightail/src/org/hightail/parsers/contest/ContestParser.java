@@ -1,7 +1,6 @@
 package org.hightail.parsers.contest;
 
 import java.util.ArrayList;
-import org.hightail.AuthenticationInfo;
 import org.hightail.Problem;
 import org.hightail.parsers.task.TaskParser;
 import org.htmlparser.util.ParserException;
@@ -11,8 +10,8 @@ import org.htmlparser.util.ParserException;
  * @author krig
  */
 public interface ContestParser {
-    default ArrayList<Problem> getProblemListFromContestURL(String URL, AuthenticationInfo authenticationInfo) throws ParserException, InterruptedException {
-        ArrayList<String> problemURLList = getProblemURLListFromURL(URL, authenticationInfo);
+    default ArrayList<Problem> getProblemListFromContestURL(String URL) throws ParserException, InterruptedException {
+        ArrayList<String> problemURLList = getProblemURLListFromURL(URL);
         if (problemURLList.isEmpty()) {
             throw new ParserException("No links to tasks found.");
         }
@@ -21,7 +20,7 @@ public interface ContestParser {
         ParserException anyException = null;
         for (String link : problemURLList) {
             try {
-                problems.add(getTaskParser().parse(link, authenticationInfo));
+                problems.add(getTaskParser().parse(link));
             } catch (ParserException e) {
                 anyException = e;
             }
@@ -40,7 +39,7 @@ public interface ContestParser {
         return problems;
 
     }
-    ArrayList<String> getProblemURLListFromURL(String URL, AuthenticationInfo authenticationInfo) throws ParserException, InterruptedException;
+    ArrayList<String> getProblemURLListFromURL(String URL) throws ParserException, InterruptedException;
     boolean isCorrectURL(String URL);
     TaskParser getTaskParser();
 }

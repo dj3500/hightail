@@ -51,7 +51,7 @@ public class AtCoderContestParser implements ContestParser {
         return url + "/" + subPage;
     }
     
-    public ArrayList<String> getProblemUrls(String baseUrl, AuthenticationInfo authenticationInfo) throws ParserException, InterruptedException, IOException {
+    public ArrayList<String> getProblemUrls(String baseUrl) throws ParserException, InterruptedException, IOException {
         // The initial url should be like:
         //     https://agc002.contest.atcoder.jp
         // Step 1: We go to link/login to login
@@ -60,14 +60,14 @@ public class AtCoderContestParser implements ContestParser {
         // Step 4: We return the links.
  
         // Step 1
-        if (authenticationInfo.GetUsername().compareTo("") != 0) {
+        if (AuthenticationInfo.GetUsername().compareTo("") != 0) {
             HtmlPage loginPage = webClient.getPage(createUrl(baseUrl, "login"));
             List<HtmlForm> loginForms = loginPage.getForms();
             HtmlForm loginForm = loginForms.get(0);
             HtmlTextInput txtUsername = loginForm.getInputByName("name");
-            txtUsername.setText(authenticationInfo.GetUsername());
+            txtUsername.setText(AuthenticationInfo.GetUsername());
             HtmlPasswordInput txtPassword = loginForm.getInputByName("password");
-            txtPassword.setText(authenticationInfo.GetPassword());
+            txtPassword.setText(AuthenticationInfo.GetPassword());
             DomNodeList<HtmlElement> loginFormButtons = loginForm.getElementsByTagName("button");
             check(loginFormButtons.size() == 1, "Atcoder: There should be only one button in login page.");
             HtmlButton loginFormButton = (HtmlButton) loginFormButtons.get(0);
@@ -105,20 +105,20 @@ public class AtCoderContestParser implements ContestParser {
     }
     
     @Override
-    public ArrayList<String> getProblemURLListFromURL (String baseUrl, AuthenticationInfo authenticationInfo) throws ParserException, InterruptedException {
+    public ArrayList<String> getProblemURLListFromURL (String baseUrl) throws ParserException, InterruptedException {
         try {
-            return getProblemUrls(baseUrl, authenticationInfo);
+            return getProblemUrls(baseUrl);
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         }
     }
 
     @Override
-    public ArrayList<Problem> getProblemListFromContestURL(String URL, AuthenticationInfo authenticationInfo) throws ParserException, InterruptedException {
+    public ArrayList<Problem> getProblemListFromContestURL(String URL) throws ParserException, InterruptedException {
         java.util.logging.Logger.getLogger("com.gargoylesoftware").setLevel(Level.OFF); 
         System.setProperty("org.apache.commons.logging.Log", "org.apache.commons.logging.impl.NoOpLog");
 
-        ArrayList<String> problemURLList = getProblemURLListFromURL(URL, authenticationInfo);
+        ArrayList<String> problemURLList = getProblemURLListFromURL(URL);
         if (problemURLList.isEmpty()) {
             throw new ParserException("No links to tasks found.");
         }

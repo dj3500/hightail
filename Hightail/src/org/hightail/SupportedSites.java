@@ -48,7 +48,9 @@ public enum SupportedSites {
                 // this is needed also for the task parser itself to work (this method gets called before the task parser)
                 XTrustProvider.install();
             }
-            if (url.contains("https")) {
+            // For atcoder url, replace https with http to verify. Https does
+            // not work.
+            if (url.contains("atcoder") && url.contains("https")) {
                 url = url.replace("https://", "http://");
             }
             URL u = new URL(url);

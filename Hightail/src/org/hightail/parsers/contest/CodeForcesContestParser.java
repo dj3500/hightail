@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
-import org.hightail.AuthenticationInfo;
 import org.hightail.parsers.task.CodeForcesTaskParser;
 import org.hightail.parsers.task.TaskParser;
 import org.htmlparser.Node;
@@ -20,7 +19,7 @@ public class CodeForcesContestParser implements ContestParser {
     final static private TaskParser taskParser = new CodeForcesTaskParser();
         
     @Override
-    public ArrayList<String> getProblemURLListFromURL(String URL, AuthenticationInfo authenticationInfo) throws ParserException, InterruptedException {
+    public ArrayList<String> getProblemURLListFromURL(String URL) throws ParserException, InterruptedException {
         
         URL = URL.trim();
         

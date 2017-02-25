@@ -12,13 +12,13 @@ import org.htmlparser.util.ParserException;
 public abstract class ContestScheduler {
     private static final Timer timer = new Timer();
     
-    public static void schedule(final String URL, final AuthenticationInfo authenticationInfo, final String workingDirectory, final MainJFrame mainFrame, Date date) {
+    public static void schedule(final String URL, final String workingDirectory, final MainJFrame mainFrame, Date date) {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
                 try {
                     ContestParser parser = SupportedSites.getContestParser(URL);
-                    ArrayList<Problem> problems = parser.getProblemListFromContestURL(URL, authenticationInfo);
+                    ArrayList<Problem> problems = parser.getProblemListFromContestURL(URL);
                     for (Problem p : problems) {
                         p.setWorkingDirectory(workingDirectory);
                     }
