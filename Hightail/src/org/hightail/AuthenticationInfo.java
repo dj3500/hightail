@@ -1,19 +1,22 @@
 package org.hightail;
 
 public class AuthenticationInfo {
-    private final String username;
-    private final String password;
-    
-    public AuthenticationInfo(String username, String password) {
-        this.username = username;
-        this.password = password;
+    private static String username = "";
+    private static String password = "";
+
+    public static void SetUsername(String username) {
+        AuthenticationInfo.username = username;
     }
     
-    public String GetUsername() {
-        return this.username;
+    public static void SetPassword(String password) {
+        AuthenticationInfo.password = password;
     }
     
-    public String GetPassword() {
-        return this.password;
+    public static String GetUsername() {
+        return username;
+    }
+    
+    public static String GetPassword() {
+        return password;
     }
 }
