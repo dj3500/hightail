@@ -21,7 +21,7 @@ A list of Hightail's features:
 It supports the following online judges:
 * CodeForces (incl. Gym)
 * CodeChef (experimental)
-* AtCoder (only past contests)
+* AtCoder (now also live-running contests!)
 * Jutge.org
 * Open Kattis
 * what other judges should we support? do you want to help?
