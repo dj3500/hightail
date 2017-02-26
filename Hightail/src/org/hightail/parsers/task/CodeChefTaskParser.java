@@ -1,5 +1,6 @@
 package org.hightail.parsers.task;
 
+import org.hightail.AuthenticationInfo;
 import org.hightail.Problem;
 import org.hightail.SupportedSites;
 import org.hightail.Testcase;
