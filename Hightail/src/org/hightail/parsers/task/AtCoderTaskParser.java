@@ -24,16 +24,17 @@ import org.hightail.Problem;
 import org.hightail.SupportedSites;
 import org.hightail.Testcase;
 import org.hightail.TestcaseSet;
+import org.htmlparser.util.ParserException;
 
 public class AtCoderTaskParser implements TaskParser {
 
-    private static void check(boolean condition, String msg) {
+    private static void check(boolean condition, String msg) throws ParserException {
         if (condition == false) {
-            throw new RuntimeException(msg);
+            throw new ParserException(msg);
         }
     }
 
-    private static String createLoginUrl(String url) {
+    private static String createLoginUrl(String url) throws ParserException {
         if (url.startsWith(("http://"))) url = url.replace("http://", "https://");
         if (!url.startsWith("https://")) url = "https://" + url;
         int idOfTasks = url.indexOf("/tasks/");
@@ -41,7 +42,7 @@ public class AtCoderTaskParser implements TaskParser {
         return url.substring(0, idOfTasks) + "/login";
     }
     
-    public Problem parseUrl(String url, WebClient webClient) throws IOException, InterruptedException {
+    public Problem parseUrl(String url, WebClient webClient) throws IOException, InterruptedException, ParserException {
         // The url should be like:
         //     https://agc002.contest.atcoder.jp/tasks/agc009_d
         // Step 1: We go to link/login and login (already done, and passed webClient)
@@ -111,7 +112,7 @@ public class AtCoderTaskParser implements TaskParser {
         return new Problem(problemName, testcaseSet, SupportedSites.AtCoder);
     }
  
-    private Problem parseUrl(String url) throws IOException, InterruptedException {
+    private Problem parseUrl(String url) throws IOException, InterruptedException, ParserException {
         // The url should be like:
         //     https://agc002.contest.atcoder.jp/tasks/agc009_d
         // Step 1: We go to link/login and login
@@ -121,14 +122,14 @@ public class AtCoderTaskParser implements TaskParser {
         
         WebClient webClient = new WebClient();
         // Step 1
-        if (AuthenticationInfo.GetUsername().compareTo("") != 0) {
+        if (AuthenticationInfo.getUsername().compareTo("") != 0) {
             HtmlPage loginPage = webClient.getPage(createLoginUrl(url));
             List<HtmlForm> loginForms = loginPage.getForms();
             HtmlForm loginForm = loginForms.get(0);
             HtmlTextInput txtUsername = loginForm.getInputByName("name");
-            txtUsername.setText(AuthenticationInfo.GetUsername());
+            txtUsername.setText(AuthenticationInfo.getUsername());
             HtmlPasswordInput txtPassword = loginForm.getInputByName("password");
-            txtPassword.setText(AuthenticationInfo.GetPassword());
+            txtPassword.setText(AuthenticationInfo.getPassword());
             DomNodeList<HtmlElement> loginFormButtons = loginForm.getElementsByTagName("button");
             check(loginFormButtons.size() == 1, "Atcoder: There should be only one button in login page.");
             HtmlButton loginFormButton = (HtmlButton) loginFormButtons.get(0);
@@ -139,11 +140,11 @@ public class AtCoderTaskParser implements TaskParser {
     }
 
     @Override
-    public Problem parse(String url) throws InterruptedException {
+    public Problem parse(String url) throws InterruptedException, ParserException {
         try {
             return parseUrl(url);
         } catch (IOException ex) {
-            throw new RuntimeException(ex);
+            throw new ParserException(ex);
         }
     }
 
