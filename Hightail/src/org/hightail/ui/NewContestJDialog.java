@@ -406,6 +406,7 @@ public class NewContestJDialog extends javax.swing.JDialog {
 
     private void addContestButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addContestButtonActionPerformed
         if (scheduleCheckBox.isSelected()) {
+            setAuthenticationInfo();
             scheduleContest();
             dispose();
             return;
