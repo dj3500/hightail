@@ -53,8 +53,8 @@ public enum SupportedSites {
                 XTrustProvider.install();
             }
             // For atcoder url, replace https with http to verify. Https does
-            // not work.
-            if (url.contains("atcoder") && url.contains("https")) {
+            // not work. 28.10.2017: seems to work for beta.atcoder.jp...
+            if (url.contains("atcoder") && url.contains("https") && !url.contains("beta.atcoder")) {
                 url = url.replace("https://", "http://");
             }
             URL u = new URL(url);

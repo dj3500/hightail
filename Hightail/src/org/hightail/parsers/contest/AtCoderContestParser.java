@@ -55,7 +55,16 @@ public class AtCoderContestParser implements ContestParser {
         
         // Step 0
         baseUrl = baseUrl.replace("assignments", ""); // if has "assignments", remove it
+        baseUrl = baseUrl.replace("tasks", ""); // if has "tasks", remove it [beta version of atcoder]
         while (baseUrl.endsWith("/")) baseUrl = baseUrl.substring(0, baseUrl.length() - 1); // remove trailing slashes
+        if (baseUrl.contains("beta.atcoder")) {
+            // beta version of atcoder
+            // try to change URLs to the regular version...
+            // URL will be like: http[s]://beta.atcoder.jp/contests/abc076
+            String contestCode = baseUrl.substring(baseUrl.lastIndexOf('/') + 1);
+            // contestCode will be like: abc076
+            baseUrl = "http://" + contestCode + ".contest.atcoder.jp";
+        }
  
         // Step 1
         if (AuthenticationInfo.getUsername().compareTo("") != 0) {
