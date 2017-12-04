@@ -23,4 +23,3 @@ parts:
         ant jar
     build-packages:
         - unzip
-        - openjdk-8-jdk
