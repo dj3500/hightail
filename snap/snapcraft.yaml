@@ -21,5 +21,3 @@ parts:
     source: ./Hightail
     build: |
         ant jar
-    build-packages:
-        - unzip
