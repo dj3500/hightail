@@ -5,7 +5,7 @@ import java.util.Timer;
 
 public abstract class FileMonitor {
     private static final long period = 1000;
-    private static Timer timer = new Timer(true);
+    private static final Timer timer = new Timer(true);
 
     public static void addFileChangeListener(FileChangeListener listener, String fileName) {
         addFileChangeListener(listener, new File(fileName));

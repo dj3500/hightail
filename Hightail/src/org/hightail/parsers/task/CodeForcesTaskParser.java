@@ -3,10 +3,12 @@ package org.hightail.parsers.task;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import org.hightail.Config;
 import org.hightail.Problem;
 import org.hightail.SupportedSites;
 import org.hightail.Testcase;
 import org.hightail.TestcaseSet;
+import org.hightail.util.ProblemNameFormatter;
 import org.htmlparser.Node;
 import org.htmlparser.NodeFilter;
 import org.htmlparser.beans.FilterBean;
@@ -82,7 +84,13 @@ public class CodeForcesTaskParser implements TaskParser {
         if (problemName.isEmpty()) {
             throw new ParserException("Problem name not extracted (probably incorrect url).");
         }
-        problemName = String.valueOf(problemName.charAt(0));
+        
+        if (!Config.getBoolean("putWholeName")) {
+            problemName = String.valueOf(problemName.charAt(0));
+        } else {
+            // delete some annoying special characters that show up in the title
+            problemName = ProblemNameFormatter.getFormattedName(problemName);
+        }
         
         if (Thread.interrupted()) {
             throw new InterruptedException();
@@ -109,7 +117,7 @@ public class CodeForcesTaskParser implements TaskParser {
         // extract time limit
         fb.setFilters(new NodeFilter[] {new CssSelectorNodeFilter("div.time-limit")});
         String timeLimitText = fb.getText(); // should be "time limit per testXXX second"
-        Pattern pattern = Pattern.compile("\\d+");
+        Pattern pattern = Pattern.compile("\\d+(\\.\\d+)?");
         Matcher matcher = pattern.matcher(timeLimitText);
         int timeLimit = Testcase.DEFAULT_TIME_LIMIT;
         if (matcher.find()) {

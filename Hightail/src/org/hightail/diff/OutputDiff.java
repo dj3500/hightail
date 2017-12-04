@@ -67,7 +67,6 @@ public class OutputDiff {
         }
         
         if (maxFloatingPointErrorObtained != 0) {
-            //return "OK\n" + "with error of " + new DecimalFormat("0E0").format(maxFloatingPointErrorObtained);
             return "OK\n" + "with " + -round(log10(maxFloatingPointErrorObtained)) + " digits of precision";
         } else {
             return "OK";
@@ -75,10 +74,10 @@ public class OutputDiff {
     }
 
     private static boolean looksLikeFloatingPoint(String token) {
-        return token.matches("[0-9]+\\.[0-9]+");
+        return token.matches("(-)?[0-9]+\\.[0-9]+");
     }
 
     private static boolean looksLikeIntegerOrFloatingPoint(String token) {
-        return token.matches("[0-9]+(\\.[0-9]+)?");
+        return token.matches("(-)?[0-9]+(\\.[0-9]+)?");
     }
 }

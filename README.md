@@ -1,6 +1,6 @@
 ## Hightail
 
-[Downloads](https://github.com/dj3500/hightail/releases)
+### [Downloads](https://github.com/dj3500/hightail/releases)
 
 Hightail is an automatic tester for programming contests such as [CodeForces](http://codeforces.com) rounds. It will parse the problem statement, extract sample test cases (inputs and outputs) from it, and verify the correctness of your program against them. It is built to provide maximum automation and to relieve the contestant as much as possible.
 
@@ -19,10 +19,12 @@ A list of Hightail's features:
 * written in Java and should run on any OS
 
 It supports the following online judges:
-* CodeForces
+* CodeForces (incl. Gym)
 * CodeChef (experimental)
-* SPOJ (planned)
-* other (what other judges should we support? do you want to help?)
+* AtCoder (now also live-running contests!)
+* Jutge.org
+* Open Kattis
+* what other judges should we support? do you want to help?
 
 We do not plan on supporting the TopCoder Arena: it is a different architecture, and there are a lot of good plugins available for it. Also, if you use Java for contests, we recommend to take a look at Egor Kulikov's [CHelper](http://codeforces.com/blog/entry/3273) for IntelliJ IDEA.
 
@@ -71,3 +73,5 @@ The project was started and is maintained by Jakub Tarnawski ([dj3500](http://co
 * Igor Adamski ([Krig](http://codeforces.com/profile/Krig))
 * Robert Rosołek ([robert_rosolek](http://codeforces.com/profile/robert_rosolek))
 * Piotr Szcześniak
+* Sergio Rodriguez Guasch ([mrGRR](http://codeforces.com/profile/mrGRR))
+* Sri Aurobindo Munagala ([Dr.Hulk](http://codeforces.com/profile/Dr.Hulk))

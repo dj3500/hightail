@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import org.hightail.parsers.contest.ContestParser;
 import org.hightail.ui.MainJFrame;
@@ -20,7 +18,7 @@ public abstract class ContestScheduler {
             public void run() {
                 try {
                     ContestParser parser = SupportedSites.getContestParser(URL);
-                    ArrayList<Problem> problems = parser.parse(URL);
+                    ArrayList<Problem> problems = parser.getProblemListFromContestURL(URL);
                     for (Problem p : problems) {
                         p.setWorkingDirectory(workingDirectory);
                     }

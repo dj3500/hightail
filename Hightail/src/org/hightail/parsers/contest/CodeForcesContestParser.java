@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
-import org.hightail.Problem;
 import org.hightail.parsers.task.CodeForcesTaskParser;
 import org.hightail.parsers.task.TaskParser;
 import org.htmlparser.Node;
@@ -16,13 +15,22 @@ import org.htmlparser.visitors.TagFindingVisitor;
 
 public class CodeForcesContestParser implements ContestParser {
 
-    final static private String taskUrlRegExp = "/contest/(.*)/problem/(.*)";
+    final static private String taskUrlRegExp = "/(contest|gym)/(.*)/problem/(.*)";
     final static private TaskParser taskParser = new CodeForcesTaskParser();
-    
+        
     @Override
-    public ArrayList<Problem> parse(String URL) throws ParserException, InterruptedException {
+    public ArrayList<String> getProblemURLListFromURL(String URL) throws ParserException, InterruptedException {
         
         URL = URL.trim();
+        
+        if (URL.contains("contestRegistrants")) {
+            // swap that to "contest"
+            URL = URL.replaceFirst("contestRegistrants", "contest");
+        }
+        if (URL.contains("contests")) {
+            // swap that to "contest"
+            URL = URL.replaceFirst("contests", "contest");
+        }
         
         Parser parser = new Parser(URL);
         
@@ -48,16 +56,7 @@ public class CodeForcesContestParser implements ContestParser {
         links = new ArrayList<>(s);
         Collections.sort(links);
         
-        if (links.isEmpty()) {
-            throw new ParserException("No links to tasks found.");
-        }
-        
-        ArrayList<Problem> problems = new ArrayList<>();
-        for (String link : links) {
-            problems.add(taskParser.parse(link));
-        }
-        
-        return problems;
+        return links;
     }
 
     @Override
@@ -65,4 +64,8 @@ public class CodeForcesContestParser implements ContestParser {
         return URL.contains("codeforces.");
     }
     
+    @Override
+    public TaskParser getTaskParser () {
+        return taskParser;
+    }
 }

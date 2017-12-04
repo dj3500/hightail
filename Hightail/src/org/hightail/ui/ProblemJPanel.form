@@ -95,12 +95,12 @@
                           <Component id="saveTestsButton" alignment="3" max="32767" attributes="0"/>
                           <Component id="copyInputButton" alignment="3" max="32767" attributes="0"/>
                       </Group>
-                      <Component id="deleteTestcaseButton" alignment="0" max="32767" attributes="0"/>
                       <Component id="editTestcaseButton" alignment="0" max="32767" attributes="0"/>
                       <Component id="newTestcaseButton" alignment="0" max="32767" attributes="0"/>
                       <Component id="abortCurrentTestButton" alignment="0" max="32767" attributes="0"/>
                       <Component id="runTestsButton" alignment="0" max="32767" attributes="0"/>
                       <Component id="abortAllTestsButton" alignment="0" max="32767" attributes="0"/>
+                      <Component id="deleteTestcaseButton" alignment="1" max="32767" attributes="0"/>
                   </Group>
               </Group>
           </Group>
