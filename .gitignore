@@ -2,3 +2,8 @@ Hightail/build
 Hightail/dist
 Hightail/nbproject/private
 hightail.config
+parts
+prime
+stage
+snap
+*.snap
