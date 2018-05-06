@@ -64,9 +64,16 @@ public class MainJFrame extends javax.swing.JFrame {
         
         httpServer = new HTTPServer();
         httpServer.start(problem -> {
+            // Add the problem
             ArrayList<Problem> problems = new ArrayList<>();
             problems.add(problem);
             addProblems(problems);
+
+            // Focus the window
+            // toFront() doesn't work on Ubuntu 18.04, but this little workaround does
+            boolean currentAlwaysOnTop = this.isAlwaysOnTop();
+            this.setAlwaysOnTop(true);
+            this.setAlwaysOnTop(currentAlwaysOnTop);
         });
         
         setLocationRelativeTo(null);
