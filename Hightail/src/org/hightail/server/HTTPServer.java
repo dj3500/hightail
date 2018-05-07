@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.InetSocketAddress;
 import java.util.Scanner;
+import java.util.concurrent.Executors;
 import org.hightail.Config;
 import org.hightail.Problem;
 import org.hightail.Testcase;
@@ -42,7 +43,7 @@ public class HTTPServer {
 
             server = HttpServer.create(new InetSocketAddress(PORT), 0);
             server.createContext("/", this::handleRequest);
-            server.setExecutor(null);
+            server.setExecutor(Executors.newSingleThreadExecutor());            
             server.start();
         } catch (IOException ex) {
             // Do nothing
