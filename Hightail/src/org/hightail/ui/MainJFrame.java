@@ -15,12 +15,14 @@ import javax.swing.JPopupMenu;
 import javax.swing.KeyStroke;
 import javax.swing.UIManager;
 import org.hightail.Config;
+import org.hightail.server.HTTPServer;
 import org.hightail.Problem;
 import org.hightail.util.AbstractActionWithInteger;
 
 // button-green.png icon comes from http://openiconlibrary.sourceforge.net/gallery2/?./Icons/others/button-green.png
 
 public class MainJFrame extends javax.swing.JFrame {
+    private HTTPServer httpServer;
     
     @SuppressWarnings("LeakingThisInConstructor")
     public MainJFrame() {
@@ -59,6 +61,20 @@ public class MainJFrame extends javax.swing.JFrame {
         }
         
         addPopupMenu();
+        
+        httpServer = new HTTPServer();
+        httpServer.start(problem -> {
+            // Add the problem
+            ArrayList<Problem> problems = new ArrayList<>();
+            problems.add(problem);
+            addProblems(problems);
+
+            // Focus the window
+            // toFront() doesn't work on Ubuntu 18.04, but this little workaround does
+            boolean currentAlwaysOnTop = this.isAlwaysOnTop();
+            this.setAlwaysOnTop(true);
+            this.setAlwaysOnTop(currentAlwaysOnTop);
+        });
         
         setLocationRelativeTo(null);
     }
@@ -235,6 +251,7 @@ public class MainJFrame extends javax.swing.JFrame {
         
         // Close iff user confirmed
         if (confirmed == JOptionPane.YES_OPTION) {
+            httpServer.stop();
             this.dispose();
             System.exit(0);
         }

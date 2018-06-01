@@ -42,6 +42,7 @@
                         <zipfileset src="lib/xalan-2.7.2.jar" excludes="META-INF/*" />
                         <zipfileset src="lib/xercesImpl-2.11.0.jar" excludes="META-INF/*" />
                         <zipfileset src="lib/xml-apis-1.4.01.jar" excludes="META-INF/*" />
+                        <zipfileset src="lib/json-20180130.jar" excludes="META-INF/*" />
 			<manifest>
 				<attribute name="Main-Class" value="org.hightail.ui.MainJFrame" />
 			</manifest>

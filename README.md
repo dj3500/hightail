@@ -26,6 +26,8 @@ It supports the following online judges:
 * Open Kattis
 * what other judges should we support? do you want to help?
 
+Additionally, the Competitive Companion browser extension can be used to parse problems and contests from the browser. It is available for [Chrome](https://chrome.google.com/webstore/detail/competitive-companion/cjnmckjndlpiamhfimnnjmnckgghkjbl) and [Firefox](https://addons.mozilla.org/en-US/firefox/addon/competitive-companion/).
+
 We do not plan on supporting the TopCoder Arena: it is a different architecture, and there are a lot of good plugins available for it. Also, if you use Java for contests, we recommend to take a look at Egor Kulikov's [CHelper](http://codeforces.com/blog/entry/3273) for IntelliJ IDEA.
 
 ### Screenshots and screencasts
