@@ -8,7 +8,7 @@ description: |
   correctness of your program against them. It is built to provide 
   maximum automation and to relieve the contestant as much as possible.
 
-grade: stable # must be 'stable' to release into candidate/stable channels
+grade: edge # must be 'stable' to release into candidate/stable channels
 confinement: strict # use 'strict' once you have the right plugs and slots
 
 apps:
