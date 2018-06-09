@@ -4,6 +4,7 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpServer;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.util.Scanner;
 import java.util.concurrent.Executors;
@@ -41,7 +42,7 @@ public class HTTPServer {
         try {
             this.problemHandler = problemHandler;
 
-            server = HttpServer.create(new InetSocketAddress(PORT), 0);
+            server = HttpServer.create(new InetSocketAddress(InetAddress.getByName(null), PORT), 0);
             server.createContext("/", this::handleRequest);
             server.setExecutor(Executors.newSingleThreadExecutor());            
             server.start();
