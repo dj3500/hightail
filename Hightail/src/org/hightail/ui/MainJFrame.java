@@ -65,24 +65,24 @@ public class MainJFrame extends javax.swing.JFrame {
         addPopupMenu();
 
         // on the first run of a version with this feature,
-        // inform the user about the Contest Companion browser extension
+        // inform the user about the Competitive Companion browser extension
         // (in particular, that the Windows Firewall is going to complain)
-        if (!Config.containsKey("userInformedOfContestCompanionAndFirewall")) {
+        if (!Config.containsKey("userInformedOfCompetitiveCompanionAndFirewall")) {
             JOptionPane.showMessageDialog(this,
-                    "Hightail now supports Contest Companion - a browser plugin\n"
+                    "Hightail now supports Competitive Companion - a browser plugin\n"
                   + "that parses problems and contests directly from the browser via a single click.\n"
-                  + "Contest Companion supports a wide variety of online judges and contests\n"
-                  + "(more than the built-in parsers of Hightail).\n"
-                  + "Try it!\n"
+                  + "Competitive Companion supports a wide variety of online judges and contests\n"
+                  + "(more than the built-in parsers of Hightail - e.g. Google Code Jam, Facebook Hacker Cup, ...).\n"
+                  + "Try it! (Find the link in Help->About, or google for Competitive Companion.)\n"
                   + "\n"
-                  + "(Due to this, Hightail now runs an HTTP server on port " + HTTPServer.PORT + ".)\n"
+                  + "(Due to this, Hightail now runs a local HTTP server on port " + HTTPServer.PORT + ".)\n"
                   + "\n"
                   + "\n"
                   + "(You are receiving this message because either this the first run of Hightail,\n"
                   + "or you updated from a version that did not have this feature.)",
-                    "Contest Companion support is new in this release",
+                    "Competitive Companion support is new in this release",
                     JOptionPane.INFORMATION_MESSAGE);
-            Config.set("userInformedOfContestCompanionAndFirewall", "1");
+            Config.set("userInformedOfCompetitiveCompanionAndFirewall", "1");
             try {
                 Config.save();
             } catch (IOException e2) {

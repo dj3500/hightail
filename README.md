@@ -24,9 +24,8 @@ It supports the following online judges:
 * AtCoder (now also live-running contests!)
 * Jutge.org
 * Open Kattis
-* what other judges should we support? do you want to help?
 
-Additionally, the Competitive Companion browser extension can be used to parse problems and contests from the browser. It is available for [Chrome](https://chrome.google.com/webstore/detail/competitive-companion/cjnmckjndlpiamhfimnnjmnckgghkjbl) and [Firefox](https://addons.mozilla.org/en-US/firefox/addon/competitive-companion/).
+Additionally, the [Competitive Companion](https://github.com/jmerle/competitive-companion) browser extension can be used to parse problems and contests from the browser. It is available for [Chrome](https://chrome.google.com/webstore/detail/competitive-companion/cjnmckjndlpiamhfimnnjmnckgghkjbl) and [Firefox](https://addons.mozilla.org/en-US/firefox/addon/competitive-companion/). It supports many more online judges than the above.
 
 We do not plan on supporting the TopCoder Arena: it is a different architecture, and there are a lot of good plugins available for it. Also, if you use Java for contests, we recommend to take a look at Egor Kulikov's [CHelper](http://codeforces.com/blog/entry/3273) for IntelliJ IDEA.
 
@@ -35,11 +34,15 @@ We do not plan on supporting the TopCoder Arena: it is a different architecture,
 ![Screenshot of Hightail](http://dj3500.webfactional.com/hightail1.png)
 ![Screenshot of Hightail](http://dj3500.webfactional.com/hightail2.png)
 
+Short (video)[https://www.youtube.com/watch?v=LnI4HuzWY18] of using Competitive Companion to parse tasks from the browser.
+
 Hightail also appears in dj3500's screencasts. See [this one](https://www.youtube.com/watch?v=3yG7ivRRQW4&hd=1#t=265s) for an example.
 
 ### How do I get Hightail?
 
 To get a fairly up-to-date version - in the form of a .jar file which is ready to run if you have Java (JRE) installed - visit [Downloads](https://github.com/dj3500/hightail/releases). Just save it somewhere on your computer and run it from there. It will create a config file in its directory.
+
+An alternative way, if you're on Linux and have (snap)[https://snapcraft.io/] installed, is to run `sudo snap install --edge hightail`. Then Hightail should auto-update every day (to the latest code from the master branch).
 
 You may also compile Hightail from source code using the instructions below (and then you will also be able to work on the code, e.g. to help in development), or by following http://codeforces.com/blog/entry/6941#comment-125761 (which might be a little easier - or not).
 
@@ -71,10 +74,5 @@ There is also a discussion topic on CodeForces ([here](http://codeforces.com/blo
 
 ### Contributors
 
-The project was started and is maintained by Jakub Tarnawski ([dj3500](http://codeforces.com/profile/dj3500)). A large amount of work was done by contributors, who are, in no particular order:
-* Igor Adamski ([Krig](http://codeforces.com/profile/Krig))
-* Robert Rosołek ([robert_rosolek](http://codeforces.com/profile/robert_rosolek))
-* Piotr Szcześniak
-* Sergio Rodriguez Guasch ([mrGRR](http://codeforces.com/profile/mrGRR))
-* Sri Aurobindo Munagala ([Dr.Hulk](http://codeforces.com/profile/Dr.Hulk))
+The project was started and is maintained by Jakub Tarnawski ([dj3500](http://codeforces.com/profile/dj3500)). A large amount of work was done by contributors, some of which are listed (here)[https://github.com/dj3500/hightail/graphs/contributors] and others include Piotr Szcześniak and Robert Rosołek - thank you so much!
 
