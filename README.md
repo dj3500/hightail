@@ -25,7 +25,7 @@ It supports the following online judges:
 * Jutge.org
 * Open Kattis
 
-Additionally, the [Competitive Companion](https://github.com/jmerle/competitive-companion) browser extension can be used to parse problems and contests from the browser. It is available for [Chrome](https://chrome.google.com/webstore/detail/competitive-companion/cjnmckjndlpiamhfimnnjmnckgghkjbl) and [Firefox](https://addons.mozilla.org/en-US/firefox/addon/competitive-companion/). It supports many more online judges than the above (Google Code Jam, Facebook Hacker Cup, ...).
+Additionally, the [Competitive Companion](https://github.com/jmerle/competitive-companion) browser extension can be used to parse problems and contests from the browser. It is available for [Chrome](https://chrome.google.com/webstore/detail/competitive-companion/cjnmckjndlpiamhfimnnjmnckgghkjbl) and [Firefox](https://addons.mozilla.org/en-US/firefox/addon/competitive-companion/). It supports many more online judges than the above (Google Code Jam, Facebook Hacker Cup, ...). Just install the browser extension, run Hightail, go to a problem/contest, and click the green plus button in your browser - it should parse and load into Hightail.
 
 We do not plan on supporting the TopCoder Arena: it is a different architecture, and there are a lot of good plugins available for it. Also, if you use Java for contests, we recommend to take a look at Egor Kulikov's [CHelper](http://codeforces.com/blog/entry/3273) for IntelliJ IDEA.
 
