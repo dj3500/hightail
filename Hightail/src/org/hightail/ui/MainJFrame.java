@@ -42,8 +42,10 @@ public class MainJFrame extends javax.swing.JFrame {
         if (!ok) { // couldn't load
             JOptionPane.showMessageDialog(this,
                       "If you're a new user, welcome!\n"
-                    + "Hightail uses a config file which resides in the same directory as the .jar file.\n"
-                    + "This config file could not be loaded. A new one will be created now and you will be taken to settings.\n"
+                    + "Hightail uses a config file, which resides in the same directory as the .jar file.\n"
+                    + "This config file could not be loaded (probably this is the first run of Hightail).\n"
+                    + "A new one will be created now and you will be taken to settings.\n"
+                    + "\n"
                     + "Wish you high rating!",
                     "Hightail",
                     JOptionPane.INFORMATION_MESSAGE);
@@ -61,6 +63,36 @@ public class MainJFrame extends javax.swing.JFrame {
         }
         
         addPopupMenu();
+
+        // on the first run of a version with this feature,
+        // inform the user about the Contest Companion browser extension
+        // (in particular, that the Windows Firewall is going to complain)
+        if (!Config.containsKey("userInformedOfContestCompanionAndFirewall")) {
+            JOptionPane.showMessageDialog(this,
+                    "Hightail now supports Contest Companion - a browser plugin\n"
+                  + "that parses problems and contests directly from the browser via a single click.\n"
+                  + "Contest Companion supports a wide variety of online judges and contests\n"
+                  + "(more than the built-in parsers of Hightail).\n"
+                  + "Try it!\n"
+                  + "\n"
+                  + "(Due to this, Hightail now runs an HTTP server on port " + HTTPServer.PORT + ".)\n"
+                  + "\n"
+                  + "\n"
+                  + "(You are receiving this message because either this the first run of Hightail,\n"
+                  + "or you updated from a version that did not have this feature.)",
+                    "Contest Companion support is new in this release",
+                    JOptionPane.INFORMATION_MESSAGE);
+            Config.set("userInformedOfContestCompanionAndFirewall", "1");
+            try {
+                Config.save();
+            } catch (IOException e2) {
+                JOptionPane.showMessageDialog(this,
+                        "The configuration file could not be created. Make sure Hightail has write rights to its directory.",
+                        "Output error",
+                        JOptionPane.ERROR_MESSAGE);
+                System.exit(0);
+            }
+        }
         
         httpServer = new HTTPServer();
         httpServer.start(problem -> {

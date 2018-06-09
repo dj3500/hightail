@@ -27,6 +27,10 @@ public class Config {
             set(key, value);
         }
     }
+    
+    static public boolean containsKey(String key) {
+        return properties.containsKey(key);
+    }
 
     static public void fillInUnsetValuesWithDefaults() {
         setIfUnset("workingDirectory", new File("").getAbsolutePath());
