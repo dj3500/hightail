@@ -75,3 +75,4 @@ There is also a discussion topic on CodeForces ([here](http://codeforces.com/blo
 ### Contributors
 
 The project was started and is maintained by Jakub Tarnawski ([dj3500](http://codeforces.com/profile/dj3500)). A large amount of work was done by contributors, some of whom are listed [here](https://github.com/dj3500/hightail/graphs/contributors) and others include Piotr Szcześniak and Robert Rosołek - thank you so much!
+
