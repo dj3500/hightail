@@ -11,19 +11,30 @@ public class Problem {
     private String pathToExec;
 
     public Problem(String name) {
-        name = name.substring(0, 1) + name.substring(2);
+        name = processName(name);
         this.name = name;
         pathToExec = Config.get("workingDirectory") + java.io.File.separator
                 + Config.get("pathFromWorkingDirToExec").replace("%P", name).replace("%L", name.toLowerCase());
     }
 
     public Problem(String name, TestcaseSet testcaseSet, SupportedSites originSite) {
-        name = name.substring(0, 1) + name.substring(2);
+        name = processName(name);
         this.name = name;
         this.testcaseSet = testcaseSet;
         this.originSite = originSite;
         pathToExec = Config.get("workingDirectory") + java.io.File.separator
                 + Config.get("pathFromWorkingDirToExec").replace("%P", name).replace("%L", name.toLowerCase());
+    }
+
+    private String processName(String name) {
+        StringBuilder name2 = new StringBuilder();
+        int len = name.length();
+        for (int i = 0; i < len; i++) {
+            if (Character.isAlphabetic(name.charAt(i)) || Character.isDigit(name.charAt(i)) || name.charAt(i) == ' ') {
+                name2.append(name.charAt(i));
+            }
+        }
+        return name2.toString();
     }
 
     public void setName(String name) {

@@ -6,7 +6,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -423,66 +425,13 @@ public class MainJFrame extends javax.swing.JFrame {
             + "	</Project>\n"
             + "</CodeBlocks_project_file>";
 
-    private String cppTemplate = "#include <bits/stdc++.h>\n"
+    private String cppTemplate
+            = "#include <bits/stdc++.h>\n"
             + "\n"
             + "using namespace std;\n"
-            + "\n"
-            + "//#include <ext/pb_ds/assoc_container.hpp>\n"
-            + "//#include <ext/pb_ds/tree_policy.hpp>\n"
-            + "//\n"
-            + "//using namespace __gnu_pbds;\n"
-            + "//template<typename dtype> using ordered_set = tree<dtype, null_type, less<dtype>, rb_tree_tag, tree_order_statistics_node_update>;\n"
-            + "\n"
-            + "class Timer {\n"
-            + "    clock_t start;\n"
-            + "    string name;\n"
-            + "public:\n"
-            + "    Timer() {name = \"\";start = clock();}\n"
-            + "    Timer(string s){name = s;start = clock();}\n"
-            + "    ~Timer() {fprintf(stderr, \"%s: %.3gs\\n\", name.c_str(), 1.0*(clock() - start) / CLOCKS_PER_SEC);}\n"
-            + "};\n"
-            + "\n"
-            + "//#define isValid(a, b) (a >= 0 && a < b)\n"
-            + "//int dr[]  =  {0, -1, -1, -1,  0,  1, 1, 1};\n"
-            + "//int dc[]  =  {1,  1,  0, -1, -1, -1, 0, 1};\n"
-            + "\n"
-            + "#define all(x) (x).begin(), (x).end()\n"
-            + "#define pb push_back\n"
-            + "#define what_is(x) cerr << fixed << setprecision(2) << boolalpha << #x << \" = \" << x << endl\n"
-            + "\n"
-            + "const double EPS = 1e-9;\n"
-            + "const long double PI = acos(-1.0L);\n"
-            + "\n"
-            + "template<typename dtype> inline dtype sq(dtype a){return a*a;}\n"
-            + "template<typename dtype1, typename dtype2> inline pair<dtype1, dtype2> mp(dtype1 a, dtype2 b){return make_pair(a, b);}\n"
-            + "template<typename dtype1, typename dtype2> inline dtype1 safeMod(dtype1 a, dtype2 m){return (a%m + m)%m;}/*handling negative sign of remainder*/\n"
-            + "template<typename dtype1, typename dtype2> inline bool isEq(dtype1 a, dtype2 b){return abs(a - b) < EPS;}\n"
-            + "template<typename dtype1, typename dtype2, typename dtype3> inline bool isEq(dtype1 a, dtype2 b, dtype3 eps){return abs(a - b) < eps;}\n"
-            + "template<typename dtype> inline dtype toRad(dtype deg){return deg*PI/180.0;}\n"
-            + "template<typename dtype> inline dtype toDeg(dtype rad){return rad*180.0/PI;}\n"
-            + "template<typename dtype> inline bool isKthBitOn(dtype n, int k){assert(n <= numeric_limits<dtype>::max());assert(k<=numeric_limits<dtype>::digits);dtype ONE = 1;return bool((n & (ONE<<k)));}\n"
-            + "template<typename dtype> inline void setKthBit(dtype& n, int k){assert(n <= numeric_limits<dtype>::max());assert(k<=numeric_limits<dtype>::digits);dtype ONE = 1;n = (n|(ONE<<k));}\n"
-            + "\n"
-            + "typedef long long ll;\n"
-            + "typedef unsigned long long ull;\n"
-            + "typedef long double ld;\n"
-            + "typedef pair<int, int> pii;\n"
-            + "typedef vector<int> vi;\n"
-            + "\n"
-            + "const int oo = 0x3f3f3f3f;\n"
-            + "const int MAX = 200010;\n"
-            + "const int MOD = 1000000007;\n"
-            + "const int precision = 10;\n"
-            + "\n"
             + "int main(int argc, char* argv[])\n"
             + "{\n"
-            + "    #ifdef NAbdulla\n"
-            + "    //assert(freopen(\"in.txt\", \"r\", stdin));\n"
-            + "    //assert(freopen(\"out.txt\", \"w\", stdout));\n"
-            + "    #endif // NAbdulla\n"
-            + "    //ios_base::sync_with_stdio(false); cin.tie(NULL);\n"
-            + "    //cout << fixed << setprecision(precision);\n"
-            + "    \n"
+            + "    cout << \"Hello World\" << endl;\n"
             + "    return 0;\n"
             + "}";
 
@@ -500,8 +449,20 @@ public class MainJFrame extends javax.swing.JFrame {
             File cppFile = new File(cppFileName);
             if (!cppFile.exists()) {
                 cppFile.createNewFile();
+                File cppTemplateFile = new File("template.cpp");
+                if (!cppTemplateFile.exists()) {
+                    cppTemplateFile.createNewFile();
+                    FileWriter fw2 = new FileWriter(cppTemplateFile);
+                    fw2.write(cppTemplate);
+                    fw2.close();
+                }
                 fw = new FileWriter(cppFile);
-                fw.write(cppTemplate);
+                BufferedReader br = new BufferedReader(new FileReader(cppTemplateFile));
+                String line;
+                while ((line = br.readLine()) != null) {
+                    fw.write(line + "\n");
+                }
+                br.close();
                 fw.close();
             }
         }
