@@ -317,7 +317,6 @@ public class MainJFrame extends javax.swing.JFrame {
             } catch (Exception e) {
                 System.err.println(e.getStackTrace());
             }
-
         }
         tabbedPane.setSelectedComponent(firstProblem);
     }
