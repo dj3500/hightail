@@ -11,19 +11,21 @@ public class Problem {
     private String pathToExec;
 
     public Problem(String name) {
+        name = name.substring(0, 1) + name.substring(2);
         this.name = name;
-        pathToExec = Config.get("workingDirectory") + java.io.File.separator +
-               Config.get("pathFromWorkingDirToExec").replace("%P", name).replace("%L", name.toLowerCase());
+        pathToExec = Config.get("workingDirectory") + java.io.File.separator
+                + Config.get("pathFromWorkingDirToExec").replace("%P", name).replace("%L", name.toLowerCase());
     }
-    
+
     public Problem(String name, TestcaseSet testcaseSet, SupportedSites originSite) {
+        name = name.substring(0, 1) + name.substring(2);
         this.name = name;
         this.testcaseSet = testcaseSet;
         this.originSite = originSite;
-        pathToExec = Config.get("workingDirectory") + java.io.File.separator +
-               Config.get("pathFromWorkingDirToExec").replace("%P", name).replace("%L", name.toLowerCase());
+        pathToExec = Config.get("workingDirectory") + java.io.File.separator
+                + Config.get("pathFromWorkingDirToExec").replace("%P", name).replace("%L", name.toLowerCase());
     }
-    
+
     public void setName(String name) {
         this.name = name;
     }
@@ -57,7 +59,7 @@ public class Problem {
     public void abortCurrentTest() {
         testcaseSet.abortCurrent();
     }
-    
+
     public void abortAllTests() {
         testcaseSet.abortAll();
     }
@@ -69,14 +71,13 @@ public class Problem {
     public String getPathToExec() {
         return pathToExec;
     }
-    
+
     public void setWorkingDirectory(String workingDirectory) {
-        pathToExec = workingDirectory + java.io.File.separator +
-                Config.get("pathFromWorkingDirToExec").replace("%P", name).replace("%L", name.toLowerCase());
+        pathToExec = workingDirectory + java.io.File.separator
+                + Config.get("pathFromWorkingDirToExec").replace("%P", name).replace("%L", name.toLowerCase());
     }
-    
+
     public void setPathToExec(String pathToExec) {
         this.pathToExec = pathToExec;
     }
 }
-
