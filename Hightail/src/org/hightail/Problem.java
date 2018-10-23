@@ -29,9 +29,14 @@ public class Problem {
     private String processName(String name) {
         StringBuilder name2 = new StringBuilder();
         int len = name.length();
+        boolean prevSpace = true;
         for (int i = 0; i < len; i++) {
-            if (Character.isAlphabetic(name.charAt(i)) || Character.isDigit(name.charAt(i)) || name.charAt(i) == ' ') {
+            if (Character.isAlphabetic(name.charAt(i)) || Character.isDigit(name.charAt(i))) {
                 name2.append(name.charAt(i));
+                prevSpace = false;
+            } else if (name.charAt(i) == ' ' && !prevSpace) {
+                name2.append(name.charAt(i));
+                prevSpace = true;
             }
         }
         return name2.toString();
