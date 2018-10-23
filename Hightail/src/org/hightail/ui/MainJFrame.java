@@ -315,7 +315,7 @@ public class MainJFrame extends javax.swing.JFrame {
                 firstProblem = tabbedPane.getComponentAt(tabbedPane.getTabCount() - 1);
             }
             try {
-                addCodeblockIDEProjectFiles(problem);
+                addCodeblocksIDEProjectFiles(problem);
             } catch (Exception e) {
                 System.err.println(e.getStackTrace());
             }
@@ -435,7 +435,7 @@ public class MainJFrame extends javax.swing.JFrame {
             + "    return 0;\n"
             + "}";
 
-    private void addCodeblockIDEProjectFiles(Problem problem) throws IOException {
+    private void addCodeblocksIDEProjectFiles(Problem problem) throws IOException {
         String cbpFileName = Config.get("workingDirectory") + "\\" + problem.getName() + ".cbp";
         String cppFileName = Config.get("workingDirectory") + "\\" + problem.getName() + ".cpp";
 //        System.out.println(cbpFileName);
@@ -445,26 +445,25 @@ public class MainJFrame extends javax.swing.JFrame {
             FileWriter fw = new FileWriter(cbpFile);
             fw.write(String.format(cbpText, problem.getName(), problem.getName(), problem.getName()));
             fw.close();
-
-            File cppFile = new File(cppFileName);
-            if (!cppFile.exists()) {
-                cppFile.createNewFile();
-                File cppTemplateFile = new File("template.cpp");
-                if (!cppTemplateFile.exists()) {
-                    cppTemplateFile.createNewFile();
-                    FileWriter fw2 = new FileWriter(cppTemplateFile);
-                    fw2.write(cppTemplate);
-                    fw2.close();
-                }
-                fw = new FileWriter(cppFile);
-                BufferedReader br = new BufferedReader(new FileReader(cppTemplateFile));
-                String line;
-                while ((line = br.readLine()) != null) {
-                    fw.write(line + "\n");
-                }
-                br.close();
-                fw.close();
+        }
+        File cppTemplateFile = new File("template.cpp");
+        if (!cppTemplateFile.exists()) {
+            cppTemplateFile.createNewFile();
+            FileWriter fw = new FileWriter(cppTemplateFile);
+            fw.write(cppTemplate);
+            fw.close();
+        }
+        File cppFile = new File(cppFileName);
+        if (!cppFile.exists()) {
+            cppFile.createNewFile();
+            FileWriter fw = new FileWriter(cppFile);
+            BufferedReader br = new BufferedReader(new FileReader(cppTemplateFile));
+            String line;
+            while ((line = br.readLine()) != null) {
+                fw.write(line + "\n");
             }
+            br.close();
+            fw.close();
         }
     }
 }
