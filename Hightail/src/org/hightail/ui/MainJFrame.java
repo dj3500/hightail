@@ -12,6 +12,9 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JComponent;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
@@ -309,18 +312,27 @@ public class MainJFrame extends javax.swing.JFrame {
             return;
         }
         Component firstProblem = null;
+        String[] commandAndArg = new String[2];
+        commandAndArg[0] = "explorer.exe";
+        boolean first = true;
         for (Problem problem : problems) {
             addTabForProblem(problem);
             if (firstProblem == null) {
                 firstProblem = tabbedPane.getComponentAt(tabbedPane.getTabCount() - 1);
             }
             try {
-                addCodeblocksIDEProjectFiles(problem);
-            } catch (Exception e) {
-                System.err.println(e.getStackTrace());
+                commandAndArg[1] = addCodeblocksIDEProjectFiles(problem);
+                if (first) {
+                    openCodeBlocksFile(commandAndArg);
+                    first = false;
+                }
+            } catch (IOException e) {
+                System.err.println(Arrays.toString(e.getStackTrace()));
             }
         }
         tabbedPane.setSelectedComponent(firstProblem);
+//        commandAndArg[1] = new File(commandAndArg[1]).getParent().toString();
+//        openCodeBlocksFile(commandAndArg);
     }
 
     private void newContestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newContestActionPerformed
@@ -435,35 +447,44 @@ public class MainJFrame extends javax.swing.JFrame {
             + "    return 0;\n"
             + "}";
 
-    private void addCodeblocksIDEProjectFiles(Problem problem) throws IOException {
+    private String addCodeblocksIDEProjectFiles(Problem problem) throws IOException {
         String cbpFileName = Config.get("workingDirectory") + "\\" + problem.getName() + ".cbp";
         String cppFileName = Config.get("workingDirectory") + "\\" + problem.getName() + ".cpp";
 //        System.out.println(cbpFileName);
         File cbpFile = new File(cbpFileName);
         if (!cbpFile.exists()) {
             cbpFile.createNewFile();
-            FileWriter fw = new FileWriter(cbpFile);
-            fw.write(String.format(cbpText, problem.getName(), problem.getName(), problem.getName()));
-            fw.close();
+            try (FileWriter fw = new FileWriter(cbpFile)) {
+                fw.write(String.format(cbpText, problem.getName(), problem.getName(), problem.getName()));
+            }
         }
+        String ret = "\"" + cbpFile.getAbsolutePath() + "\"";
         File cppTemplateFile = new File("template.cpp");
         if (!cppTemplateFile.exists()) {
             cppTemplateFile.createNewFile();
-            FileWriter fw = new FileWriter(cppTemplateFile);
-            fw.write(cppTemplate);
-            fw.close();
+            try (FileWriter fw = new FileWriter(cppTemplateFile)) {
+                fw.write(cppTemplate);
+            }
         }
         File cppFile = new File(cppFileName);
         if (!cppFile.exists()) {
             cppFile.createNewFile();
-            FileWriter fw = new FileWriter(cppFile);
-            BufferedReader br = new BufferedReader(new FileReader(cppTemplateFile));
-            String line;
-            while ((line = br.readLine()) != null) {
-                fw.write(line + "\n");
+            try (FileWriter fw = new FileWriter(cppFile);
+                    BufferedReader br = new BufferedReader(new FileReader(cppTemplateFile))) {
+                String line;
+                while ((line = br.readLine()) != null) {
+                    fw.write(line + "\n");
+                }
             }
-            br.close();
-            fw.close();
+        }
+        return ret;
+    }
+
+    private void openCodeBlocksFile(String[] s) {
+        try {
+            Runtime.getRuntime().exec(s);
+        } catch (IOException ex) {
+            Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }
