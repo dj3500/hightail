@@ -532,7 +532,7 @@ public class ProblemJPanel extends javax.swing.JPanel implements TestingListener
             }
             testIndex++;
         }
-        JOptionPane.showMessageDialog(this, "Inputs and outputs saved succesfully.", "Tests saved", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this, "Inputs and outputs saved successfully.", "Tests saved", JOptionPane.INFORMATION_MESSAGE);
     }
     
     private void saveTestsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveTestsButtonActionPerformed
