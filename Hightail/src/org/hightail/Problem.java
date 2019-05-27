@@ -9,24 +9,40 @@ public class Problem {
     protected TestcaseSet testcaseSet = new TestcaseSet();
     private SupportedSites originSite = null;
     private String pathToExec;
+    private String contestNumber;
 
     public Problem(String name) {
-        name = processName(name);
+        name = processName(name, "");
         this.name = name;
         pathToExec = Config.get("workingDirectory") + java.io.File.separator
                 + Config.get("pathFromWorkingDirToExec").replace("%P", name).replace("%L", name.toLowerCase());
+        contestNumber = "";
     }
 
     public Problem(String name, TestcaseSet testcaseSet, SupportedSites originSite) {
-        name = processName(name);
+        name = processName(name, "");
         this.name = name;
         this.testcaseSet = testcaseSet;
         this.originSite = originSite;
         pathToExec = Config.get("workingDirectory") + java.io.File.separator
                 + Config.get("pathFromWorkingDirToExec").replace("%P", name).replace("%L", name.toLowerCase());
+        contestNumber = "";
     }
 
-    private String processName(String name) {
+    public Problem(String name, TestcaseSet testcaseSet, SupportedSites originSite, String contestNumber) {
+        name = processName(name, contestNumber);
+        this.name = name;
+        this.testcaseSet = testcaseSet;
+        this.originSite = originSite;
+        pathToExec = Config.get("workingDirectory") + java.io.File.separator
+                + Config.get("pathFromWorkingDirToExec").replace("%P", name).replace("%L", name.toLowerCase());
+        this.contestNumber = contestNumber;
+    }
+
+    /*
+        make problem name such that it works well with Codeblocks IDE
+    */
+    private String processName(String name, String contestNumber) {
         StringBuilder name2 = new StringBuilder();
         int len = name.length();
         boolean prevSpace = true;
@@ -39,7 +55,7 @@ public class Problem {
                 prevSpace = true;
             }
         }
-        return name2.toString();
+        return contestNumber + name2.toString();
     }
 
     public void setName(String name) {

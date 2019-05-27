@@ -9,3 +9,6 @@ stage
 snap
 *.snap
 template.cpp
+Hightail/.idea/
+Hightail/*.iml
+Hightail/out/
