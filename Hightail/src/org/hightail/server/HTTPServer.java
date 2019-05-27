@@ -140,6 +140,14 @@ public class HTTPServer {
                 return url.split("/")[5];
             }
             return url.split("/")[4];
+        } else if (url.contains("atcoder.jp")) {
+            if (url.contains("atcoder.jp/contests")) {
+                return url.split("/")[4];
+            } else if (url.contains("contest.atcoder.jp")) {
+                return url.split("//")[1].substring(0, url.split("//")[1].indexOf('.'));
+            } else {
+                return "";
+            }
         } else//other online judge sites are not implemented yet
             return "";
     }
