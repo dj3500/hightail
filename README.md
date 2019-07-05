@@ -42,7 +42,7 @@ Hightail also appears in dj3500's screencasts. See [this one](https://www.youtub
 
 To get a fairly up-to-date version - in the form of a .jar file which is ready to run if you have Java (JRE) installed - visit [Downloads](https://github.com/dj3500/hightail/releases). Just save it somewhere on your computer and run it from there. It will create a config file in its directory.
 
-An alternative way, if you're on Linux and have [snap](https://snapcraft.io/) installed, is to run `sudo snap install --edge hightail`. Then Hightail should auto-update every day (to the latest code from the master branch).
+~An alternative way, if you're on Linux and have [snap](https://snapcraft.io/) installed, is to run `sudo snap install --edge hightail`. Then Hightail should auto-update every day (to the latest code from the master branch).~ (currently this is broken)
 
 You may also compile Hightail from source code using the instructions below (and then you will also be able to work on the code, e.g. to help in development), or by following http://codeforces.com/blog/entry/6941#comment-125761 (which might be a little easier - or not).
 
