@@ -6,10 +6,10 @@ import org.hightail.SupportedSites;
 import org.htmlparser.util.ParserException;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
 import static org.junit.Assert.*;
 
 /**
- *
  * @author Joseph
  */
 public class CodeForcesTaskParserTest {
@@ -18,7 +18,7 @@ public class CodeForcesTaskParserTest {
     private final String COMPLETE_PROBLEM_NAME = "E. Hongcow Masters the Cyclic Shift";
     private final String SHORT_PROBLEM_NAME = "E";
 
-   
+
     @BeforeClass
     public static void setUpClass() {
         Config.fillInUnsetValuesWithDefaults();
@@ -36,10 +36,10 @@ public class CodeForcesTaskParserTest {
         } catch (ParserException ex) {
             fail("thrown exception ParserException");
         } catch (InterruptedException ex) {
-           fail("thrown exception InterruptedException");
+            fail("thrown exception InterruptedException");
         }
     }
-    
+
     /**
      * Putting the whole problem's name as the name of the problem
      */
@@ -53,7 +53,7 @@ public class CodeForcesTaskParserTest {
         } catch (ParserException ex) {
             fail("thrown exception ParserException");
         } catch (InterruptedException ex) {
-           fail("thrown exception InterruptedException");
+            fail("thrown exception InterruptedException");
         }
     }
 

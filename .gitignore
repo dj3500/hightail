@@ -1,9 +1,14 @@
 Hightail/build
 Hightail/dist
 Hightail/nbproject/private
+Hightail/store
 hightail.config
 parts
 prime
 stage
 snap
 *.snap
+template.cpp
+Hightail/.idea/
+Hightail/*.iml
+Hightail/out/

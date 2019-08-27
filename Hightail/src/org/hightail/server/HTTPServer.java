@@ -2,12 +2,6 @@ package org.hightail.server;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpServer;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.InetAddress;
-import java.net.InetSocketAddress;
-import java.util.Scanner;
-import java.util.concurrent.Executors;
 import org.hightail.Config;
 import org.hightail.Problem;
 import org.hightail.Testcase;
@@ -16,6 +10,13 @@ import org.hightail.util.ProblemNameFormatter;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.InetAddress;
+import java.net.InetSocketAddress;
+import java.util.Scanner;
+import java.util.concurrent.Executors;
 
 /**
  * This class makes it possible for Hightail to pick up tasks
@@ -44,7 +45,7 @@ public class HTTPServer {
 
             server = HttpServer.create(new InetSocketAddress(InetAddress.getByName(null), PORT), 0);
             server.createContext("/", this::handleRequest);
-            server.setExecutor(Executors.newSingleThreadExecutor());            
+            server.setExecutor(Executors.newSingleThreadExecutor());
             server.start();
         } catch (IOException ex) {
             // Do nothing
@@ -62,7 +63,7 @@ public class HTTPServer {
 
     /**
      * Handle a request to the server.
-     *
+     * <p>
      * Does three things:
      * 1. Check if the request is a POST request.
      * 2. Attempt to parse the body of the request.
@@ -107,6 +108,7 @@ public class HTTPServer {
         String url = obj.getString("url");
 
         String name = ProblemNameFormatter.getFormattedName(obj.getString("name"));
+        String contestNumber = parseContestNumber(url);
         if (name.length() > Problem.PROBLEM_NAME_MAX_LENGTH) {
             name = name.substring(0, Problem.PROBLEM_NAME_MAX_LENGTH);
         }
@@ -129,6 +131,24 @@ public class HTTPServer {
             testsSet.add(new Testcase(input, output, timeLimit));
         }
 
-        return new Problem(name, testsSet, null);
+        return new Problem(name, testsSet, null, contestNumber);
+    }
+
+    private String parseContestNumber(String url) {
+        if (url.contains("codeforces.com")) {
+            if (url.contains("problemset")) {
+                return url.split("/")[5];
+            }
+            return url.split("/")[4];
+        } else if (url.contains("atcoder.jp")) {
+            if (url.contains("atcoder.jp/contests")) {
+                return url.split("/")[4];
+            } else if (url.contains("contest.atcoder.jp")) {
+                return url.split("//")[1].substring(0, url.split("//")[1].indexOf('.'));
+            } else {
+                return "";
+            }
+        } else//other online judge sites are not implemented yet
+            return "";
     }
 }
