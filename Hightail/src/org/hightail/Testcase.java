@@ -7,8 +7,8 @@ import org.hightail.diff.OutputDiff;
 
 public class Testcase implements Callable<ExecutionResult> {
     public static final int DEFAULT_TIME_LIMIT = 3000; // in milliseconds
-    private static final int OUTPUT_MAX_LEN = 300*1024; // 300 kb
-    
+    private static final int OUTPUT_MAX_LEN = 16*1024*1024; // 16 mb
+
     protected int index = 0;
     protected String input;
     protected String expectedOutput;
