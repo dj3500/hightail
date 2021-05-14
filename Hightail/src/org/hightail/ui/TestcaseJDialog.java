@@ -174,20 +174,20 @@ public class TestcaseJDialog extends javax.swing.JDialog {
         jLabel5.setText("Input:");
 
         inputTextarea.setColumns(20);
-        inputTextarea.setFont(new java.awt.Font("Courier New", 0, 13)); // NOI18N
+        inputTextarea.setFont(new java.awt.Font("Monospaced", 0, 12)); // NOI18N
         inputTextarea.setRows(5);
         inputTextarea.setMargin(new java.awt.Insets(3, 3, 3, 3));
         jScrollPane2.setViewportView(inputTextarea);
 
         expectedOutputTextarea.setColumns(20);
-        expectedOutputTextarea.setFont(new java.awt.Font("Courier New", 0, 13)); // NOI18N
+        expectedOutputTextarea.setFont(new java.awt.Font("Monospaced", 0, 12)); // NOI18N
         expectedOutputTextarea.setRows(5);
         expectedOutputTextarea.setMargin(new java.awt.Insets(3, 3, 3, 3));
         jScrollPane1.setViewportView(expectedOutputTextarea);
 
         programOutputTextarea.setEditable(false);
         programOutputTextarea.setColumns(20);
-        programOutputTextarea.setFont(new java.awt.Font("Courier New", 0, 13)); // NOI18N
+        programOutputTextarea.setFont(new java.awt.Font("Monospaced", 0, 12)); // NOI18N
         programOutputTextarea.setRows(5);
         programOutputTextarea.setMargin(new java.awt.Insets(3, 3, 3, 3));
         jScrollPane3.setViewportView(programOutputTextarea);
