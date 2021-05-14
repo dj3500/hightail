@@ -135,10 +135,14 @@ public class Testcase implements Callable<ExecutionResult> {
             InputStream stdout = executionProcess.getInputStream();
             
             // writing input
-            stdin.write(input.getBytes());
-            stdin.flush();
-            stdin.close();
-            
+            try {
+                stdin.write(input.getBytes());
+                stdin.flush();
+                stdin.close();
+            } catch(IOException e) { // stdin has been closed from other end when process has finished already
+                e.printStackTrace();
+            }
+
             // reading stdout
             br = new BufferedReader(new InputStreamReader(stdout));
             sb = new StringBuilder();
