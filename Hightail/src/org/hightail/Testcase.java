@@ -13,7 +13,6 @@ public class Testcase implements Callable<ExecutionResult> {
     protected String input;
     protected String expectedOutput;
     protected String programOutput = "";
-    protected String programError = "";
     protected int timeLimit = DEFAULT_TIME_LIMIT;
     protected ExecutionResult executionResult = new ExecutionResult();
     protected Process executionProcess;
@@ -127,9 +126,9 @@ public class Testcase implements Callable<ExecutionResult> {
             
             double startTime = Calendar.getInstance().getTimeInMillis();
             // TODO: measure CPU time of executionProcess instead
-            
-            executionProcess = Runtime.getRuntime().exec(getCommandToExecute());
-            
+
+            executionProcess = new ProcessBuilder(getCommandToExecute()).redirectErrorStream(true).start();
+
             OutputStream stdin = executionProcess.getOutputStream();
             InputStream stderr = executionProcess.getErrorStream();
             InputStream stdout = executionProcess.getInputStream();
@@ -157,22 +156,7 @@ public class Testcase implements Callable<ExecutionResult> {
             }
             programOutput = sb.toString();
             br.close();
-            
-            // reading stderr
-            br = new BufferedReader(new InputStreamReader(stderr));
-            sb = new StringBuilder();
-            while ((len = br.read(buf)) != -1 && sb.length() < OUTPUT_MAX_LEN) {
-                sb.append(buf, 0, len);
-            }
-            if (sb.length() >= OUTPUT_MAX_LEN) {
-                executionResult.setResult(ExecutionResultCode.RUNTIME);
-                executionResult.setMsg("Output limit exceeded");
-                killTest();
-                throw new IOException("Output limit exceeded");
-            }
-            programError = sb.toString();
-            br.close();
-            
+
             int execRes = executionProcess.waitFor();
             double endTime = Calendar.getInstance().getTimeInMillis();
             executionResult.setTime((endTime - startTime) / 1000.0);
