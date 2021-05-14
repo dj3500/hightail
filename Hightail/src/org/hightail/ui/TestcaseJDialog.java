@@ -1,6 +1,8 @@
 package org.hightail.ui;
 
+import java.awt.GraphicsEnvironment;
 import java.awt.KeyboardFocusManager;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import javax.swing.AbstractAction;
@@ -72,6 +74,9 @@ public class TestcaseJDialog extends javax.swing.JDialog {
         inputTextarea.getDocument().addDocumentListener(documentListener);
         expectedOutputTextarea.getDocument().addDocumentListener(documentListener);
         timeLimitTextField.getDocument().addDocumentListener(documentListener);
+
+        Rectangle bounds = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds();
+        this.setBounds(bounds);
     }
     
     private void makeShortcuts() {
