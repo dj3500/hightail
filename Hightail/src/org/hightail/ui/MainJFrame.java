@@ -355,7 +355,9 @@ public class MainJFrame extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new MainJFrame().setVisible(true);
+                MainJFrame mainJFrame = new MainJFrame();
+                mainJFrame.setVisible(true);
+                mainJFrame.setExtendedState(mainJFrame.getExtendedState() | MainJFrame.MAXIMIZED_BOTH);
             }
         });
     }

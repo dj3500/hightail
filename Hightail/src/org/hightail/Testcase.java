@@ -7,13 +7,12 @@ import org.hightail.diff.OutputDiff;
 
 public class Testcase implements Callable<ExecutionResult> {
     public static final int DEFAULT_TIME_LIMIT = 3000; // in milliseconds
-    private static final int OUTPUT_MAX_LEN = 300*1024; // 300 kb
-    
+    private static final int OUTPUT_MAX_LEN = 16*1024*1024; // 16 mb
+
     protected int index = 0;
     protected String input;
     protected String expectedOutput;
     protected String programOutput = "";
-    protected String programError = "";
     protected int timeLimit = DEFAULT_TIME_LIMIT;
     protected ExecutionResult executionResult = new ExecutionResult();
     protected Process executionProcess;
@@ -127,18 +126,21 @@ public class Testcase implements Callable<ExecutionResult> {
             
             double startTime = Calendar.getInstance().getTimeInMillis();
             // TODO: measure CPU time of executionProcess instead
-            
-            executionProcess = Runtime.getRuntime().exec(getCommandToExecute());
-            
+
+            executionProcess = new ProcessBuilder(getCommandToExecute()).redirectErrorStream(true).start();
+
             OutputStream stdin = executionProcess.getOutputStream();
-            InputStream stderr = executionProcess.getErrorStream();
             InputStream stdout = executionProcess.getInputStream();
             
             // writing input
-            stdin.write(input.getBytes());
-            stdin.flush();
-            stdin.close();
-            
+            try {
+                stdin.write(input.getBytes());
+                stdin.flush();
+                stdin.close();
+            } catch(IOException e) { // stdin has been closed from other end when process has finished already
+                e.printStackTrace();
+            }
+
             // reading stdout
             br = new BufferedReader(new InputStreamReader(stdout));
             sb = new StringBuilder();
@@ -153,22 +155,7 @@ public class Testcase implements Callable<ExecutionResult> {
             }
             programOutput = sb.toString();
             br.close();
-            
-            // reading stderr
-            br = new BufferedReader(new InputStreamReader(stderr));
-            sb = new StringBuilder();
-            while ((len = br.read(buf)) != -1 && sb.length() < OUTPUT_MAX_LEN) {
-                sb.append(buf, 0, len);
-            }
-            if (sb.length() >= OUTPUT_MAX_LEN) {
-                executionResult.setResult(ExecutionResultCode.RUNTIME);
-                executionResult.setMsg("Output limit exceeded");
-                killTest();
-                throw new IOException("Output limit exceeded");
-            }
-            programError = sb.toString();
-            br.close();
-            
+
             int execRes = executionProcess.waitFor();
             double endTime = Calendar.getInstance().getTimeInMillis();
             executionResult.setTime((endTime - startTime) / 1000.0);

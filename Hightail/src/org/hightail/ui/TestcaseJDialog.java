@@ -1,6 +1,8 @@
 package org.hightail.ui;
 
+import java.awt.GraphicsEnvironment;
 import java.awt.KeyboardFocusManager;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import javax.swing.AbstractAction;
@@ -72,6 +74,9 @@ public class TestcaseJDialog extends javax.swing.JDialog {
         inputTextarea.getDocument().addDocumentListener(documentListener);
         expectedOutputTextarea.getDocument().addDocumentListener(documentListener);
         timeLimitTextField.getDocument().addDocumentListener(documentListener);
+
+        Rectangle bounds = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds();
+        this.setBounds(bounds);
     }
     
     private void makeShortcuts() {
@@ -169,20 +174,20 @@ public class TestcaseJDialog extends javax.swing.JDialog {
         jLabel5.setText("Input:");
 
         inputTextarea.setColumns(20);
-        inputTextarea.setFont(new java.awt.Font("Courier New", 0, 13)); // NOI18N
+        inputTextarea.setFont(new java.awt.Font("Monospaced", 0, 12)); // NOI18N
         inputTextarea.setRows(5);
         inputTextarea.setMargin(new java.awt.Insets(3, 3, 3, 3));
         jScrollPane2.setViewportView(inputTextarea);
 
         expectedOutputTextarea.setColumns(20);
-        expectedOutputTextarea.setFont(new java.awt.Font("Courier New", 0, 13)); // NOI18N
+        expectedOutputTextarea.setFont(new java.awt.Font("Monospaced", 0, 12)); // NOI18N
         expectedOutputTextarea.setRows(5);
         expectedOutputTextarea.setMargin(new java.awt.Insets(3, 3, 3, 3));
         jScrollPane1.setViewportView(expectedOutputTextarea);
 
         programOutputTextarea.setEditable(false);
         programOutputTextarea.setColumns(20);
-        programOutputTextarea.setFont(new java.awt.Font("Courier New", 0, 13)); // NOI18N
+        programOutputTextarea.setFont(new java.awt.Font("Monospaced", 0, 12)); // NOI18N
         programOutputTextarea.setRows(5);
         programOutputTextarea.setMargin(new java.awt.Insets(3, 3, 3, 3));
         jScrollPane3.setViewportView(programOutputTextarea);

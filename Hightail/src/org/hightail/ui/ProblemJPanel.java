@@ -334,7 +334,8 @@ public class ProblemJPanel extends javax.swing.JPanel implements TestingListener
         if (isTesting) {
             return;
         }
-        Testcase newTestcase = new Testcase();
+        Testcase newTestcase = new Testcase("", "", problem.getTestcaseSet().isEmpty() ? Testcase.DEFAULT_TIME_LIMIT :
+                                                                                         problem.getTestcase(0).getTimeLimit());
         TestcaseJDialog dialog = new TestcaseJDialog(parentWindow, newTestcase, true);
         dialog.setVisible(true); // this is modal; it will block until window is closed
         if (dialog.getReturnValue()) {

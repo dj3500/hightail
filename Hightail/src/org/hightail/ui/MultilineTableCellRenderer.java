@@ -44,7 +44,7 @@ implements TableCellRenderer {
             setForeground(table.getForeground());
             setBackground(table.getBackground());
         }
-        setFont(table.getFont());
+        setFont(new java.awt.Font("Monospaced", 0, 12));
         if (hasFocus) {
             setBorder(UIManager.getBorder("Table.focusCellHighlightBorder"));
             if (table.isCellEditable(row, column)) {
