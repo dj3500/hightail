@@ -130,7 +130,6 @@ public class Testcase implements Callable<ExecutionResult> {
             executionProcess = new ProcessBuilder(getCommandToExecute()).redirectErrorStream(true).start();
 
             OutputStream stdin = executionProcess.getOutputStream();
-            InputStream stderr = executionProcess.getErrorStream();
             InputStream stdout = executionProcess.getInputStream();
             
             // writing input
